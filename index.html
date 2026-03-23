@@ -12,7 +12,7 @@
             --deep-dark: #010409;
             --panel-bg: rgba(13, 17, 23, 0.9);
             --ui-border: rgba(0, 212, 255, 0.2);
-            --error-red: #ff3e3e;
+            --success-green: #10b981;
         }
 
         body {
@@ -152,20 +152,6 @@
             to { transform: rotate(360deg); }
         }
 
-        .gov-item {
-            border-left: 3px solid #1e293b;
-            padding-left: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0.3;
-            cursor: pointer;
-        }
-
-        .gov-item:hover, .gov-item.active {
-            opacity: 1;
-            border-left-color: var(--cyan-glow);
-            transform: translateX(10px);
-        }
-
         .glass-card {
             background: var(--panel-bg);
             backdrop-filter: blur(20px);
@@ -173,34 +159,48 @@
             transition: all 0.3s ease;
         }
 
-        /* Error States */
-        .error-border {
-            border-color: var(--error-red) !important;
+        .success-border {
+            border-color: var(--success-green) !important;
         }
 
-        .error-text {
-            color: var(--error-red) !important;
-        }
-
-        .fallback-container {
+        .img-container {
             width: 100%;
-            aspect-ratio: 16/9;
-            background: rgba(1, 4, 9, 0.8);
+            aspect-ratio: 1/1;
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            border: 1px dashed var(--cyan-glow);
             position: relative;
             overflow: hidden;
         }
 
-        .fallback-container::before {
-            content: "";
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .scan-line {
             position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 212, 255, 0.03) 2px);
-            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--cyan-glow);
+            box-shadow: 0 0 15px var(--cyan-glow);
+            z-index: 20;
+            animation: scan 4s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
         }
 
         ::-webkit-scrollbar { width: 6px; }
@@ -231,9 +231,9 @@
 
             <!-- Status Indicator -->
             <div class="flex items-center gap-4">
-                <div class="hidden sm:block px-4 py-2 border border-cyan-500/20 rounded-sm bg-cyan-950/20">
-                    <span class="text-[9px] font-mono text-cyan-400 animate-pulse tracking-widest uppercase">
-                        SYSTEM_ACTIVE // BUENOS_AIRES
+                <div class="hidden sm:block px-4 py-2 border border-emerald-500/20 rounded-sm bg-emerald-950/10">
+                    <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">
+                        SYSTEM_RESTORED // LINK_ACTIVE
                     </span>
                 </div>
             </div>
@@ -244,7 +244,7 @@
     <!-- HERO SECTION -->
     <section class="hero-section">
         <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="Space">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="Espacio">
         </div>
         <div class="hero-overlay"></div>
         
@@ -267,7 +267,7 @@
             <div class="text-center space-y-4">
                 <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.4em] uppercase glow-text">AXIOM FLOW</h2>
                 <p class="text-[11px] font-mono text-cyan-500 uppercase tracking-[0.5em] max-w-2xl mx-auto opacity-70">
-                    The intelligence that defines the new organizational standard.
+                    La inteligencia que define el nuevo estándar organizacional.
                 </p>
             </div>
 
@@ -282,50 +282,51 @@
                     </div>
 
                     <div class="satellite-node" style="top: 15%; left: 50%; transform: translateX(-50%);">
-                        <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 01</span>
-                        <span class="text-[10px] font-display text-white font-bold uppercase">Processing</span>
+                        <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Fase 01</span>
+                        <span class="text-[10px] font-display text-white font-bold uppercase">Procesando</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SMART LOOKAPP SECTION (STATE: ERROR) -->
+        <!-- SMART LOOKAPP SECTION (STATE: RESTORED) -->
         <section id="systems" class="py-24 grid grid-cols-1 md:grid-cols-2 gap-20 items-center border-t border-white/5">
             <div class="space-y-10">
-                <div class="inline-block px-4 py-1 border border-red-500/30 rounded-full">
-                    <span class="text-[9px] font-mono text-red-500 tracking-widest uppercase">Alert: Visual Link Down</span>
+                <div class="inline-block px-4 py-1 border border-emerald-500/30 rounded-full">
+                    <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">Estatus: Enlace Operativo</span>
                 </div>
                 <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
                 <p class="text-base text-slate-400 font-mono leading-relaxed uppercase">
-                    The ultimate digital bridge. Smart LookApp instantly connects maintenance teams with manufacturer-regulated documentation.
+                    El puente digital definitivo. Smart LookApp conecta instantáneamente a los equipos de mantenimiento con la documentación regulada por el fabricante.
                 </p>
-                <div class="flex items-center gap-4 text-red-500">
-                    <div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div>
-                    <span class="text-[10px] font-mono tracking-widest uppercase">Displaying system schematic fallback</span>
+                <div class="flex items-center gap-4 text-emerald-500">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    <span class="text-[10px] font-mono tracking-widest uppercase">Transmisión de datos en tiempo real activa</span>
                 </div>
             </div>
 
-            <div class="glass-card p-4 rounded-lg overflow-hidden relative group error-border">
-                <!-- Se fuerza el error al no proporcionar un src válido o al ocultarlo directamente -->
-                <div class="fallback-container p-12">
-                   <svg class="w-24 h-24 text-cyan-500 mb-6 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                       <path d="M2 17V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/>
-                       <rect x="5" y="8" width="14" height="8" rx="1"/>
-                       <circle cx="12" cy="12" r="2"/>
-                       <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-                   </svg>
-                   <p class="font-mono text-[9px] text-cyan-500 tracking-[0.4em] uppercase text-center font-bold">
-                       IMAGE_ERROR // DISPLAYING_SYSTEM_SCHEMATIC
-                   </p>
-                   <div class="absolute bottom-4 left-4 right-4 h-1 bg-white/5 overflow-hidden">
-                       <div class="h-full bg-cyan-500/50 animate-[shimmer_2s_infinite]"></div>
-                   </div>
+            <div class="glass-card p-2 rounded-lg overflow-hidden relative group success-border">
+                <div class="img-container rounded-sm">
+                    <div class="scan-line"></div>
+                    <img src="Gemini_Generated_Image_5331oi5331oi5331.jpg" 
+                         alt="Mecánico de Aeronexares utilizando Smart LookApp" 
+                         class="opacity-90">
                 </div>
                 
-                <!-- Caption de error -->
-                <div class="mt-4 p-3 bg-red-950/20 border-l-2 border-red-500">
-                    <p class="text-[9px] font-mono text-red-400 uppercase tracking-tight">
-                        ERR_CODE: 404_ASSET_NOT_FOUND // TRACE: CDN/RESOURCES/MECANICO_TABLET.PNG
+                <!-- Overlay de interfaz técnica sobre la imagen -->
+                <div class="absolute top-6 right-6 flex flex-col items-end gap-2 pointer-events-none">
+                    <div class="bg-black/60 backdrop-blur-md px-3 py-1 border border-cyan-500/30 rounded">
+                        <span class="text-[8px] font-mono text-cyan-400 uppercase tracking-widest">DOC_MATCH: 100%</span>
+                    </div>
+                    <div class="bg-black/60 backdrop-blur-md px-3 py-1 border border-cyan-500/30 rounded">
+                        <span class="text-[8px] font-mono text-cyan-400 uppercase tracking-widest">SYNC_LATENCY: 12ms</span>
+                    </div>
+                </div>
+
+                <!-- Pie de imagen restaurado -->
+                <div class="mt-4 p-3 bg-emerald-950/10 border-l-2 border-emerald-500">
+                    <p class="text-[9px] font-mono text-emerald-400 uppercase tracking-tight">
+                        OPERACIÓN: MANTENIMIENTO_ACTIVO // RECURSO: MECANICO_TABLET.PNG RESTAURADO
                     </p>
                 </div>
             </div>
@@ -336,15 +337,8 @@
     <footer class="mt-48 bg-black border-t border-white/5 py-12 px-10">
         <div class="max-w-7xl mx-auto flex justify-between text-[10px] font-mono text-slate-800 tracking-[0.3em] uppercase">
             <span>© 2026 Aeronexares Global Network</span>
-            <span class="text-cyan-900">System State: Diagnostics Required</span>
+            <span class="text-emerald-900">Estatus del Sistema: Óptimo</span>
         </div>
     </footer>
-
-    <style>
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-    </style>
 </body>
 </html>
