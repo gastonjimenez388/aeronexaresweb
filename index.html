@@ -12,6 +12,7 @@
             --deep-dark: #010409;
             --panel-bg: rgba(13, 17, 23, 0.9);
             --ui-border: rgba(0, 212, 255, 0.2);
+            --error-red: #ff3e3e;
         }
 
         body {
@@ -172,22 +173,40 @@
             transition: all 0.3s ease;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #010409; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #00d4ff; }
+        /* Error States */
+        .error-border {
+            border-color: var(--error-red) !important;
+        }
 
-        /* Animación para el fallback */
+        .error-text {
+            color: var(--error-red) !important;
+        }
+
         .fallback-container {
             width: 100%;
             aspect-ratio: 16/9;
-            background: linear-gradient(45deg, #020617, #0f172a);
+            background: rgba(1, 4, 9, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             border: 1px dashed var(--cyan-glow);
+            position: relative;
+            overflow: hidden;
         }
+
+        .fallback-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 212, 255, 0.03) 2px);
+            pointer-events: none;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #010409; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00d4ff; }
     </style>
 </head>
 <body>
@@ -200,13 +219,7 @@
             <div class="flex items-center min-w-[200px]">
                 <img src="image_acf098.png" 
                      alt="Aeronexares" 
-                     class="h-12 w-auto object-contain"
-                     onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
-                <!-- Fallback Text Branding -->
-                <div class="hidden">
-                    <span class="font-display text-xl text-white tracking-[0.2em]">AERONEXARES</span>
-                    <span class="block text-[8px] font-mono text-cyan-500 tracking-[0.3em]">AXIOM GOVERNANCE SYSTEM</span>
-                </div>
+                     class="h-12 w-auto object-contain">
             </div>
             
             <!-- Links Area -->
@@ -222,9 +235,6 @@
                     <span class="text-[9px] font-mono text-cyan-400 animate-pulse tracking-widest uppercase">
                         SYSTEM_ACTIVE // BUENOS_AIRES
                     </span>
-                </div>
-                <div class="lg:hidden text-cyan-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
                 </div>
             </div>
         </div>
@@ -257,160 +267,84 @@
             <div class="text-center space-y-4">
                 <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.4em] uppercase glow-text">AXIOM FLOW</h2>
                 <p class="text-[11px] font-mono text-cyan-500 uppercase tracking-[0.5em] max-w-2xl mx-auto opacity-70">
-                    The intelligence that defines the new organizational standard. Decoupled from hierarchy, focused on execution.
+                    The intelligence that defines the new organizational standard.
                 </p>
             </div>
 
-            <div class="axiom-mega-container glass-card rounded-xl scale-90 md:scale-100">
+            <div class="axiom-mega-container glass-card rounded-xl">
                 <div class="viz-wrapper">
                     <div class="orbit-ring ring-1"></div>
                     <div class="orbit-ring ring-2"></div>
                     
                     <div class="core-node">
-                        <img src="image_a94946.png" class="w-16 h-16 opacity-80 mb-2" alt="Axiom" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2103/2103633.png'">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" class="w-16 h-16 opacity-80 mb-2 invert" alt="Axiom">
                         <span class="text-[10px] font-display text-white tracking-widest uppercase">Axiom Core</span>
-                        <span class="text-[7px] font-mono text-cyan-400 uppercase">Founder Protocol</span>
                     </div>
 
                     <div class="satellite-node" style="top: 15%; left: 50%; transform: translateX(-50%);">
                         <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 01</span>
                         <span class="text-[10px] font-display text-white font-bold uppercase">Processing</span>
                     </div>
-                    <div class="satellite-node" style="bottom: 15%; left: 50%; transform: translateX(-50%);">
-                        <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 02</span>
-                        <span class="text-[10px] font-display text-white font-bold uppercase">Extraction</span>
-                    </div>
-                    <div class="satellite-node" style="top: 30%; left: 5%;">
-                        <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Network</span>
-                        <span class="text-[10px] font-display text-white font-bold uppercase">5K Users</span>
-                    </div>
-                    <div class="satellite-node" style="bottom: 30%; right: 5%;">
-                        <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">System</span>
-                        <span class="text-[10px] font-display text-white font-bold uppercase">Ethics</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pt-6">
-                <div class="gov-item active group" onclick="setFocus(this)">
-                    <span class="block text-[10px] font-mono text-cyan-400 tracking-[0.3em] uppercase mb-4">Axiom Executive</span>
-                    <h4 class="font-display text-sm text-white tracking-widest uppercase leading-relaxed">
-                        24/7 Active Collective Intelligence. No friction, no personal agendas, no corruption.
-                    </h4>
-                </div>
-                <div class="gov-item group" onclick="setFocus(this)">
-                    <span class="block text-[10px] font-mono text-slate-500 group-hover:text-cyan-400 tracking-[0.3em] uppercase mb-4 transition-colors">Transparency</span>
-                    <h4 class="font-display text-sm text-white tracking-widest uppercase leading-relaxed">
-                        Traceable and auditable decisions by design. The founder holds the final word.
-                    </h4>
-                </div>
-                <div class="gov-item group" onclick="setFocus(this)">
-                    <span class="block text-[10px] font-mono text-slate-500 group-hover:text-cyan-400 tracking-[0.3em] uppercase mb-4 transition-colors">Strategic Domain</span>
-                    <div class="space-y-3">
-                        <p class="font-display text-[11px] text-white tracking-widest uppercase leading-tight">
-                            Pioneer in Aeronautical / Naval / Aerospace / Agro sectors with this framework.
-                        </p>
-                        <ul class="text-[9px] font-mono text-cyan-500 space-y-1 uppercase tracking-tighter">
-                            <li><span class="text-white">✓</span> AXIOM FLOW: Proprietary and original model</li>
-                            <li><span class="text-white">✓</span> Real products in active development</li>
-                            <li><span class="text-white">✓</span> Clear vision since foundation</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- SMART LOOKAPP SECTION -->
+        <!-- SMART LOOKAPP SECTION (STATE: ERROR) -->
         <section id="systems" class="py-24 grid grid-cols-1 md:grid-cols-2 gap-20 items-center border-t border-white/5">
             <div class="space-y-10">
-                <div class="inline-block px-4 py-1 border border-cyan-500/30 rounded-full">
-                    <span class="text-[9px] font-mono text-cyan-500 tracking-widest uppercase">Core Product</span>
+                <div class="inline-block px-4 py-1 border border-red-500/30 rounded-full">
+                    <span class="text-[9px] font-mono text-red-500 tracking-widest uppercase">Alert: Visual Link Down</span>
                 </div>
                 <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
                 <p class="text-base text-slate-400 font-mono leading-relaxed uppercase">
-                    The ultimate digital bridge. Smart LookApp instantly connects maintenance teams with manufacturer-regulated documentation. By automating mission-critical data retrieval, we eliminate the energy drain of technical uncertainty.
+                    The ultimate digital bridge. Smart LookApp instantly connects maintenance teams with manufacturer-regulated documentation.
                 </p>
-                <div class="grid grid-cols-2 gap-8 pt-6">
-                    <div>
-                        <span class="block text-2xl font-display text-white tracking-widest">100%</span>
-                        <span class="block text-[10px] font-mono text-slate-500 uppercase tracking-widest">Compliance</span>
-                    </div>
-                    <div>
-                        <span class="block text-2xl font-display text-white tracking-widest">INSTANT</span>
-                        <span class="block text-[10px] font-mono text-slate-500 uppercase tracking-widest">Data Access</span>
-                    </div>
+                <div class="flex items-center gap-4 text-red-500">
+                    <div class="w-2 h-2 rounded-full bg-red-500 animate-ping"></div>
+                    <span class="text-[10px] font-mono tracking-widest uppercase">Displaying system schematic fallback</span>
                 </div>
             </div>
-            <div class="glass-card p-4 rounded-lg overflow-hidden relative group">
-                <div class="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <!-- Imagen actualizada a mecanico_tablet.png -->
-                <img src="mecanico_tablet.png" 
-                     class="w-full rounded border border-white/5 grayscale group-hover:grayscale-0 transition-all duration-1000 shadow-2xl" 
-                     alt="Técnico de aeronaves Aeronexares consultando Smart LookApp"
-                     onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
-                
-                <!-- SVG Fallback en caso de que la imagen siga fallando -->
-                <div class="hidden fallback-container p-12">
-                   <svg class="w-24 h-24 text-cyan-500 mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+
+            <div class="glass-card p-4 rounded-lg overflow-hidden relative group error-border">
+                <!-- Se fuerza el error al no proporcionar un src válido o al ocultarlo directamente -->
+                <div class="fallback-container p-12">
+                   <svg class="w-24 h-24 text-cyan-500 mb-6 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
                        <path d="M2 17V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/>
                        <rect x="5" y="8" width="14" height="8" rx="1"/>
                        <circle cx="12" cy="12" r="2"/>
                        <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
                    </svg>
-                   <p class="font-mono text-[9px] text-cyan-500 tracking-widest uppercase text-center">
+                   <p class="font-mono text-[9px] text-cyan-500 tracking-[0.4em] uppercase text-center font-bold">
                        IMAGE_ERROR // DISPLAYING_SYSTEM_SCHEMATIC
                    </p>
+                   <div class="absolute bottom-4 left-4 right-4 h-1 bg-white/5 overflow-hidden">
+                       <div class="h-full bg-cyan-500/50 animate-[shimmer_2s_infinite]"></div>
+                   </div>
+                </div>
+                
+                <!-- Caption de error -->
+                <div class="mt-4 p-3 bg-red-950/20 border-l-2 border-red-500">
+                    <p class="text-[9px] font-mono text-red-400 uppercase tracking-tight">
+                        ERR_CODE: 404_ASSET_NOT_FOUND // TRACE: CDN/RESOURCES/MECANICO_TABLET.PNG
+                    </p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer class="mt-48 bg-black border-t border-white/5 py-24 px-10">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-16">
-            <div class="space-y-8">
-                <div class="flex items-center gap-6">
-                    <img src="image_a94946.png" class="w-12 h-12" alt="Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2103/2103633.png'">
-                    <span class="font-display text-2xl text-white tracking-[0.4em] uppercase">AERONEXARES</span>
-                </div>
-                <p class="max-w-md text-[10px] font-mono text-slate-600 uppercase tracking-widest leading-loose">
-                    Data Intelligence & Digital Solutions Hub. 2025 Native AI Infrastructure. Built for absolute precision.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-                <div class="space-y-4">
-                    <span class="block text-[10px] font-display text-white uppercase tracking-widest">Central Nodes</span>
-                    <ul class="text-[9px] font-mono text-slate-500 space-y-2 uppercase">
-                        <li>Buenos Aires, AR</li>
-                        <li>Satellite 01: Active</li>
-                        <li>Satellite 02: Mapping</li>
-                    </ul>
-                </div>
-                <div class="space-y-4">
-                    <span class="block text-[10px] font-display text-white uppercase tracking-widest">System Status</span>
-                    <span class="inline-block px-3 py-1 bg-cyan-900/20 text-cyan-400 text-[8px] font-mono border border-cyan-500/20">OPERATIONAL</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto mt-24 pt-10 border-t border-white/5 flex justify-between text-[10px] font-mono text-slate-800 tracking-[0.3em] uppercase">
+    <footer class="mt-48 bg-black border-t border-white/5 py-12 px-10">
+        <div class="max-w-7xl mx-auto flex justify-between text-[10px] font-mono text-slate-800 tracking-[0.3em] uppercase">
             <span>© 2026 Aeronexares Global Network</span>
-            <span class="text-cyan-900">Axiom Protocol v2.5.0</span>
+            <span class="text-cyan-900">System State: Diagnostics Required</span>
         </div>
     </footer>
 
-    <script>
-        function setFocus(element) {
-            document.querySelectorAll('.gov-item').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
+    <style>
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
-
-        const items = document.querySelectorAll('.gov-item');
-        items.forEach(item => {
-            item.addEventListener('mouseenter', () => setFocus(item));
-        });
-    </script>
+    </style>
 </body>
 </html>
