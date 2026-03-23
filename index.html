@@ -10,8 +10,8 @@
         :root {
             --cyan-glow: #00d4ff;
             --deep-dark: #010409;
-            --panel-bg: rgba(13, 17, 23, 0.85);
-            --ui-border: rgba(0, 212, 255, 0.15);
+            --panel-bg: rgba(13, 17, 23, 0.9);
+            --ui-border: rgba(0, 212, 255, 0.2);
         }
 
         body {
@@ -25,9 +25,10 @@
         .font-display { font-family: 'Orbitron', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
+        /* HERO SECTION */
         .hero-section {
             position: relative;
-            height: 90vh;
+            height: 85vh;
             width: 100%;
             overflow: hidden;
             display: flex;
@@ -48,14 +49,13 @@
             height: 100%;
             object-fit: cover;
             object-position: center 30%;
-            filter: brightness(1.2) contrast(1.1);
-            transition: opacity 0.5s ease;
+            filter: brightness(1.1) contrast(1.2);
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, rgba(1, 4, 9, 0.2) 0%, var(--deep-dark) 100%);
+            background: radial-gradient(circle at center, rgba(1, 4, 9, 0.1) 0%, var(--deep-dark) 100%);
             z-index: 1;
         }
 
@@ -65,307 +65,317 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 2.5rem;
-            animation: fadeInScale 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            gap: 3rem;
+            animation: fadeInScale 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.95); }
+            from { opacity: 0; transform: scale(0.98); }
             to { opacity: 1; transform: scale(1); }
         }
 
-        .glass-card {
-            background: var(--panel-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--ui-border);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        }
-
-        .scanline {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 212, 255, 0.02) 50.5%);
-            background-size: 100% 4px;
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 5;
-        }
-
         .glow-text {
-            text-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
         }
 
         .brand-logo-img {
-            filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.7)) brightness(1.3);
+            filter: drop-shadow(0 0 25px rgba(0, 212, 255, 0.6));
             transition: all 0.5s ease;
-            object-fit: contain;
-        }
-        
-        .brand-logo-img:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.9)) brightness(1.5);
         }
 
-        /* AXIOM FLOW VISUALIZATION */
-        .axiom-viz-container {
+        /* BIG AXIOM FLOW SECTION */
+        .axiom-mega-container {
             position: relative;
             width: 100%;
-            height: 450px;
+            min-height: 700px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            background: rgba(0, 0, 0, 0.3);
+            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
         }
 
-        .node {
+        .viz-wrapper {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .core-node {
             position: absolute;
+            z-index: 50;
+            width: 160px;
+            height: 160px;
+            background: rgba(1, 4, 9, 0.95);
+            border: 2px solid var(--cyan-glow);
             border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            transition: all 0.5s ease;
-            z-index: 10;
+            box-shadow: 0 0 60px rgba(0, 212, 255, 0.3);
+            animation: corePulse 6s ease-in-out infinite;
         }
 
-        .node-main {
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 70%);
-            border: 2px solid var(--cyan-glow);
-            box-shadow: 0 0 30px var(--cyan-glow);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            font-weight: bold;
-            color: white;
-            animation: pulse 4s infinite;
+        @keyframes corePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(0, 212, 255, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 80px rgba(0, 212, 255, 0.5); }
         }
 
-        .node-satellite {
-            width: 70px;
-            height: 70px;
-            background: rgba(13, 17, 23, 0.9);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            font-size: 7px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .orbit {
+        .satellite-node {
             position: absolute;
-            border: 1px dashed rgba(0, 212, 255, 0.1);
+            width: 110px;
+            height: 110px;
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .orbit-ring {
+            position: absolute;
+            border: 1px dashed rgba(0, 212, 255, 0.15);
             border-radius: 50%;
             pointer-events: none;
         }
 
-        .orbit-1 { width: 260px; height: 260px; animation: rotate 30s linear infinite; }
-        .orbit-2 { width: 400px; height: 400px; animation: rotate 50s linear infinite reverse; }
+        .ring-1 { width: 380px; height: 380px; animation: spin-slow 40s linear infinite; }
+        .ring-2 { width: 550px; height: 550px; animation: spin-slow 60s linear infinite reverse; }
 
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 30px var(--cyan-glow); } 50% { transform: scale(1.05); box-shadow: 0 0 50px var(--cyan-glow); } }
-        @keyframes scan-line { 0% { top: 0%; opacity: 0.1; } 50% { opacity: 1; } 100% { top: 100%; opacity: 0.1; } }
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
-        ::-webkit-scrollbar { width: 8px; }
+        /* INTERACTIVE HIGHLIGHTS */
+        .gov-item {
+            border-left: 3px solid #1e293b;
+            padding-left: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.3;
+            cursor: pointer;
+        }
+
+        .gov-item:hover, .gov-item.active {
+            opacity: 1;
+            border-left-color: var(--cyan-glow);
+            transform: translateX(10px);
+        }
+
+        /* GLASS CARDS */
+        .glass-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--ui-border);
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #010409; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #00d4ff; }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 h-16 w-full flex items-center justify-between px-8 bg-black/90 backdrop-blur-md border-b border-white/5 z-[100]">
-        <div class="flex items-center gap-4">
-            <img src="image_a94946.png" onerror="this.src='https://via.placeholder.com/40/00d4ff/ffffff?text=AX'" alt="Aeronexares Logo" class="w-10 h-10 brand-logo-img">
-            <div class="hidden sm:block">
-                <span class="block text-[10px] font-display text-white tracking-widest uppercase">AERONEXARES</span>
-                <span class="block text-[7px] font-mono text-cyan-600 uppercase">AXIOM GOVERNANCE SYSTEM</span>
+    <!-- NAV -->
+    <nav class="sticky top-0 h-20 w-full flex items-center justify-between px-10 bg-black/80 backdrop-blur-xl border-b border-white/5 z-[100]">
+        <div class="flex items-center gap-5">
+            <img src="image_a94946.png" onerror="this.src='https://via.placeholder.com/50/00d4ff/ffffff?text=A'" alt="Logo" class="w-12 h-12 brand-logo-img">
+            <div>
+                <span class="block text-sm font-display text-white tracking-[0.2em] font-bold">AERONEXARES</span>
+                <span class="block text-[8px] font-mono text-cyan-500 tracking-[0.4em] uppercase">AXIOM GOVERNANCE SYSTEM</span>
             </div>
         </div>
         
-        <div class="flex gap-8 text-[9px] font-display tracking-[0.2em] text-slate-400">
-            <a href="#systems" class="hover:text-cyan-400 transition-colors uppercase">Systems</a>
-            <a href="#axiom" class="hover:text-cyan-400 transition-colors uppercase">Axiom Flow</a>
-            <a href="#mapping" class="hover:text-cyan-400 transition-colors uppercase">Mapping</a>
+        <div class="hidden md:flex gap-12 text-[10px] font-display tracking-[0.3em] text-slate-400">
+            <a href="#systems" class="hover:text-cyan-400 transition-colors uppercase">Core Systems</a>
+            <a href="#axiom" class="hover:text-cyan-400 transition-colors border-b border-cyan-500/0 hover:border-cyan-500/100 pb-1 uppercase">Axiom Flow</a>
+            <a href="#mapping" class="hover:text-cyan-400 transition-colors uppercase">Roadmap</a>
+        </div>
+
+        <div class="px-4 py-2 border border-cyan-500/20 rounded-sm">
+            <span class="text-[9px] font-mono text-cyan-400 animate-pulse uppercase">SYSTEM_ACTIVE // BUENOS_AIRES</span>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- HERO -->
     <section class="hero-section">
         <div class="hero-bg">
-            <img id="hero-image" src="planet.avif" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';" alt="Global Space Background">
+            <img src="planet.avif" onerror="this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';" alt="Space">
         </div>
         <div class="hero-overlay"></div>
-        <div class="scanline"></div>
-
-        <div class="logo-branding-container px-6 flex-col md:flex-row">
-            <div class="relative w-40 h-40 md:w-56 md:h-56 flex-shrink-0 flex items-center justify-center">
-                <img src="image_a94946.png" onerror="this.src='https://via.placeholder.com/200/00d4ff/ffffff?text=Aeronexares'" alt="Aeronexares Main Logo" class="w-full h-full brand-logo-img">
-            </div>
-
-            <div class="text-center md:text-left border-t md:border-t-0 md:border-l border-cyan-500/30 pt-8 md:pt-0 md:pl-12">
-                <h1 class="font-display text-4xl md:text-6xl lg:text-7xl text-white tracking-[0.3em] mb-3 font-bold uppercase glow-text">
-                    AERONEXARES
-                </h1>
-                <p class="text-[10px] md:text-[14px] font-mono text-cyan-400 tracking-[0.6em] uppercase opacity-90">
-                    DATA INTELLIGENCE & DIGITAL SOLUTIONS
-                </p>
-                <div class="mt-4 flex gap-4 justify-center md:justify-start">
-                    <span class="text-[8px] font-mono py-1 px-2 border border-cyan-500/30 text-cyan-500">BORN IN 2025</span>
-                    <span class="text-[8px] font-mono py-1 px-2 border border-white/10 text-slate-400">FULL AI STRUCTURE</span>
-                </div>
-            </div>
+        
+        <div class="logo-branding-container flex-col">
+            <h1 class="font-display text-5xl md:text-8xl text-white tracking-[0.4em] font-bold glow-text text-center uppercase">
+                Aeronexares
+            </h1>
+            <div class="h-[1px] w-64 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50"></div>
+            <p class="text-[12px] md:text-[16px] font-mono text-cyan-400 tracking-[0.8em] uppercase opacity-80 text-center">
+                DATA INTELLIGENCE & DIGITAL SOLUTIONS
+            </p>
         </div>
     </section>
 
-    <!-- Main Content -->
-    <main class="relative z-10 w-full max-w-7xl mx-auto px-6 py-32 space-y-48">
-        
-        <!-- Section 1: Core Systems -->
-        <section id="systems" class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div class="glass-card p-12 rounded-sm border-t-2 border-t-cyan-500">
-                <h3 class="font-display text-xs text-white mb-8 tracking-widest uppercase">Smart LookApp</h3>
-                <div class="aspect-video bg-black/60 mb-8 overflow-hidden border border-white/5 relative group">
-                    <img src="https://images.unsplash.com/photo-1559103816-0e7845f44e32?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-700" alt="System View">
-                    <div class="absolute inset-0 bg-cyan-500/5"></div>
-                </div>
-                <p class="text-[12px] text-slate-400 font-mono leading-relaxed uppercase">
-                   The digital solution designed to instantly connect maintenance teams with manufacturer-regulated documentation with surgical precision. By automating the retrieval of mission-critical data, we eliminate technical uncertainty. Whether in aerospace, maritime, automotive, or agrotech, Smart LookApp is the ultimate tool to optimize workflow and execute tasks with absolute confidence.
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 w-full max-w-7xl mx-auto px-6 py-24">
+
+        <!-- AXIOM FLOW -->
+        <section id="axiom" class="py-32 space-y-24">
+            <div class="text-center space-y-6">
+                <h2 class="text-5xl md:text-6xl font-display text-white tracking-[0.4em] uppercase glow-text">AXIOM FLOW</h2>
+                <p class="text-[12px] font-mono text-cyan-500 uppercase tracking-[0.6em] max-w-2xl mx-auto opacity-70">
+                    The intelligence that defines the new organizational standard. Decoupled from hierarchy, focused on execution.
                 </p>
             </div>
 
-            <div class="glass-card p-12 rounded-sm">
-                <h3 class="font-display text-xs text-white mb-8 tracking-widest uppercase">Nexus Core AI</h3>
-                <div class="space-y-6">
-                    <div class="flex justify-between items-center py-4 border-b border-white/5">
-                        <span class="text-[10px] font-mono text-slate-500 uppercase">Process</span>
-                        <span class="text-[10px] font-mono text-cyan-400 uppercase">Analyzing Geometry</span>
+            <div class="axiom-mega-container glass-card rounded-xl">
+                <div class="viz-wrapper">
+                    <div class="orbit-ring ring-1"></div>
+                    <div class="orbit-ring ring-2"></div>
+                    
+                    <div class="core-node">
+                        <img src="image_a94946.png" class="w-16 h-16 opacity-80 mb-2" alt="Axiom">
+                        <span class="text-[10px] font-display text-white tracking-widest uppercase">Axiom Core</span>
+                        <span class="text-[7px] font-mono text-cyan-400 uppercase">Founder Protocol</span>
                     </div>
-                    <div class="flex justify-between items-center py-4 border-b border-white/5">
-                        <span class="text-[10px] font-mono text-slate-500 uppercase">Stability</span>
-                        <span class="text-[10px] font-mono text-cyan-400 uppercase">99.98% Stable</span>
+
+                    <div class="satellite-node" style="top: 15%; left: 50%; transform: translateX(-50%);">
+                        <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 01</span>
+                        <span class="text-[10px] font-display text-white font-bold uppercase">Processing</span>
                     </div>
-                    <div class="flex justify-between items-center py-4">
-                        <span class="text-[10px] font-mono text-slate-500 uppercase">Active Node</span>
-                        <span class="text-[10px] font-mono text-white">BUENOS_AIRES_CENTRAL</span>
+                    <div class="satellite-node" style="bottom: 15%; left: 50%; transform: translateX(-50%);">
+                        <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 02</span>
+                        <span class="text-[10px] font-display text-white font-bold uppercase">Extraction</span>
+                    </div>
+                    <div class="satellite-node" style="top: 30%; left: 5%;">
+                        <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Network</span>
+                        <span class="text-[10px] font-display text-white font-bold uppercase">5K Users</span>
+                    </div>
+                    <div class="satellite-node" style="bottom: 30%; right: 5%;">
+                        <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">System</span>
+                        <span class="text-[10px] font-display text-white font-bold uppercase">Ethics</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-card p-12 rounded-sm border-b-2 border-b-cyan-900">
-                <h3 class="font-display text-xs text-white mb-8 tracking-widest uppercase">Global Network</h3>
-                <div class="flex flex-col items-center justify-center h-40 relative">
-                    <div class="w-28 h-28 rounded-full border-4 border-dashed border-cyan-500/20 animate-[spin_30s_linear_infinite]"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <span class="text-xl font-mono text-cyan-400 font-bold uppercase">76 Nodes</span>
-                    </div>
+            <!-- INTERACTIVE HIGHLIGHTS GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12">
+                
+                <div class="gov-item active group" onclick="setFocus(this)">
+                    <span class="block text-[10px] font-mono text-cyan-400 tracking-[0.3em] uppercase mb-4">Axiom Executive</span>
+                    <h4 class="font-display text-sm text-white tracking-widest uppercase leading-relaxed">
+                        24/7 Active Collective Intelligence. No friction, no personal agendas, no corruption.
+                    </h4>
                 </div>
-            </div>
-        </section>
 
-        <!-- Section 2: AXIOM FLOW Visualization -->
-        <section id="axiom" class="space-y-20">
-            <div class="text-center">
-                <h2 class="text-4xl font-display text-white tracking-[0.3em] uppercase glow-text">AXIOM FLOW</h2>
-                <p class="text-[10px] font-mono text-cyan-500 uppercase mt-4 tracking-[0.5em]">The New Organizational Standard</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                <div class="axiom-viz-container glass-card rounded-sm relative">
-                    <div class="orbit orbit-1"></div>
-                    <div class="orbit orbit-2"></div>
-                    <div class="node node-main">FOUNDER<br>CORE</div>
-                    <div class="node node-satellite" style="transform: rotate(0deg) translate(130px) rotate(0deg);">Monitoring</div>
-                    <div class="node node-satellite" style="transform: rotate(120deg) translate(130px) rotate(-120deg);">Ethics</div>
-                    <div class="node node-satellite" style="transform: rotate(240deg) translate(130px) rotate(-240deg);">Auditing</div>
+                <div class="gov-item group" onclick="setFocus(this)">
+                    <span class="block text-[10px] font-mono text-slate-500 group-hover:text-cyan-400 tracking-[0.3em] uppercase mb-4 transition-colors">Transparency</span>
+                    <h4 class="font-display text-sm text-white tracking-widest uppercase leading-relaxed">
+                        Traceable and auditable decisions by design. The founder holds the final word.
+                    </h4>
                 </div>
-                <div class="space-y-12">
-                    <div class="space-y-4">
-                        <h4 class="font-display text-xl text-white tracking-widest uppercase">Intelligence, not Hierarchy</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed font-mono uppercase">
-                            Aeronexares is a Full AI Structure. While others spend millions restructuring, we operate natively in the future. Information doesn't rise or fall — it flows.
+
+                <div class="gov-item group" onclick="setFocus(this)">
+                    <span class="block text-[10px] font-mono text-slate-500 group-hover:text-cyan-400 tracking-[0.3em] uppercase mb-4 transition-colors">Strategic Domain</span>
+                    <div class="space-y-3">
+                        <p class="font-display text-[11px] text-white tracking-widest uppercase leading-tight">
+                            Primera en sectores Aeronáutico / Naval / Espacial / Agro con este modelo.
                         </p>
-                    </div>
-                    <div class="grid grid-cols-1 gap-6">
-                        <div class="border-l-2 border-cyan-500 pl-6 py-2">
-                            <span class="block text-[10px] font-mono text-cyan-400 uppercase mb-2">AXIOM EXECUTIVE</span>
-                            <p class="text-[11px] text-slate-300 uppercase">24/7 active collective intelligence. No friction, no personal agendas, no corruption.</p>
-                        </div>
-                        <div class="border-l-2 border-slate-700 pl-6 py-2">
-                            <span class="block text-[10px] font-mono text-slate-500 uppercase mb-2">TRANSPARENCY</span>
-                            <p class="text-[11px] text-slate-500 uppercase">Traceable and auditable decisions by design. The Founder holds the final word.</p>
-                        </div>
+                        <ul class="text-[9px] font-mono text-cyan-500 space-y-1 uppercase tracking-tighter">
+                            <li><span class="text-white">✓</span> AXIOM FLOW: Modelo propio y original</li>
+                            <li><span class="text-white">✓</span> Productos reales en desarrollo</li>
+                            <li><span class="text-white">✓</span> Visión clara desde fundación</li>
+                        </ul>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- Section 3: Mapping & Audit -->
-        <section id="mapping" class="space-y-20">
-            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-8">
-                <div>
-                    <h2 class="text-4xl font-display text-white tracking-[0.2em] uppercase glow-text">Strategic Mapping</h2>
-                    <p class="text-[11px] font-mono text-slate-500 uppercase mt-4 tracking-widest">Component recognition & location hub</p>
+        <!-- SMART LOOKAPP -->
+        <section id="systems" class="py-32 grid grid-cols-1 md:grid-cols-2 gap-20 items-center border-t border-white/5">
+            <div class="space-y-10">
+                <div class="inline-block px-4 py-1 border border-cyan-500/30 rounded-full">
+                    <span class="text-[9px] font-mono text-cyan-500 tracking-widest uppercase">Core Product</span>
                 </div>
-                <div class="text-left md:text-right mt-8 md:mt-0">
-                    <span class="text-[10px] font-mono text-cyan-600 block uppercase">Coordinates</span>
-                    <span class="text-[14px] font-mono text-white block tracking-[0.3em] mt-1">-34.6037 / -58.3816</span>
+                <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
+                <p class="text-base text-slate-400 font-mono leading-relaxed uppercase">
+                    The ultimate digital bridge. Smart LookApp instantly connects maintenance teams with manufacturer-regulated documentation. By automating mission-critical data retrieval, we eliminate the energy drain of technical uncertainty.
+                </p>
+                <div class="grid grid-cols-2 gap-8 pt-6">
+                    <div>
+                        <span class="block text-2xl font-display text-white tracking-widest">100%</span>
+                        <span class="block text-[10px] font-mono text-slate-500 uppercase tracking-widest">Compliance</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-display text-white tracking-widest">INSTANT</span>
+                        <span class="block text-[10px] font-mono text-slate-500 uppercase tracking-widest">Data Access</span>
+                    </div>
                 </div>
             </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                <div class="glass-card p-6 rounded-sm overflow-hidden relative">
-                    <div class="relative aspect-video bg-black flex items-center justify-center overflow-hidden">
-                        <div class="w-[90%] h-[80%] border border-cyan-500/20 relative z-10">
-                           <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan-400/50 animate-[scan-line_4s_linear_infinite]" style="animation-name: scan-line;"></div>
-                           <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover opacity-20 grayscale invert" alt="Mapping Interface">
-                        </div>
-                    </div>
-                </div>
-                <div class="space-y-10">
-                    <h4 class="font-display text-xl text-cyan-400 tracking-widest uppercase">Adaptive Execution</h4>
-                    <p class="text-sm text-slate-400 leading-relaxed font-mono uppercase">
-                        Integration of angle recognition and adaptive lighting algorithms to ensure millimeter-accurate part extraction. Paving the way for autonomous robotic task placement.
-                    </p>
-                    <div class="pt-8 flex flex-wrap gap-4">
-                        <span class="px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 text-[8px] font-mono text-cyan-400 tracking-widest uppercase">Aerospace</span>
-                        <span class="px-3 py-1 bg-white/5 border border-white/10 text-[8px] font-mono text-slate-500 tracking-widest uppercase">Maritime</span>
-                        <span class="px-3 py-1 bg-white/5 border border-white/10 text-[8px] font-mono text-slate-500 tracking-widest uppercase">Automotive</span>
-                        <span class="px-3 py-1 bg-white/5 border border-white/10 text-[8px] font-mono text-slate-500 tracking-widest uppercase">Agrotech</span>
-                    </div>
-                </div>
+            <div class="glass-card p-4 rounded-lg overflow-hidden relative group">
+                <div class="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1000" class="w-full rounded border border-white/5 opacity-60 grayscale hover:grayscale-0 transition-all duration-1000" alt="Tech">
             </div>
         </section>
 
     </main>
 
-    <!-- Global Footer -->
-    <footer class="mt-48 border-t border-white/10 bg-black py-24 px-10 relative">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-20">
-            <div class="space-y-10">
+    <!-- FOOTER -->
+    <footer class="mt-48 bg-black border-t border-white/5 py-24 px-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-16">
+            <div class="space-y-8">
                 <div class="flex items-center gap-6">
-                    <img src="image_a94946.png" onerror="this.src='https://via.placeholder.com/40/00d4ff/ffffff?text=AX'" alt="Aeronexares Logo" class="w-10 h-10 brand-logo-img">
-                    <span class="font-display text-xl text-white tracking-[0.5em] uppercase">AERONEXARES</span>
+                    <img src="image_a94946.png" class="w-12 h-12" alt="Logo">
+                    <span class="font-display text-2xl text-white tracking-[0.4em] uppercase">AERONEXARES</span>
                 </div>
-                <p class="max-w-md text-[11px] font-mono text-slate-500 uppercase tracking-wide">
-                    Full AI organizational standard. Advanced component recognition and aerospace intelligence hub.
+                <p class="max-w-md text-[10px] font-mono text-slate-600 uppercase tracking-widest leading-loose">
+                    Data Intelligence & Digital Solutions Hub. 2025 Native AI Infrastructure. Built for absolute precision.
                 </p>
             </div>
-            <div class="font-mono text-[9px] text-slate-600 uppercase tracking-widest text-right">
-                <p>Status: Axiom_Active</p>
-                <p>Version: 2.0.25-B</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+                <div class="space-y-4">
+                    <span class="block text-[10px] font-display text-white uppercase tracking-widest">Central Nodes</span>
+                    <ul class="text-[9px] font-mono text-slate-500 space-y-2 uppercase">
+                        <li>Buenos Aires, AR</li>
+                        <li>Satellite 01: Active</li>
+                        <li>Satellite 02: Mapping</li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <span class="block text-[10px] font-display text-white uppercase tracking-widest">System Status</span>
+                    <span class="inline-block px-3 py-1 bg-cyan-900/20 text-cyan-400 text-[8px] font-mono border border-cyan-500/20">OPERATIONAL</span>
+                </div>
             </div>
         </div>
         
-        <div class="max-w-7xl mx-auto mt-24 pt-12 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center text-[10px] font-mono text-slate-700 tracking-[0.3em] uppercase">
-            <span>© 2025 Aeronexares Global Hub</span>
-            <span class="text-cyan-900 font-bold">Terminal: BUENOS_AIRES_CENTRAL</span>
+        <div class="max-w-7xl mx-auto mt-24 pt-10 border-t border-white/5 flex justify-between text-[10px] font-mono text-slate-800 tracking-[0.3em] uppercase">
+            <span>© 2026 Aeronexares Global Network</span>
+            <span class="text-cyan-900">Axiom Protocol v2.5.0</span>
         </div>
     </footer>
 
+    <script>
+        function setFocus(element) {
+            document.querySelectorAll('.gov-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        const items = document.querySelectorAll('.gov-item');
+        items.forEach(item => {
+            item.addEventListener('mouseenter', () => setFocus(item));
+        });
+    </script>
 </body>
 </html>
