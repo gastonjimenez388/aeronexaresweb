@@ -73,6 +73,7 @@
             align-items: center;
             justify-content: center;
             background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
+            cursor: crosshair;
         }
 
         .viz-wrapper {
@@ -84,9 +85,21 @@
             justify-content: center;
         }
 
+        /* The container that will rotate with JS */
+        #interactive-orbit {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.15s ease-out;
+            will-change: transform;
+        }
+
         .core-node {
             position: absolute;
-            z-index: 50;
+            z-index: 100; /* Always on top of rotating nodes */
             width: 200px;
             height: 200px;
             background: rgba(1, 4, 9, 0.95);
@@ -115,7 +128,7 @@
 
         .satellite-node {
             position: absolute;
-            width: 160px;
+            width: 180px;
             background: var(--panel-bg);
             border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 4px;
@@ -123,15 +136,20 @@
             flex-direction: column;
             padding: 12px;
             text-align: left;
-            transition: all 0.4s ease;
+            transition: border-color 0.4s ease, background 0.4s ease;
             backdrop-filter: blur(10px);
-            z-index: 60;
+            /* Important: counter-rotate the content to keep text readable */
+            transform-origin: center;
+        }
+
+        .node-content {
+            transition: transform 0.15s ease-out;
+            will-change: transform;
         }
 
         .satellite-node:hover {
             border-color: var(--cyan-glow);
             background: rgba(0, 212, 255, 0.05);
-            transform: translateY(-5px);
         }
 
         .orbit-ring {
@@ -141,13 +159,8 @@
             pointer-events: none;
         }
 
-        .ring-1 { width: 400px; height: 400px; animation: spin-slow 40s linear infinite; }
-        .ring-2 { width: 620px; height: 620px; animation: spin-slow 60s linear infinite reverse; }
-
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        .ring-static { width: 400px; height: 400px; opacity: 0.5; }
+        .ring-interactive { width: 550px; height: 550px; border-style: solid; border-width: 1px; opacity: 0.2; }
 
         /* SMART LOOKAPP SECTION */
         .glass-card {
@@ -210,9 +223,6 @@
             <div class="flex items-center min-w-[200px]">
                 <img src="image_a94946.png" alt="Aeronexares" class="h-12 w-auto object-contain">
             </div>
-             <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aeronexares | AXIOM GOVERNANCE SYSTEM</title>
             
             <div class="hidden lg:flex items-center gap-12">
                 <a href="#axiom" class="text-[10px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 transition-all uppercase">Axiom Flow</a>
@@ -264,42 +274,51 @@
                 </p>
             </div>
 
-            <div class="axiom-mega-container glass-card rounded-xl">
+            <div class="axiom-mega-container glass-card rounded-xl" id="axiom-flow-container">
                 <div class="viz-wrapper">
-                    <!-- Orbits -->
-                    <div class="orbit-ring ring-1"></div>
-                    <div class="orbit-ring ring-2"></div>
+                    <!-- Static Orbits -->
+                    <div class="orbit-ring ring-static"></div>
+                    <div class="orbit-ring ring-interactive"></div>
                     
-                    <!-- Core Node with image_a94946.png Logo -->
+                    <!-- Core Node (Static in the center) -->
                     <div class="core-node">
                         <img src="image_a94946.png" alt="Aeronexares Logo" class="core-logo-img">
                         <span class="text-[10px] font-display text-white tracking-widest uppercase mt-2">Axiom Core</span>
                     </div>
 
-                    <!-- Phase 1 -->
-                    <div class="satellite-node" style="top: 10%; left: 50%; transform: translateX(-50%);">
-                        <span class="text-[10px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 01</span>
-                        <span class="text-[12px] font-display text-white font-bold uppercase">Check Smart LookApp</span>
-                        <div class="mt-2 h-1 w-full bg-cyan-500/20 rounded-full overflow-hidden">
-                            <div class="h-full bg-cyan-400 w-full"></div>
+                    <!-- Interactive Orbiting Elements -->
+                    <div id="interactive-orbit">
+                        <!-- Phase 1: Top -->
+                        <div class="satellite-node" style="top: 0; left: 50%; transform: translate(-50%, -50%);">
+                            <div class="node-content">
+                                <span class="text-[10px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 01</span>
+                                <span class="text-[12px] font-display text-white font-bold uppercase">Check Smart LookApp</span>
+                                <div class="mt-2 h-1 w-full bg-cyan-500/20 rounded-full overflow-hidden">
+                                    <div class="h-full bg-cyan-400 w-full"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Phase 2 -->
-                    <div class="satellite-node" style="top: 45%; left: 88%; transform: translateY(-50%);">
-                        <span class="text-[10px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 02</span>
-                        <span class="text-[12px] font-display text-white font-bold uppercase">Smart MappingLab</span>
-                        <span class="text-[7px] font-mono text-slate-400 uppercase italic">In progress</span>
-                        <div class="mt-2 h-1 w-full bg-cyan-500/20 rounded-full overflow-hidden">
-                            <div class="h-full bg-cyan-400 w-1/3 animate-pulse"></div>
+                        <!-- Phase 2: Right -->
+                        <div class="satellite-node" style="top: 50%; right: 0; transform: translate(50%, -50%);">
+                            <div class="node-content">
+                                <span class="text-[10px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 02</span>
+                                <span class="text-[12px] font-display text-white font-bold uppercase">Smart MappingLab</span>
+                                <span class="text-[7px] font-mono text-slate-400 uppercase italic">In progress</span>
+                                <div class="mt-2 h-1 w-full bg-cyan-500/20 rounded-full overflow-hidden">
+                                    <div class="h-full bg-cyan-400 w-1/3 animate-pulse"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Phase 3 -->
-                    <div class="satellite-node" style="bottom: 10%; left: 50%; transform: translateX(-50%);">
-                        <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Phase 03</span>
-                        <span class="text-[12px] font-display text-slate-300 font-bold uppercase">ROBOT AN1 route</span>
-                        <span class="text-[7px] font-mono text-slate-500 uppercase italic">Planned</span>
+                        <!-- Phase 3: Bottom -->
+                        <div class="satellite-node" style="bottom: 0; left: 50%; transform: translate(-50%, 50%);">
+                            <div class="node-content">
+                                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Phase 03</span>
+                                <span class="text-[12px] font-display text-slate-300 font-bold uppercase">ROBOT AN1 route</span>
+                                <span class="text-[7px] font-mono text-slate-500 uppercase italic">Planned</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -340,7 +359,7 @@
 
                 <div class="mt-4 p-3 bg-emerald-950/10 border-l-2 border-emerald-500">
                     <p class="text-[9px] font-mono text-emerald-400 uppercase tracking-tight">
-                        OPERATION: ACTIVE_MAINTENANCE // 
+                        OPERATION: ACTIVE_MAINTENANCE // RESOURCE: MECANICO_TABLET.PNG RESTORED
                     </p>
                 </div>
             </div>
@@ -354,5 +373,43 @@
             <span class="text-emerald-900">System State: Nominal</span>
         </div>
     </footer>
+
+    <script>
+        // Interactive Orbit Logic
+        const container = document.getElementById('axiom-flow-container');
+        const orbit = document.getElementById('interactive-orbit');
+        const contents = document.querySelectorAll('.node-content');
+
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            
+            // Get center of the container
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Calculate mouse distance from center
+            const deltaX = e.clientX - centerX;
+            const deltaY = e.clientY - centerY;
+            
+            // Calculate angle in degrees
+            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+            
+            // Apply rotation to the entire orbit (offsetting by 90 to align Phase 1 at the pointer)
+            const targetRotation = angle + 90;
+            orbit.style.transform = `rotate(${targetRotation}deg)`;
+            
+            // Counter-rotate text inside each node so it remains horizontal
+            contents.forEach(content => {
+                content.style.transform = `rotate(${-targetRotation}deg)`;
+            });
+        });
+
+        // Optional: Reset on mouse leave or keep last position
+        container.addEventListener('mouseleave', () => {
+            // Uncomment below if you want it to reset to 0
+            // orbit.style.transform = `rotate(0deg)`;
+            // contents.forEach(content => content.style.transform = `rotate(0deg)`);
+        });
+    </script>
 </body>
 </html>
