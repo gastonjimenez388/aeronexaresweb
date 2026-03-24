@@ -68,12 +68,11 @@
         .axiom-mega-container {
             position: relative;
             width: 100%;
-            min-height: 700px;
+            min-height: 750px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
-            cursor: crosshair;
         }
 
         .viz-wrapper {
@@ -85,7 +84,6 @@
             justify-content: center;
         }
 
-        /* The container that will rotate with JS */
         #interactive-orbit {
             position: absolute;
             width: 100%;
@@ -93,7 +91,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s ease-out;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
         }
 
@@ -126,11 +124,11 @@
             50% { transform: scale(1.03); box-shadow: 0 0 60px rgba(0, 212, 255, 0.4); }
         }
 
-        /* Circular Satellite Nodes */
+        /* Satellite Nodes */
         .satellite-node {
             position: absolute;
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             background: var(--panel-bg);
             border: 1px solid rgba(0, 212, 255, 0.3);
             border-radius: 50%;
@@ -141,7 +139,20 @@
             transition: all 0.4s ease;
             backdrop-filter: blur(8px);
             padding: 15px;
-            box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.05);
+            cursor: pointer;
+            z-index: 50;
+        }
+
+        .satellite-node:hover {
+            border-color: var(--cyan-glow);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transform: scale(1.1) !important;
+        }
+
+        .satellite-node.active {
+            border-color: var(--cyan-glow);
+            background: rgba(0, 212, 255, 0.15);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
         }
 
         .node-content {
@@ -149,31 +160,49 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s ease-out;
-            will-change: transform;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
         }
 
-        .satellite-node:hover {
-            border-color: var(--cyan-glow);
-            background: rgba(0, 212, 255, 0.1);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
-            scale: 1.05;
+        /* Sub-bubble for Product Logo */
+        .sub-bubble {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #000;
+            border: 1px solid var(--cyan-glow);
+            border-radius: 50%;
+            top: -20px;
+            right: -40px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 60;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+
+        .active .sub-bubble {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .sub-bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .orbit-ring {
             position: absolute;
-            border: 1px dashed rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.1);
             border-radius: 50%;
             pointer-events: none;
-        }
-
-        /* Adjusted orbit distance (Closer to center) */
-        .ring-interactive { 
-            width: 440px; 
-            height: 440px; 
-            border-style: solid; 
-            border-width: 1px; 
-            opacity: 0.15; 
+            width: 420px;
+            height: 420px;
         }
 
         /* SMART LOOKAPP SECTION */
@@ -181,7 +210,6 @@
             background: var(--panel-bg);
             backdrop-filter: blur(20px);
             border: 1px solid var(--ui-border);
-            transition: all 0.3s ease;
         }
 
         .success-border {
@@ -197,12 +225,6 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-        }
-
-        .img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .scan-line {
@@ -222,11 +244,6 @@
             0% { top: 0%; }
             100% { top: 100%; }
         }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #010409; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #00d4ff; }
     </style>
 </head>
 <body>
@@ -281,63 +298,61 @@
             <div class="text-center space-y-4">
                 <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.4em] uppercase glow-text">AXIOM FLOW</h2>
                 <p class="text-[11px] font-mono text-cyan-500 uppercase tracking-[0.5em] max-w-2xl mx-auto opacity-70">
-                    Aeronexares AXIOM Governance System
+                    Interactive Governance System
                 </p>
                 <p class="text-[9px] font-mono text-slate-500 uppercase tracking-[0.3em] max-w-2xl mx-auto">
-                    The intelligence defining the new organizational standard.
+                    Select a phase to visualize the product core.
                 </p>
             </div>
 
-            <div class="axiom-mega-container glass-card rounded-xl" id="axiom-flow-container">
+            <div class="axiom-mega-container glass-card rounded-xl">
                 <div class="viz-wrapper">
-                    <!-- Orbits -->
-                    <div class="orbit-ring ring-interactive"></div>
+                    <div class="orbit-ring"></div>
                     
-                    <!-- Core Node (Static in the center) -->
+                    <!-- Core Node -->
                     <div class="core-node">
                         <img src="image_a94946.png" alt="Aeronexares Logo" class="core-logo-img">
                         <span class="text-[8px] font-display text-white tracking-widest uppercase mt-2">Axiom Core</span>
                     </div>
 
-                    <!-- Interactive Orbiting Elements (Closer to center) -->
+                    <!-- Rotating Orbit Container -->
                     <div id="interactive-orbit">
-                        <!-- Phase 1: Top (distancia 220px del centro) -->
-                        <div class="satellite-node" style="top: 0; left: 50%; transform: translate(-50%, 80px);">
+                        <!-- Phase 1: Smart LookApp -->
+                        <div class="satellite-node active" data-index="0" style="top: 0; left: 50%; transform: translate(-50%, 85px);">
                             <div class="node-content">
                                 <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 01</span>
                                 <span class="text-[10px] font-display text-white font-bold uppercase leading-tight">Smart LookApp</span>
-                                <div class="mt-2 h-1 w-12 bg-cyan-500/20 rounded-full overflow-hidden">
-                                    <div class="h-full bg-cyan-400 w-full"></div>
-                                </div>
+                            </div>
+                            <div class="sub-bubble">
+                                <img src="Smart Lookapp.jpg" alt="LookApp Logo">
                             </div>
                         </div>
 
-                        <!-- Phase 2: Right -->
-                        <div class="satellite-node" style="top: 50%; right: 0; transform: translate(-80px, -50%);">
-                            <div class="node-content">
+                        <!-- Phase 2: Mapping Lab -->
+                        <div class="satellite-node" data-index="1" style="top: 50%; right: 0; transform: translate(-85px, -50%);">
+                            <div class="node-content" style="transform: rotate(-90deg);">
                                 <span class="text-[8px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 02</span>
                                 <span class="text-[10px] font-display text-white font-bold uppercase leading-tight">Mapping Lab</span>
-                                <span class="text-[7px] font-mono text-slate-400 uppercase italic">In progress</span>
-                                <div class="mt-2 h-1 w-12 bg-cyan-500/20 rounded-full overflow-hidden">
-                                    <div class="h-full bg-cyan-400 w-1/3 animate-pulse"></div>
-                                </div>
+                            </div>
+                            <div class="sub-bubble">
+                                <img src="Smart MappingLab.jpg" alt="MappingLab Logo">
                             </div>
                         </div>
 
-                        <!-- Phase 3: Bottom -->
-                        <div class="satellite-node" style="bottom: 0; left: 50%; transform: translate(-50%, -80px);">
-                            <div class="node-content">
+                        <!-- Phase 3: Robot AN1 -->
+                        <div class="satellite-node" data-index="2" style="bottom: 0; left: 50%; transform: translate(-50%, -85px);">
+                            <div class="node-content" style="transform: rotate(-180deg);">
                                 <span class="text-[8px] font-mono text-slate-500 uppercase tracking-widest mb-1">Phase 03</span>
                                 <span class="text-[10px] font-display text-slate-300 font-bold uppercase leading-tight">Robot AN1</span>
-                                <span class="text-[7px] font-mono text-slate-500 uppercase italic">Planned</span>
                             </div>
+                            <!-- No sub-bubble image for now -->
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SMART LOOKAPP SECTION -->
+        <!-- SMART LOOKAPP DESCRIPTION -->
         <section id="systems" class="py-24 grid grid-cols-1 md:grid-cols-2 gap-20 items-center border-t border-white/5">
             <div class="space-y-10">
                 <div class="inline-block px-4 py-1 border border-emerald-500/30 rounded-full">
@@ -347,10 +362,6 @@
                 <p class="text-base text-slate-400 font-mono leading-relaxed uppercase">
                     The ultimate digital bridge. Smart LookApp instantly connects maintenance teams with manufacturer-regulated documentation.
                 </p>
-                <div class="flex items-center gap-4 text-emerald-500">
-                    <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-                    <span class="text-[10px] font-mono tracking-widest uppercase">Real-time data transmission active</span>
-                </div>
             </div>
 
             <div class="glass-card p-2 rounded-lg overflow-hidden relative group success-border">
@@ -359,21 +370,6 @@
                     <img src="Gemini_Generated_Image_5331oi5331oi5331.jpg" 
                          alt="Mechanic using Smart LookApp" 
                          class="opacity-95">
-                </div>
-                
-                <div class="absolute top-6 right-6 flex flex-col items-end gap-2 pointer-events-none">
-                    <div class="bg-black/60 backdrop-blur-md px-3 py-1 border border-cyan-500/30 rounded">
-                        <span class="text-[8px] font-mono text-cyan-400 uppercase tracking-widest">DOC_MATCH: 100%</span>
-                    </div>
-                    <div class="bg-black/60 backdrop-blur-md px-3 py-1 border border-cyan-500/30 rounded">
-                        <span class="text-[8px] font-mono text-cyan-400 uppercase tracking-widest">LATENCY: 12ms</span>
-                    </div>
-                </div>
-
-                <div class="mt-4 p-3 bg-emerald-950/10 border-l-2 border-emerald-500">
-                    <p class="text-[9px] font-mono text-emerald-400 uppercase tracking-tight">
-                        OPERATION: ACTIVE_MAINTENANCE // RESOURCE: MECANICO_TABLET.PNG RESTORED
-                    </p>
                 </div>
             </div>
         </section>
@@ -388,39 +384,35 @@
     </footer>
 
     <script>
-        // Interactive Orbit Logic
-        const container = document.getElementById('axiom-flow-container');
         const orbit = document.getElementById('interactive-orbit');
+        const satellites = document.querySelectorAll('.satellite-node');
         const contents = document.querySelectorAll('.node-content');
 
-        container.addEventListener('mousemove', (e) => {
-            const rect = container.getBoundingClientRect();
-            
-            // Get center of the container
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            
-            // Calculate mouse distance from center
-            const deltaX = e.clientX - centerX;
-            const deltaY = e.clientY - centerY;
-            
-            // Calculate angle in degrees
-            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-            
-            // Apply rotation (90 deg offset to keep top node towards mouse)
-            const targetRotation = angle + 90;
-            orbit.style.transform = `rotate(${targetRotation}deg)`;
-            
-            // Counter-rotate text inside each node so it remains level
-            contents.forEach(content => {
-                content.style.transform = `rotate(${-targetRotation}deg)`;
+        satellites.forEach((sat, index) => {
+            sat.addEventListener('click', () => {
+                // Remove active class from all
+                satellites.forEach(s => s.classList.remove('active'));
+                
+                // Add active to clicked
+                sat.classList.add('active');
+
+                // Calculate rotation to bring this phase to the top (0 degrees)
+                // Phase 0 is at 0, Phase 1 is at 90, Phase 2 is at 180
+                const rotationAngle = -index * 90;
+                
+                // Rotate the orbit container
+                orbit.style.transform = `rotate(${rotationAngle}deg)`;
+
+                // Counter-rotate the text nodes so they stay horizontal
+                contents.forEach(content => {
+                    content.style.transform = `rotate(${-rotationAngle}deg)`;
+                });
             });
         });
 
-        // Optional: Smoothly return to default on exit or leave as is
-        container.addEventListener('mouseleave', () => {
-            // orbit.style.transform = `rotate(0deg)`;
-            // contents.forEach(content => content.style.transform = `rotate(0deg)`);
+        // Initialize first state (already active in HTML)
+        contents.forEach(content => {
+            content.style.transform = `rotate(0deg)`;
         });
     </script>
 </body>
