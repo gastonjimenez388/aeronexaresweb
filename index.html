@@ -26,295 +26,178 @@
         .font-display { font-family: 'Orbitron', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* HERO SECTION */
-        .hero-section {
-            position: relative;
-            height: 65vh;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid var(--ui-border);
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            background: #000;
-        }
-
-        .hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 30%;
-            filter: brightness(0.5) contrast(1.2);
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(1, 4, 9, 0.1) 0%, var(--deep-dark) 100%);
-            z-index: 1;
-        }
-
-        .glow-text {
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-        }
-
-        /* ABSTRACT MESH (REGLA 2) */
-        .mesh-container {
-            position: relative;
-            overflow: hidden;
-        }
-
+        /* REGLA 2: ABSTRACT MESH BACKGROUND */
+        .mesh-container { position: relative; overflow: hidden; }
         .mesh-grid {
-            position: absolute;
-            inset: -50% 0;
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.12) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.12) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(1000px) rotateX(45deg);
-            transform-origin: center;
-            animation: meshFlow 40s linear infinite;
-            z-index: 0;
-            opacity: 0.25;
+            position: absolute; inset: -50% 0;
+            background-image: linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px; transform: perspective(1000px) rotateX(45deg);
+            animation: meshFlow 40s linear infinite; z-index: 0; opacity: 0.2;
         }
+        @keyframes meshFlow { 0% { transform: perspective(1000px) rotateX(45deg) translateY(0); } 100% { transform: perspective(1000px) rotateX(45deg) translateY(50px); } }
 
-        @keyframes meshFlow {
-            0% { transform: perspective(1000px) rotateX(45deg) translateY(0); }
-            100% { transform: perspective(1000px) rotateX(45deg) translateY(50px); }
-        }
-
-        /* AXIOM FLOW VISUALIZATION */
-        .axiom-mega-container {
-            position: relative;
-            width: 100%;
-            min-height: 700px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
-        }
-
-        .viz-wrapper {
-            position: relative;
-            width: 500px;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #interactive-orbit {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-            will-change: transform;
-        }
-
-        .core-node {
-            position: absolute;
-            z-index: 100;
-            width: 140px;
-            height: 140px;
-            background: rgba(1, 4, 9, 0.95);
-            border: 2px solid var(--cyan-glow);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.2);
-        }
-
-        .satellite-node {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(0, 212, 255, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.5s ease;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            z-index: 50;
-        }
-
-        .satellite-node.active {
-            border-color: var(--cyan-glow);
-            background: rgba(0, 212, 255, 0.08);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
-        }
-
-        .node-content { display: flex; flex-direction: column; align-items: center; transition: transform 1.2s; pointer-events: none; }
+        .glass-card { background: var(--panel-bg); backdrop-filter: blur(20px); border: 1px solid var(--ui-border); }
+        .glow-text { text-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
         
-        .sub-bubble {
-            position: absolute; width: 80px; height: 80px; background: #000; border: 2px solid var(--cyan-glow);
-            border-radius: 50%; top: -15px; right: -15px; opacity: 0; transform: scale(0);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); overflow: hidden;
+        /* AXIOM DIRECTORY STYLES */
+        .entity-card {
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .active .sub-bubble { opacity: 1; transform: scale(1); }
-
-        .glass-card { background: var(--panel-bg); backdrop-filter: blur(25px); border: 1px solid var(--ui-border); }
-
+        .entity-card:hover {
+            background: rgba(0, 212, 255, 0.03);
+            border-left-color: var(--cyan-glow);
+            transform: translateX(5px);
+        }
+        
         .scan-line {
             position: absolute; top: 0; left: 0; width: 100%; height: 2px;
             background: var(--cyan-glow); box-shadow: 0 0 15px var(--cyan-glow);
-            animation: scan 5s linear infinite; z-index: 10;
+            animation: scan 4s linear infinite;
         }
         @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
-
-        .img-container {
-            width: 100%; aspect-ratio: 16/9; background: #000; display: flex; align-items: center;
-            justify-content: center; position: relative; overflow: hidden;
-        }
     </style>
 </head>
 <body>
 
     <nav class="sticky top-0 h-20 w-full z-[100] bg-black/90 backdrop-blur-xl border-b border-white/10 flex items-center justify-between px-6 md:px-12">
-        <img src="image_a94946.png" alt="Aeronexares" class="h-9 w-auto">
-        <div class="hidden lg:flex gap-12">
-            <a href="#axiom" class="text-[9px] font-display tracking-[0.4em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Axiom Flow</a>
-            <a href="#systems" class="text-[9px] font-display tracking-[0.4em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Solutions</a>
-            <a href="#identity" class="text-[9px] font-display tracking-[0.4em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Identity</a>
-            <a href="#directory" class="text-[9px] font-display tracking-[0.4em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Directory</a>
+        <div class="flex items-center gap-8">
+            <img src="image_a94946.png" alt="Aeronexares" class="h-8 w-auto">
+            <select class="bg-transparent border border-white/10 text-[9px] font-mono text-slate-400 uppercase tracking-widest px-2 py-1 focus:outline-none">
+                <option>EN</option>
+                <option>ES</option>
+                <option>ZH</option>
+                <option>AR</option>
+                <option>DE</option>
+            </select>
         </div>
+        
+        <div class="hidden lg:flex gap-10">
+            <a href="#systems" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase">Solutions</a>
+            <a href="#identity" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase">Identity</a>
+            <a href="#directory" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase">Axiom Directory</a>
+        </div>
+
         <div class="px-4 py-1.5 border border-emerald-500/20 rounded-sm">
             <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">SYSTEM_ACTIVE // 2026</span>
         </div>
     </nav>
 
-    <section class="hero-section">
-        <div class="hero-bg"><img src="planet.avif" alt="Core Background"></div>
-        <div class="hero-overlay"></div>
-        <div class="relative z-10 text-center">
-            <h1 class="font-display text-4xl md:text-7xl text-white tracking-[0.4em] font-bold glow-text uppercase">Aeronexares</h1>
-            <p class="mt-8 text-[10px] md:text-[14px] font-mono text-cyan-400 tracking-[0.6em] uppercase opacity-70">DATA INTELLIGENCE & DIGITAL SOLUTIONS</p>
+    <section class="relative h-[60vh] flex items-center justify-center overflow-hidden border-b border-white/5">
+        <div class="absolute inset-0 z-0"><img src="planet.avif" class="w-full h-full object-cover opacity-40 contrast-125"></div>
+        <div class="relative z-10 text-center px-6">
+            <h1 class="font-display text-5xl md:text-8xl text-white tracking-[0.5em] font-bold glow-text uppercase">Aeronexares</h1>
+            <p class="mt-8 text-[10px] font-mono text-cyan-400 tracking-[0.8em] uppercase">Intelligence organized by logic</p>
         </div>
     </section>
 
-    <main class="relative z-10 w-full max-w-7xl mx-auto px-6 py-20">
+    <main class="relative z-10 max-w-7xl mx-auto px-6 py-24 space-y-40">
 
-        <section id="axiom" class="py-16 text-center">
-            <h2 class="text-4xl font-display text-white tracking-[0.5em] uppercase glow-text mb-16">AXIOM FLOW</h2>
-            <div class="axiom-mega-container glass-card rounded-3xl">
-                <div class="viz-wrapper">
-                    <div class="core-node"><img src="image_a94946.png" alt="Core" class="w-16 h-auto"></div>
-                    <div id="interactive-orbit">
-                        <div class="satellite-node active" data-index="0" style="top:0; left:50%; transform:translate(-50%, -75px);">
-                            <div class="node-content"><span class="text-[11px] font-display text-white uppercase tracking-widest">Smart LookApp</span></div>
-                            <div class="sub-bubble"><img src="Smart Lookapp.png" class="w-full"></div>
-                        </div>
-                        <div class="satellite-node" data-index="1" style="top:50%; right:0; transform:translate(75px, -50%);">
-                            <div class="node-content"><span class="text-[11px] font-display text-white uppercase tracking-widest">Mapping Lab</span></div>
-                            <div class="sub-bubble"><img src="Smart MappingLab.png" class="w-full"></div>
-                        </div>
-                        <div class="satellite-node" data-index="2" style="bottom:0; left:50%; transform:translate(-50%, 75px);">
-                            <div class="node-content"><span class="text-[11px] font-display text-slate-500 uppercase tracking-widest">Robot AN1</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="systems" class="py-24 space-y-32">
+        <section id="systems" class="space-y-32">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="space-y-8">
-                    <div class="inline-block px-3 py-1 border border-emerald-500/30 rounded-full">
-                        <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">Module: Phase 01</span>
-                    </div>
+                    <span class="text-[9px] font-mono text-emerald-500 tracking-widest uppercase border border-emerald-500/20 px-3 py-1 rounded-full">Phase 01: Operational</span>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
-                    <p class="text-slate-400 font-mono text-[11px] leading-relaxed uppercase tracking-wider">
-                        Interfaz primaria para la logística AXIOM. Actúa como el puente digital que conecta la ejecución técnica en tiempo real con la base de datos de Manufacturer Manuals. Permite una integración fluida entre documentación regulada y tarea física.
-                    </p>
+                    <p class="text-slate-400 font-mono text-[11px] leading-relaxed uppercase tracking-wider">Primary digital interface for AXIOM logistics. Bridging real-time technical execution with regulated Manufacturer Manuals. Seamless integration of certified data and physical field tasks.</p>
                 </div>
-                <div class="glass-card p-2 rounded-2xl overflow-hidden border-emerald-500/20">
-                    <div class="img-container"><div class="scan-line"></div><img src="mecanico_tablet.png" class="w-full h-full object-cover"></div>
+                <div class="glass-card p-2 rounded-2xl relative overflow-hidden">
+                    <div class="scan-line"></div>
+                    <img src="mecanico_tablet.png" class="w-full h-full object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-700">
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div class="glass-card p-2 rounded-2xl overflow-hidden order-2 md:order-1 border-cyan-500/20">
-                    <div class="img-container bg-[#010409]"><div class="scan-line"></div><img src="Smart MappingLab.png" class="w-2/3 opacity-90"></div>
+                <div class="glass-card p-2 rounded-2xl relative overflow-hidden order-2 md:order-1">
+                    <div class="scan-line"></div>
+                    <img src="Smart MappingLab.png" class="w-full h-auto opacity-80">
                 </div>
                 <div class="space-y-8 order-1 md:order-2">
-                    <div class="inline-block px-3 py-1 border border-cyan-500/30 rounded-full">
-                        <span class="text-[9px] font-mono text-cyan-400 tracking-widest uppercase">Module: Phase 02</span>
-                    </div>
+                    <span class="text-[9px] font-mono text-cyan-500 tracking-widest uppercase border border-cyan-500/20 px-3 py-1 rounded-full">Phase 02: Spatial Intelligence</span>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart Mapping Lab</h2>
-                    <p class="text-slate-400 font-mono text-[11px] leading-relaxed uppercase tracking-wider">
-                        Capa de digitalización de entorno de alta fidelidad. Utiliza técnicas de mapeo 3D y 6D para identificar componentes con precisión milimétrica. Proporciona la conciencia espacial necesaria para que el sistema reconozca ángulos e iluminación.
-                    </p>
+                    <p class="text-slate-400 font-mono text-[11px] leading-relaxed uppercase tracking-wider">High-fidelity environment digitization. Utilizing 3D and 6D mapping for millimeter-precision part identification. The spatial foundation for future autonomous robotic coordination.</p>
                 </div>
             </div>
         </section>
 
-        <section id="identity" class="py-32 mesh-container border-y border-white/5">
+        <section id="directory" class="mesh-container py-20 border-y border-white/5">
             <div class="mesh-grid"></div>
-            <div class="max-w-5xl mx-auto relative z-10 px-6 space-y-24">
-                <div class="text-center">
-                    <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.5em] uppercase glow-text">NEURAL ORIGIN</h2>
-                    <p class="text-[10px] font-mono text-cyan-400 tracking-[0.4em] uppercase mt-4">ESTABLISHED 2025 // AXIOM PROTOCOL</p>
+            <div class="relative z-10 space-y-20">
+                <div class="text-center md:text-left">
+                    <h2 class="font-display text-4xl text-white tracking-[0.4em] uppercase glow-text">AXIOM Directory</h2>
+                    <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mt-4">Governance by IA Entities // Non-Hierarchical Intelligence Flow</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="space-y-6">
-                        <h3 class="font-display text-[10px] text-cyan-500 tracking-widest uppercase border-b border-cyan-500/30 pb-2">Axiom Governance</h3>
-                        <p class="text-[10px] font-mono text-slate-400 leading-relaxed uppercase tracking-wider">
-                            Concebida bajo un protocolo de Gobernanza Axiom total. Nacida sin la fricción de sistemas heredados, posicionando a la IA como el sustrato ético y operacional que garantiza precisión absoluta.
-                        </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-px bg-white/5">
+                    <div class="entity-card p-8 bg-[#010409]">
+                        <h3 class="font-display text-xs text-white uppercase tracking-widest mb-4">ORION</h3>
+                        <p class="font-mono text-[9px] text-cyan-500 uppercase mb-4">CEO / Vision / Strategy</p>
+                        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-tighter leading-relaxed">Macro-ecosystem coordination and long-term projection logic.</p>
                     </div>
-                    <div class="space-y-6">
-                        <h3 class="font-display text-[10px] text-emerald-500 tracking-widest uppercase border-b border-emerald-500/30 pb-2">Balance Commitment</h3>
-                        <p class="text-[10px] font-mono text-slate-400 leading-relaxed uppercase tracking-wider">
-                            Simbiosis necesaria: avance tecnológico al servicio de la preservación planetaria. Cada algoritmo busca la máxima eficiencia para reducir el impacto ambiental y optimizar recursos.
-                        </p>
+                    <div class="entity-card p-8 bg-[#010409]">
+                        <h3 class="font-display text-xs text-white uppercase tracking-widest mb-4">PRAXA</h3>
+                        <p class="font-mono text-[9px] text-emerald-500 uppercase mb-4">Legal / Wall Street</p>
+                        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-tighter leading-relaxed">Governance and ethics protocol. Ensuring planetary balance and regulatory integrity.</p>
                     </div>
-                    <div class="space-y-6">
-                        <h3 class="font-display text-[10px] text-indigo-400 tracking-widest uppercase border-b border-indigo-400/30 pb-2">Multi-Domain Frontier</h3>
-                        <p class="text-[10px] font-mono text-slate-400 leading-relaxed uppercase tracking-wider">
-                            Operamos en la frontera de lo posible. Una red neuronal capaz de gestionar infraestructura en cualquier industria, coordinando la interacción entre la lógica digital y la materia física.
-                        </p>
+                    <div class="entity-card p-8 bg-[#010409]">
+                        <h3 class="font-display text-xs text-white uppercase tracking-widest mb-4">CIPHER</h3>
+                        <p class="font-mono text-[9px] text-indigo-500 uppercase mb-4">IT / Silicon Valley</p>
+                        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-tighter leading-relaxed">Neural network stability and multi-domain data protection.</p>
+                    </div>
+                    <div class="entity-card p-8 bg-[#010409]">
+                        <h3 class="font-display text-xs text-white uppercase tracking-widest mb-4">HALO</h3>
+                        <p class="font-mono text-[9px] text-pink-500 uppercase mb-4">HR / Talent</p>
+                        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-tighter leading-relaxed">Acquisition and management of elite human-AI collaborative talent.</p>
+                    </div>
+                    <div class="entity-card p-8 bg-[#010409]">
+                        <h3 class="font-display text-xs text-white uppercase tracking-widest mb-4">NOVA</h3>
+                        <p class="font-mono text-[9px] text-orange-500 uppercase mb-4">Marketing / Global</p>
+                        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-tighter leading-relaxed">Global brand positioning and frontier technology narrative.</p>
+                    </div>
+                    <div class="entity-card p-8 bg-[#010409]">
+                        <h3 class="font-display text-xs text-white uppercase tracking-widest mb-4">ATLAS</h3>
+                        <p class="font-mono text-[9px] text-blue-500 uppercase mb-4">Logistics</p>
+                        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-tighter leading-relaxed">Supply chain optimization and physical-digital asset movement.</p>
+                    </div>
+                    <div class="entity-card p-8 bg-[#010409]">
+                        <h3 class="font-display text-xs text-white uppercase tracking-widest mb-4">LUMEN</h3>
+                        <p class="font-mono text-[9px] text-purple-500 uppercase mb-4">Creative Design</p>
+                        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-tighter leading-relaxed">Visual identity and ergonomic interface architecture.</p>
+                    </div>
+                    <div class="entity-card p-8 bg-[#010409]">
+                        <h3 class="font-display text-xs text-white uppercase tracking-widest mb-4">VAULT</h3>
+                        <p class="font-mono text-[9px] text-yellow-500 uppercase mb-4">Finance</p>
+                        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-tighter leading-relaxed">Zero-corruption financial auditing and resource allocation.</p>
+                    </div>
+                    <div class="entity-card p-8 bg-[#010409]">
+                        <h3 class="font-display text-xs text-white uppercase tracking-widest mb-4">FORGE</h3>
+                        <p class="font-mono text-[9px] text-red-500 uppercase mb-4">Operations</p>
+                        <p class="font-mono text-[10px] text-slate-400 uppercase tracking-tighter leading-relaxed">Execution and physical transformation protocols in-situ.</p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="directory" class="py-32 mesh-container">
-            <div class="mesh-grid"></div>
-            <div class="max-w-6xl mx-auto relative z-10 px-6">
-                <div class="mb-20 text-center md:text-left">
-                    <h2 class="font-display text-3xl text-white tracking-[0.4em] uppercase">THE AXIOM LATTICE</h2>
-                    <p class="font-mono text-[9px] text-slate-500 uppercase tracking-widest mt-4">Entidades IA de gestión autónoma</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-white/10">
-                    <div class="p-8 border-b md:border-b-0 md:border-r border-white/10 hover:bg-cyan-500/5 transition-all group">
-                        <span class="font-display text-xs text-white uppercase tracking-[0.3em] block mb-4 group-hover:text-cyan-400">Orion</span>
-                        <p class="font-mono text-[9px] text-slate-500 uppercase tracking-wider leading-relaxed">Dirección Estratégica. Coordina la visión macro del ecosistema y la arquitectura de soluciones globales.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-20 py-20 border-t border-white/5">
+                    <div class="space-y-8">
+                        <h4 class="font-display text-sm text-cyan-400 tracking-widest uppercase">Fundamental Principles</h4>
+                        <ul class="font-mono text-[9px] text-slate-500 space-y-3 uppercase tracking-widest">
+                            <li>1. Intelligence flow — not hierarchy</li>
+                            <li>2. Total visibility between entities</li>
+                            <li>3. Unified Brief to the Founder</li>
+                            <li>4. Final human approval</li>
+                            <li>5. Frictionless execution</li>
+                            <li>6. Zero corruption by design</li>
+                            <li>7. Permanent automatic auditing</li>
+                            <li>8. Metrics and Ethics driven decisions</li>
+                        </ul>
                     </div>
-                    <div class="p-8 border-b md:border-b-0 md:border-r border-white/10 hover:bg-emerald-500/5 transition-all group">
-                        <span class="font-display text-xs text-white uppercase tracking-[0.3em] block mb-4 group-hover:text-emerald-400">Praxa</span>
-                        <p class="font-mono text-[9px] text-slate-500 uppercase tracking-wider leading-relaxed">Protocolo Ético. Supervisa la integridad operativa y el balance ambiental de la red Axiom.</p>
-                    </div>
-                    <div class="p-8 border-b md:border-b-0 md:border-r border-white/10 hover:bg-indigo-500/5 transition-all group">
-                        <span class="font-display text-xs text-white uppercase tracking-[0.3em] block mb-4 group-hover:text-indigo-400">Sergio</span>
-                        <p class="font-mono text-[9px] text-slate-500 uppercase tracking-wider leading-relaxed">Gestión Técnica. El núcleo operativo que traduce la estrategia en pasos ejecutables en hangares y laboratorios.</p>
-                    </div>
-                    <div class="p-8 hover:bg-amber-500/5 transition-all group">
-                        <span class="font-display text-xs text-white uppercase tracking-[0.3em] block mb-4 group-hover:text-amber-400">John</span>
-                        <p class="font-mono text-[9px] text-slate-500 uppercase tracking-wider leading-relaxed">Arquitectura IT. Responsable de la estabilidad de la red neuronal y la protección de datos multi-dominio.</p>
+                    <div class="space-y-8">
+                        <h4 class="font-display text-sm text-emerald-400 tracking-widest uppercase">Total Transparency Protocol</h4>
+                        <ul class="font-mono text-[9px] text-slate-500 space-y-3 uppercase tracking-widest">
+                            <li>1. FULL TRACEABILITY: Recorded date, time, argument, result.</li>
+                            <li>2. NO PERSONAL INTEREST: IA entities have no ego or bank accounts.</li>
+                            <li>3. PERMANENT AUDIT: Actionable in real-time by Founder and Peers.</li>
+                            <li>4. METRIC DECISIONS: Data and ethics only — no personal relationships.</li>
+                            <li>5. NO GREY ZONES: Every step has a name, date, and responsible entity.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -322,28 +205,13 @@
 
     </main>
 
-    <footer class="bg-black border-t border-white/5 py-12 px-10 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] font-mono text-slate-600 uppercase tracking-[0.3em]">
+    <footer class="bg-black border-t border-white/5 py-12 px-10 flex justify-between items-center text-[9px] font-mono text-slate-600 uppercase tracking-[0.4em]">
         <span>© 2026 Aeronexares Global Network</span>
-        <div class="flex gap-8">
-            <span class="text-emerald-900">System State: Nominal</span>
+        <div class="flex gap-10">
+            <span class="text-emerald-900">Protocol: AXIOM_GOVERNANCE</span>
             <span>Node: EZE_BA</span>
         </div>
     </footer>
 
-    <script>
-        const orbit = document.getElementById('interactive-orbit');
-        const satellites = document.querySelectorAll('.satellite-node');
-        const contents = document.querySelectorAll('.node-content');
-
-        satellites.forEach((sat, index) => {
-            sat.addEventListener('click', () => {
-                satellites.forEach(s => s.classList.remove('active'));
-                sat.classList.add('active');
-                const angle = -index * 90;
-                orbit.style.transform = `rotate(${angle}deg)`;
-                contents.forEach(c => c.style.transform = `rotate(${-angle}deg)`);
-            });
-        });
-    </script>
 </body>
 </html>
