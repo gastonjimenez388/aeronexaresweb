@@ -38,23 +38,15 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            perspective: 1000px;
         }
 
         .stellar-fusion {
             width: 100%;
             height: auto;
+            /* Máscara radial para integrar la imagen con el fondo de la web */
             -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 80%);
             mask-image: radial-gradient(circle at center, black 45%, transparent 80%);
             filter: contrast(1.1) brightness(1.1);
-            /* Animación de rotación */
-            animation: slow-rotate 100s linear infinite;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes slow-rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         /* REGLA 2: ABSTRACT MESH BACKGROUND */
@@ -117,7 +109,7 @@
         <section id="axiom" class="text-center mesh-container">
             <h2 class="text-3xl font-display text-white tracking-[0.5em] uppercase glow-text mb-16">AXIOM FLOW</h2>
             <div class="viz-wrapper mx-auto">
-                <img src="aeronexares-planetario.png" class="stellar-fusion drop-shadow-[0_0_50px_rgba(0,212,255,0.1)]" alt="Aeronexares Planetary System">
+                <img src="aeronexares-planetario.png" class="stellar-fusion drop-shadow-[0_0_50px_rgba(0,212,255,0.1)]">
             </div>
         </section>
 
