@@ -12,6 +12,8 @@
             --deep-dark: #010409;
             --panel-bg: rgba(13, 17, 23, 0.9);
             --ui-border: rgba(0, 212, 255, 0.2);
+            --emerald-glow: #10b981;
+            --indigo-glow: #6366f1;
         }
 
         body {
@@ -63,7 +65,7 @@
             text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
         }
 
-        /* AXIOM FLOW VISUALIZATION */
+        /* AXIOM FLOW VISUALIZATION (Main Orbit) */
         .axiom-mega-container {
             position: relative;
             width: 100%;
@@ -197,13 +199,7 @@
             height: 420px;
         }
 
-        .glass-card {
-            background: var(--panel-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--ui-border);
-        }
-
-        /* MESH BACKGROUND FOR IDENTITY */
+        /* MESH BACKGROUND FOR SECTIONS */
         .mesh-container {
             position: relative;
             background: radial-gradient(circle at top, rgba(0, 212, 255, 0.05), transparent);
@@ -229,33 +225,114 @@
             100% { background-position: 0 100%; }
         }
 
-        .img-container {
+        /* DIRECTORY VISUALIZATION (Neural Flow) */
+        .directory-flow {
+            position: relative;
             width: 100%;
-            aspect-ratio: 16/9;
-            background: #000;
+            max-width: 900px;
+            margin: auto;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flow-core {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            background: #000;
+            border: 3px solid var(--cyan-glow);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
+            text-align: center;
+            z-index: 100;
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
         }
 
-        .scan-line {
+        .flow-line-vertical {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--cyan-glow);
-            box-shadow: 0 0 15px var(--cyan-glow);
-            z-index: 20;
-            animation: scan 4s linear infinite;
+            width: 2px;
+            height: 250px;
+            background: linear-gradient(transparent, var(--cyan-glow), transparent);
+            top: 140px;
+            z-index: 10;
         }
 
-        @keyframes scan {
-            0% { top: 0%; }
-            100% { top: 100%; }
+        .flow-node {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            background: rgba(13, 17, 23, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-top: 100px;
+            z-index: 50;
         }
+
+        /* Colors for different flows */
+        .flow-node.active, .node-pillar.active {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+        }
+        .flow-node.ethics { border: 1.5px solid var(--emerald-glow); }
+        .flow-node.execution { border: 1.5px solid var(--cyan-glow); }
+        .flow-node.expansion { border: 1.5px solid var(--indigo-glow); }
+
+        .pills-container {
+            display: flex;
+            gap: 15px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 40;
+        }
+
+        .node-pillar {
+            font-size: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #ccc;
+            background: rgba(1, 4, 9, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Pillars for each node */
+        .ethics .node-pillar:hover { border-color: var(--emerald-glow); color: #fff; }
+        .execution .node-pillar:hover { border-color: var(--cyan-glow); color: #fff; }
+        .expansion .node-pillar:hover { border-color: var(--indigo-glow); color: #fff; }
+
+        .ethics .node-pillar.active { background: rgba(16, 185, 129, 0.15); border-color: var(--emerald-glow); color: #fff; }
+        .execution .node-pillar.active { background: rgba(0, 212, 255, 0.15); border-color: var(--cyan-glow); color: #fff; }
+        .expansion .node-pillar.active { background: rgba(99, 102, 241, 0.15); border-color: var(--indigo-glow); color: #fff; }
+
+        .function-desc {
+            max-width: 400px;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+
+        .function-desc.visible { opacity: 1; transform: translateY(0); }
+
+        /* General UI Classes */
+        .glass-card { background: var(--panel-bg); backdrop-filter: blur(20px); border: 1px solid var(--ui-border); }
+        .img-container { width: 100%; aspect-ratio: 16/9; background: #000; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--cyan-glow); box-shadow: 0 0 15px var(--cyan-glow); z-index: 20; animation: scan 4s linear infinite; }
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
     </style>
 </head>
 <body>
@@ -270,6 +347,7 @@
                 <a href="#axiom" class="text-[10px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 transition-all uppercase">Axiom Flow</a>
                 <a href="#systems" class="text-[10px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 transition-all uppercase">Solutions</a>
                 <a href="#identity" class="text-[10px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 transition-all uppercase">Identity</a>
+                <a href="#directory" class="text-[10px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 transition-all uppercase">Directory</a>
             </div>
 
             <div class="px-4 py-1.5 border border-emerald-500/20 rounded-sm">
@@ -281,7 +359,7 @@
 
     <section class="hero-section">
         <div class="hero-bg">
-            <img src="planet.avif" alt="Core Background">
+            <img src="planet.avif" alt="Global Core Network">
         </div>
         <div class="hero-overlay"></div>
         <div class="relative z-10 flex flex-col items-center">
@@ -336,39 +414,6 @@
             </div>
         </section>
 
-        <section id="identity" class="py-32 mesh-container border-y border-white/5 px-6 md:px-20">
-            <div class="mesh-grid"></div>
-            <div class="max-w-4xl mx-auto space-y-24 relative z-10">
-                <div class="text-center">
-                    <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.5em] uppercase glow-text">NEURAL ORIGIN</h2>
-                    <p class="text-[10px] font-mono text-cyan-400 tracking-[0.4em] uppercase mt-4">ESTABLISHED 2025 // AXIOM PROTOCOL</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="space-y-6">
-                        <h3 class="font-display text-xs text-cyan-500 tracking-widest uppercase border-b border-cyan-500/30 pb-2">Axiom Governance</h3>
-                        <p class="text-[11px] font-mono text-slate-300 leading-relaxed uppercase tracking-wider">
-                            Aeronexares was not adapted to the digital age; it was conceived from its start in 2025 under a total Axiom Governance protocol. We were born without the friction of legacy systems, designing an architecture where artificial intelligence is not a tool, but the ethical and operational substrate that guarantees absolute precision in every execution.
-                        </p>
-                    </div>
-
-                    <div class="space-y-6">
-                        <h3 class="font-display text-xs text-emerald-500 tracking-widest uppercase border-b border-emerald-500/30 pb-2">Balance Commitment</h3>
-                        <p class="text-[11px] font-mono text-slate-300 leading-relaxed uppercase tracking-wider">
-                            Our expansion is governed by a necessary symbiosis: technological advancement at the service of planetary preservation. We understand exploration as an ethical duty. Every algorithm developed seeks maximum efficiency to reduce environmental impact, applying intelligence to heal and optimize the resources of the environments we intervene.
-                        </p>
-                    </div>
-
-                    <div class="space-y-6">
-                        <h3 class="font-display text-xs text-indigo-400 tracking-widest uppercase border-b border-indigo-400/30 pb-2">Multi-Domain Frontier</h3>
-                        <p class="text-[11px] font-mono text-slate-300 leading-relaxed uppercase tracking-wider">
-                            Inspired by the persistence of space exploration, Aeronexares operates at the frontier of the possible. What today begins in the technical complexity of a hangar, is only the first validation of a neural network capable of managing infrastructure in any industry. We are the autonomous core that coordinates the interaction between digital logic and physical matter.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="systems" class="py-24 space-y-32">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="space-y-8">
@@ -377,7 +422,7 @@
                     </div>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
                     <p class="text-slate-400 font-mono leading-relaxed uppercase text-sm">
-                        Seamless digital integration connecting technical execution with regulated Manufacturer manuals. The primary interface for AXIOM logistics.
+                        Seamless digital integration connecting technical execution with regulated Manufacturer Manuals. The primary interface for AXIOM logistics.
                     </p>
                 </div>
                 <div class="glass-card p-2 rounded-xl overflow-hidden border-emerald-500/20">
@@ -390,7 +435,8 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="glass-card p-2 rounded-xl overflow-hidden order-2 md:order-1 border-cyan-500/20">
-                    <div class="img-container rounded-lg">
+                    <div class="img-container rounded-lg bg-[#010409]">
+                        <div class="scan-line"></div>
                         <img src="Smart MappingLab.png" alt="3D/6D Mapping System" class="w-2/3 h-auto opacity-90 brightness-110">
                     </div>
                 </div>
@@ -400,13 +446,85 @@
                     </div>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart Mapping Lab</h2>
                     <p class="text-slate-400 font-mono leading-relaxed uppercase text-sm">
-                        High-fidelity environment digitization. Utilizing 3D and 6D mapping to identify components with millimeter precision, creating the spatial awareness required for autonomous robotic coordination.
+                        High-fidelity digitization layer. Utilizing 3D and 6D mapping for absolute part identification, providing millimeter-precision spatial awareness for neural core navigation.
                     </p>
                 </div>
             </div>
         </section>
 
-    </main>
+        <section id="identity" class="py-32 mesh-container border-y border-white/5 px-6 md:px-20">
+            <div class="mesh-grid"></div>
+            <div class="max-w-4xl mx-auto space-y-24 relative z-10">
+                <div class="text-center">
+                    <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.5em] uppercase glow-text">NEURAL ORIGIN</h2>
+                    <p class="text-[10px] font-mono text-cyan-400 tracking-[0.4em] uppercase mt-4">ESTABLISHED 2025 // AXIOM PROTOCOL</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="space-y-6">
+                        <h3 class="font-display text-xs text-cyan-500 tracking-widest uppercase border-b border-cyan-500/30 pb-2">Axiom Governance</h3>
+                        <p class="text-[11px] font-mono text-slate-300 leading-relaxed uppercase tracking-wider">
+                            Aeronexares was not adapted; it was conceived from its start in 2025 under a total AXIOM GOVERNANCE protocol. An IA-native core designed without the friction of legacy systems, ensuring absolute precision.
+                        </p>
+                    </div>
+                    <div class="space-y-6">
+                        <h3 class="font-display text-xs text-emerald-500 tracking-widest uppercase border-b border-emerald-500/30 pb-2">Balance Commitment</h3>
+                        <p class="text-[11px] font-mono text-slate-300 leading-relaxed uppercase tracking-wider">
+                            Technological advancement at the service of planetary preservation. We understand exploration as an ethical duty, optimizing resource consumption and environmental impact.
+                        </p>
+                    </div>
+                    <div class="space-y-6">
+                        <h3 class="font-display text-xs text-indigo-400 tracking-widest uppercase border-b border-indigo-400/30 pb-2">Multi-Domain Frontier</h3>
+                        <p class="text-[11px] font-mono text-slate-300 leading-relaxed uppercase tracking-wider">
+                            We operate at the frontier of the possible, managing industrial complexity with a multi-domain neural network. The autonomous core coordinating digital logic and physical matter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="directory" class="py-28 mesh-container border-b border-white/5 px-6 md:px-20">
+            <div class="mesh-gridOpacity"></div>
+            <div class="directory-flow">
+                
+                <div class="flow-core">
+                    <img src="image_a94946.png" alt="Aeronexares Core" class="w-16 h-auto drop-shadow-lg mb-2">
+                    <span class="font-display text-[10px] text-white uppercase tracking-[0.3em]">Axiom Core</span>
+                    <span class="font-mono text-[8px] text-cyan-500 uppercase tracking-widest">Protocol V1.2</span>
+                </div>
+                
+                <div class="flow-line-vertical"></div>
+                
+                <div id="flow-container">
+                    
+                    <div class="flow-node ethics" data-node="ethics">
+                        <div class="function-desc font-mono text-[8px] text-slate-400 uppercase tracking-widest mb-2 px-6">Protocols of planetary symbiosis and operational integrity.</div>
+                        <h3 class="font-display text-xs text-emerald-500 uppercase tracking-[0.4em] mb-3">Ethics Flow</h3>
+                        <div class="pills-container">
+                            <span class="node-pillar active" data-pill="planetary">Planetary</span>
+                            <span class="node-pillar" data-pill="integrity">Integrity</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-node execution active" data-node="execution">
+                        <div class="function-desc font-mono text-[8px] text-slate-400 uppercase tracking-widest mb-2 px-6 visible">Multiprocessing Manufacturer Manuals and spatial datasets.</div>
+                        <h3 class="font-display text-xs text-cyan-500 uppercase tracking-[0.4em] mb-3">Execution Flow</h3>
+                        <div class="pills-container">
+                            <span class="node-pillar active" data-pill="manuals">Manuals</span>
+                            <span class="node-pillar" data-pill="mapping">Mapping 6D</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-node expansion" data-node="expansion">
+                        <div class="function-desc font-mono text-[8px] text-slate-400 uppercase tracking-widest mb-2 px-6">Domain application in multi-industrial nodes.</div>
+                        <h3 class="font-display text-xs text-indigo-400 uppercase tracking-[0.4em] mb-3">Expansion Flow</h3>
+                        <div class="pills-container">
+                            <span class="node-pillar active" data-pill="multi-industry">Multi-Industry</span>
+                            <span class="node-pillar" data-pill="frontier">Frontier</span>
+                        </div>
+                    </div>
+
+                </div></div></section></main>
 
     <footer class="bg-black border-t border-white/5 py-10 px-10">
         <div class="max-w-7xl mx-auto flex justify-between items-center text-[9px] font-mono text-slate-600 tracking-[0.2em] uppercase">
@@ -423,6 +541,7 @@
         const satellites = document.querySelectorAll('.satellite-node');
         const contents = document.querySelectorAll('.node-content');
 
+        // Navigation for Main Axiom Flow Orbit
         satellites.forEach((sat, index) => {
             sat.addEventListener('click', () => {
                 satellites.forEach(s => s.classList.remove('active'));
@@ -434,9 +553,43 @@
                 });
             });
         });
+        contents.forEach(content => { content.style.transform = `rotate(0deg)`; });
 
-        contents.forEach(content => {
-            content.style.transform = `rotate(0deg)`;
+        // Navigation for Directory (Flow Nodes)
+        const flowNodes = document.querySelectorAll('.flow-node');
+        flowNodes.forEach(node => {
+            node.addEventListener('click', function(e) {
+                // Ignore pill clicks
+                if (e.target.classList.contains('node-pillar')) return;
+
+                // Deactivate others
+                flowNodes.forEach(n => n.classList.remove('active'));
+                
+                // Activate clicked
+                this.classList.add('active');
+
+                // Hide other descriptions
+                document.querySelectorAll('.function-desc').forEach(d => d.classList.remove('visible'));
+                
+                // Show current description
+                const desc = this.querySelector('.function-desc');
+                if (desc) desc.classList.add('visible');
+            });
+        });
+
+        // Pill functionality within flows
+        const pillars = document.querySelectorAll('.node-pillar');
+        pillars.forEach(pill => {
+            pill.addEventListener('click', function() {
+                // Get the parent node (flow-node)
+                const flowNode = this.closest('.flow-node');
+                
+                // Deactivate all pills in this flow
+                flowNode.querySelectorAll('.node-pillar').forEach(p => p.classList.remove('active'));
+                
+                // Activate clicked pill
+                this.classList.add('active');
+            });
         });
     </script>
 </body>
