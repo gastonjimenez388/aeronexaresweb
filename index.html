@@ -1,419 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aeronexares | DATA INTELLIGENCE & DIGITAL SOLUTIONS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --cyan-glow: #00d4ff;
-            --deep-dark: #010409;
-            --panel-bg: rgba(13, 17, 23, 0.9);
-            --ui-border: rgba(0, 212, 255, 0.2);
-            --success-green: #10b981;
-        }
-
-        body {
-            background-color: var(--deep-dark);
-            color: #e2e8f0;
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        .font-display { font-family: 'Orbitron', sans-serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-
-        /* HERO SECTION */
-        .hero-section {
-            position: relative;
-            height: 60vh;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid var(--ui-border);
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            background: #000;
-        }
-
-        .hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 30%;
-            filter: brightness(1.1) contrast(1.2);
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(1, 4, 9, 0.1) 0%, var(--deep-dark) 100%);
-            z-index: 1;
-        }
-
-        .glow-text {
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-        }
-
-        /* AXIOM FLOW VISUALIZATION */
-        .axiom-mega-container {
-            position: relative;
-            width: 100%;
-            min-height: 750px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
-        }
-
-        .viz-wrapper {
-            position: relative;
-            width: 600px;
-            height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #interactive-orbit {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
-        }
-
-        .core-node {
-            position: absolute;
-            z-index: 100;
-            width: 160px;
-            height: 160px;
-            background: rgba(1, 4, 9, 0.95);
-            border: 2px solid var(--cyan-glow);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.25);
-            animation: corePulse 6s ease-in-out infinite;
-            overflow: hidden;
-        }
-
-        .core-logo-img {
-            width: 90px;
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 0 10px var(--cyan-glow));
-        }
-
-        @keyframes corePulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 212, 255, 0.2); }
-            50% { transform: scale(1.03); box-shadow: 0 0 60px rgba(0, 212, 255, 0.4); }
-        }
-
-        /* Satellite Nodes */
-        .satellite-node {
-            position: absolute;
-            width: 130px;
-            height: 130px;
-            background: var(--panel-bg);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(8px);
-            padding: 15px;
-            cursor: pointer;
-            z-index: 50;
-        }
-
-        .satellite-node:hover {
-            border-color: var(--cyan-glow);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-            transform: scale(1.1) !important;
-        }
-
-        .satellite-node.active {
-            border-color: var(--cyan-glow);
-            background: rgba(0, 212, 255, 0.15);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
-        }
-
-        .node-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: none;
-        }
-
-        /* Sub-bubble for Product Logo */
-        .sub-bubble {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: #000;
-            border: 1px solid var(--cyan-glow);
-            border-radius: 50%;
-            top: -20px;
-            right: -40px;
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            z-index: 60;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-        }
-
-        .active .sub-bubble {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .sub-bubble img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .orbit-ring {
-            position: absolute;
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            border-radius: 50%;
-            pointer-events: none;
-            width: 420px;
-            height: 420px;
-        }
-
-        /* SMART LOOKAPP SECTION */
-        .glass-card {
-            background: var(--panel-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--ui-border);
-        }
-
-        .success-border {
-            border-color: var(--success-green) !important;
-        }
-
-        .img-container {
-            width: 100%;
-            aspect-ratio: 1/1;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .scan-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--cyan-glow);
-            box-shadow: 0 0 15px var(--cyan-glow);
-            z-index: 20;
-            animation: scan 4s linear infinite;
-            opacity: 0.5;
-        }
-
-        @keyframes scan {
-            0% { top: 0%; }
-            100% { top: 100%; }
-        }
-    </style>
+    <title>Aeronexares - Smart LookApp & Mapping Lab</title>
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
-    <!-- NAVIGATION -->
-    <nav class="sticky top-0 h-24 w-full flex flex-col z-[100] bg-black/95 backdrop-blur-xl border-b border-white/10">
-        <div class="h-20 w-full flex items-center justify-between px-6 md:px-12">
-            <div class="flex items-center min-w-[200px]">
-                <img src="image_a94946.png" alt="Aeronexares" class="h-12 w-auto object-contain">
-            </div>
-            
-            <div class="hidden lg:flex items-center gap-12">
-                <a href="#axiom" class="text-[10px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 transition-all uppercase">Axiom Flow</a>
-                <a href="#systems" class="text-[10px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 transition-all uppercase">Smart LookApp</a>
-                <a href="#roadmap" class="text-[10px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 transition-all uppercase">Roadmap</a>
-            </div>
+    <header>
+        <h1>SMART LOOKAPP</h1>
+        <p>Reconocimiento de componentes aeronáuticos mediante visión computacional.</p>
+    </header>
 
-            <div class="flex items-center gap-4">
-                <div class="px-4 py-2 border border-emerald-500/20 rounded-sm bg-emerald-950/10">
-                    <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">
-                        SYSTEM_ACTIVE // BUENOS_AIRES
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent"></div>
-    </nav>
+    <section id="smart-lookapp" class="product-section">
+        <p>Sistema diseñado para comparar datos de manuales Boeing con imágenes en tiempo real.</p>
+    </section>
 
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-        <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="Background">
+    <hr>
+
+    <section id="mapping-lab" class="product-section">
+        <div class="product-header">
+            <img src="mapping-lab-logo.png" alt="Smart Mapping Lab Logo" class="phase-logo">
+            <h2>Smart Mapping Lab: Geo-Inteligencia Aeronáutica</h2>
         </div>
-        <div class="hero-overlay"></div>
-        
-        <div class="relative z-10 flex flex-col items-center">
-            <h1 class="font-display text-4xl md:text-7xl text-white tracking-[0.3em] font-bold glow-text text-center uppercase">
-                Aeronexares
-            </h1>
-            <div class="h-[1px] w-48 bg-gradient-to-r from-transparent via-cyan-500 to-transparent my-6 opacity-50"></div>
-            <p class="text-[10px] md:text-[14px] font-mono text-cyan-400 tracking-[0.6em] uppercase opacity-80 text-center">
-                DATA INTELLIGENCE & DIGITAL SOLUTIONS
-            </p>
+        <div class="description-grid">
+            <div class="desc-item">
+                <h3>Precisión 3D/6D</h3>
+                <p>División especializada en la creación de ecosistemas digitales mediante **mapeo de alta fidelidad**. No solo identificamos componentes; establecemos su ubicación exacta en el espacio tridimensional para reconocimiento angular y lumínico.</p>
+            </div>
+            <div class="desc-item">
+                <h3>Base para la Autonomía</h3>
+                <p>Esta "malla espacial" es el pilar fundamental para que, en la etapa final de Aeronexares, nuestras unidades robóticas puedan posicionarse con precisión milimétrica y ejecutar tareas de mantenimiento de forma autónoma.</p>
+            </div>
         </div>
     </section>
 
-    <!-- MAIN CONTENT -->
-    <main class="relative z-10 w-full max-w-7xl mx-auto px-6 py-12">
+    <hr>
 
-        <!-- AXIOM FLOW SECTION -->
-        <section id="axiom" class="py-16 space-y-16">
-            <div class="text-center space-y-4">
-                <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.4em] uppercase glow-text">AXIOM FLOW</h2>
-                <p class="text-[11px] font-mono text-cyan-500 uppercase tracking-[0.5em] max-w-2xl mx-auto opacity-70">
-                    AXIOM Governance System
-                </p>
-                <p class="text-[9px] font-mono text-slate-500 uppercase tracking-[0.3em] max-w-2xl mx-auto">
-                    Select a phase to visualize the product core.
-                </p>
-            </div>
-
-            <div class="axiom-mega-container glass-card rounded-xl">
-                <div class="viz-wrapper">
-                    <div class="orbit-ring"></div>
-                    
-                    <!-- Core Node -->
-                    <div class="core-node">
-                        <img src="image_a94946.png" alt="Aeronexares Logo" class="core-logo-img">
-                        <span class="text-[12px] font-display text-white tracking-widest uppercase mt-2">Axiom Core</span>
-                    </div>
-
-                    <!-- Rotating Orbit Container -->
-                    <div id="interactive-orbit">
-                        <!-- Phase 1: Smart LookApp -->
-                        <div class="satellite-node active" data-index="0" style="top: 0; left: 50%; transform: translate(-50%, 85px);">
-                            <div class="node-content">
-                                <span class="text-[12px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 01</span>
-                                <span class="text-[14px] font-display text-white font-bold uppercase leading-tight">Smart LookApp</span>
-                            </div>
-                            <div class="sub-bubble">
-                                <img src="Smart Lookapp.png" alt="LookApp Logo">
-                            </div>
-                        </div>
-
-                        <!-- Phase 2: Mapping Lab -->
-                        <div class="satellite-node" data-index="1" style="top: 50%; right: 0; transform: translate(-85px, -50%);">
-                            <div class="node-content" style="transform: rotate(-90deg);">
-                                <span class="text-[12px] font-mono text-cyan-500 uppercase tracking-widest mb-1">Phase 02</span>
-                                <span class="text-[14px] font-display text-white font-bold uppercase leading-tight">Mapping Lab</span>
-                            </div>
-                            <div class="sub-bubble">
-                                <img src="Smart MappingLab.png" alt="MappingLab Logo">
-                            </div>
-                        </div>
-
-                        <!-- Phase 3: Robot AN1 -->
-                        <div class="satellite-node" data-index="2" style="bottom: 0; left: 50%; transform: translate(-50%, -85px);">
-                            <div class="node-content" style="transform: rotate(-180deg);">
-                                <span class="text-[12px] font-mono text-slate-500 uppercase tracking-widest mb-1">Phase 03</span>
-                                <span class="text-[14px] font-display text-slate-300 font-bold uppercase leading-tight">Robot AN1</span>
-                            </div>
-                            <!-- No sub-bubble image for now -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SMART LOOKAPP DESCRIPTION -->
-        <section id="systems" class="py-24 grid grid-cols-1 md:grid-cols-2 gap-20 items-center border-t border-white/5">
-            <div class="space-y-10">
-                <div class="inline-block px-4 py-1 border border-emerald-500/30 rounded-full">
-                    <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">Status: Link Active</span>
-                </div>
-                <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
-                <p class="text-base text-slate-400 font-mono leading-relaxed uppercase">
-                    The ultimate digital bridge. Smart LookApp instantly connects maintenance teams with manufacturer-regulated documentation.
-                </p>
-            </div>
-
-            <div class="glass-card p-2 rounded-lg overflow-hidden relative group success-border">
-                <div class="img-container rounded-sm">
-                    <div class="scan-line"></div>
-                    <img src="Gemini_Generated_Image_5331oi5331oi5331.jpg" 
-                         alt="Mechanic using Smart LookApp" 
-                         class="opacity-95">
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="mt-48 bg-black border-t border-white/5 py-12 px-10">
-        <div class="max-w-7xl mx-auto flex justify-between text-[10px] font-mono text-slate-800 tracking-[0.3em] uppercase">
-            <span>© 2026 Aeronexares Global Network</span>
-            <span class="text-emerald-900">System State: Nominal</span>
+    <section id="vision-mision" class="vision-section">
+        <h2>Nuestra Identidad</h2>
+        <div class="content-block">
+            <h3>Génesis IA-Native</h3>
+            <p>Aeronexares inició su trayectoria en **2025**, concebida desde su primer día bajo una arquitectura **Full IA**. Nuestra visión es liderar la transición hacia un mantenimiento aeronáutico donde la inteligencia artificial no sea una herramienta adicional, sino el núcleo de toda la operación técnica y logística.</p>
         </div>
+    </section>
+
+    <hr>
+
+    <section id="contacto-axiom" class="contact-section">
+        <h2>Portal de Comunicación - Directorio AXIOM</h2>
+        <p class="system-notice">
+            <strong>SYSTEM NOTICE:</strong> Toda la información recibida es canalizada a través del **Directorio AXIOM**, el cual evalúa la viabilidad de la consulta y planifica la respuesta de manera autónoma. Este proceso de IA opera bajo protocolos de **supervisión humana** constante para asegurar la excelencia operativa y seguridad técnica.
+        </p>
+        
+        <form id="axiom-form" class="tech-form">
+            <input type="text" name="nombre" placeholder="Nombre/Entidad" required>
+            <input type="email" name="email" placeholder="Email de Enlace (employeeId)" required>
+            <textarea name="mensaje" placeholder="Transmisión de datos / Consulta técnica" required></textarea>
+            <button type="submit" class="btn-primary">Enviar al Directorio AXIOM</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2026 Aeronexares.com - Todos los derechos reservados.</p>
     </footer>
 
-    <script>
-        const orbit = document.getElementById('interactive-orbit');
-        const satellites = document.querySelectorAll('.satellite-node');
-        const contents = document.querySelectorAll('.node-content');
-
-        satellites.forEach((sat, index) => {
-            sat.addEventListener('click', () => {
-                // Remove active class from all
-                satellites.forEach(s => s.classList.remove('active'));
-                
-                // Add active to clicked
-                sat.classList.add('active');
-
-                // Calculate rotation to bring this phase to the top (0 degrees)
-                // Phase 0 is at 0, Phase 1 is at 90, Phase 2 is at 180
-                const rotationAngle = -index * 90;
-                
-                // Rotate the orbit container
-                orbit.style.transform = `rotate(${rotationAngle}deg)`;
-
-                // Counter-rotate the text nodes so they stay horizontal
-                contents.forEach(content => {
-                    content.style.transform = `rotate(${-rotationAngle}deg)`;
-                });
-            });
-        });
-
-        // Initialize first state (already active in HTML)
-        contents.forEach(content => {
-            content.style.transform = `rotate(0deg)`;
-        });
-    </script>
 </body>
 </html>
