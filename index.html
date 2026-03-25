@@ -36,71 +36,122 @@
         }
         @keyframes meshFlow { 0% { transform: perspective(1000px) rotateX(45deg) translateY(0); } 100% { transform: perspective(1000px) rotateX(45deg) translateY(50px); } }
 
-        /* AXIOM FLOW INTERACTIVE - MEJORADO PARA EFECTO PLANETARIO */
+        /* AXIOM FLOW INTERACTIVE - NUEVA PERSPECTIVA INCLINADA 3D */
         .axiom-mega-container {
-            position: relative; width: 100%; min-height: 700px; display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, transparent 70%); /* Resplandor central */
+            position: relative; width: 100%; min-height: 800px; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.04) 0%, transparent 70%); /* Resplandor central */
         }
-        .viz-wrapper { position: relative; width: 500px; height: 500px; display: flex; align-items: center; justify-content: center; }
         
-        /* Órbita visual punteada */
+        /* Contenedor principal con perspectiva 3D */
+        .viz-wrapper { 
+            position: relative; 
+            width: 700px; 
+            height: 700px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            perspective: 2000px; /* Perspectiva global */
+        }
+        
+        /* Órbita visual planetaria elíptica */
         .orbit-ring {
             position: absolute;
-            border: 1px dashed rgba(0, 212, 255, 0.15);
+            border: 1px dashed rgba(0, 212, 255, 0.2);
             border-radius: 50%;
             pointer-events: none;
-            width: 350px;
-            height: 350px;
+            width: 500px;
+            height: 500px;
+            transform: rotateX(70deg); /* La inclinación mágica */
+            z-index: 10;
         }
 
+        /* Contenedor de satélites que rota con la misma inclinación */
         #interactive-orbit {
-            position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform;
+            position: absolute; 
+            width: 500px; 
+            height: 500px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            transform: rotateX(70deg); /* Mantener la inclinación */
+            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform;
+            z-index: 20;
         }
 
+        /* El núcleo central no se inclina (el Sol es esférico) */
         .core-node {
-            position: absolute; z-index: 100; width: 150px; height: 150px; background: rgba(1, 4, 9, 0.95);
-            border: 2px solid var(--cyan-glow); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.25); /* Resplandor central de "estrella" */
+            position: absolute; 
+            z-index: 100; 
+            width: 150px; 
+            height: 150px; 
+            background: rgba(1, 4, 9, 0.98);
+            border: 2px solid var(--cyan-glow); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: 0 0 60px rgba(0, 212, 255, 0.3); /* Resplandor central de "estrella" */
+            transform: translateZ(0); /* Evitar glitch de profundidad */
         }
 
+        /* Satélites: se deforman en elipses por la inclinación */
         .satellite-node {
-            position: absolute; width: 130px; height: 130px; background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(0, 212, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); backdrop-filter: blur(10px); cursor: pointer; z-index: 50;
+            position: absolute; 
+            width: 130px; 
+            height: 130px; 
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(0, 212, 255, 0.1); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            backdrop-filter: blur(10px); 
+            cursor: pointer; 
+            z-index: 50;
         }
         
         .satellite-node.active {
             border-color: var(--cyan-glow);
-            background: rgba(0, 212, 255, 0.05);
+            background: rgba(0, 212, 255, 0.06);
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.3), inset 0 0 10px rgba(0, 212, 255, 0.1); /* Efecto planetario con luz interior */
         }
         
-        .node-content { display: flex; flex-direction: column; align-items: center; transition: transform 1.2s; pointer-events: none; }
+        /* Contenido: necesitamos contra-rotar el contenido para que esté derecho */
+        .node-content { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            pointer-events: none; 
+            transform: rotateX(-70deg); /* Contra-rotación para que el texto esté derecho */
+            transition: transform 1.2s;
+        }
         
-        /* Sub-burbujas adaptadas para órbita planetaria y readaptación de imágenes */
+        /* Sub-burbujas adaptadas para órbita planetaria inclinda */
         .sub-bubble {
             position: absolute;
             width: 80px;
             height: 80px;
-            background: rgba(1, 4, 9, 0.95); /* Fondo oscuro para que el logo flote */
+            background: rgba(1, 4, 9, 0.98); /* Fondo oscuro para que el logo flote */
             border: 2px solid var(--cyan-glow);
             border-radius: 50%;
             top: -20px;
             right: -20px;
             opacity: 0;
-            transform: scale(0) rotate(0deg); /* Corrección de rotación */
+            transform: scale(0);
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 0 25px rgba(0, 212, 255, 0.4); /* Resplandor de satélite */
+            z-index: 60;
         }
         
         .active .sub-bubble {
             opacity: 1;
-            transform: scale(1) rotate(0deg); /* Asegurar que el satélite esté derecho */
+            transform: scale(1);
         }
 
         /* Adaptación de imágenes */
@@ -112,7 +163,7 @@
             transform: scale(0.9); /* Un pequeño margen */
         }
 
-        /* MappingLab enderezado y centrado */
+        /* MappingLab enderezado, centrado y ampliado */
         .sub-bubble img[src="Smart MappingLab.png"] {
             object-fit: cover; /* MappingLab usa la versión de átomo centrada */
             object-position: center;
@@ -217,7 +268,7 @@
                     <div class="inline-block px-3 py-1 border border-cyan-500/30 rounded-full">
                         <span class="text-[9px] font-mono text-cyan-400 tracking-widest uppercase">Module: Phase 02</span>
                     </div>
-                    <h2 class="text-5xl font-display text-white tracking-widest uppercase">Mapping Lab</h2>
+                    <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart Mapping Lab</h2>
                     <p class="text-slate-400 font-mono text-[11px] leading-relaxed uppercase tracking-wider">
                         High-fidelity environment digitization layer. It is the spatial consciousness core of the project, utilizing 3D and 6D mapping techniques to identify components with millimeter precision. It creates the detailed mapping of each part and location, providing the necessary "vision" for the system to recognize angles, lighting, and distances, serving as the foundation for future robotic coordination.
                     </p>
@@ -340,11 +391,16 @@
             sat.addEventListener('click', () => {
                 satellites.forEach(s => s.classList.remove('active'));
                 sat.classList.add('active');
-                const angle = -index * 90;
-                orbit.style.transform = `rotate(${angle}deg)`;
                 
-                // Corrección para que el contenido (burbuja y texto) no rote
-                contents.forEach(c => c.style.transform = `rotate(${-angle}deg)`);
+                const angle = -index * 90;
+                
+                // Rotar el contenedor principal (con su inclinación)
+                orbit.style.transform = `rotateX(70deg) rotate(${angle}deg)`;
+                
+                // Contra-rotar cada contenido para que permanezca derecho e inclinado
+                contents.forEach(c => {
+                    c.style.transform = `rotate(${-angle}deg) rotateX(-70deg)`;
+                });
             });
         });
     </script>
