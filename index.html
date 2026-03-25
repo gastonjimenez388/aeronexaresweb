@@ -12,7 +12,6 @@
             --deep-dark: #010409;
             --panel-bg: rgba(13, 17, 23, 0.9);
             --ui-border: rgba(0, 212, 255, 0.2);
-            --success-green: #10b981;
         }
 
         body {
@@ -125,25 +124,25 @@
 
         .satellite-node {
             position: absolute;
-            width: 140px;
-            height: 140px;
-            background: var(--panel-bg);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            width: 160px;
+            height: 160px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(8px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
             cursor: pointer;
             z-index: 50;
         }
 
         .satellite-node.active {
             border-color: var(--cyan-glow);
-            background: rgba(0, 212, 255, 0.15);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3), inset 0 0 20px rgba(0, 212, 255, 0.2);
+            transform: scale(1.1);
         }
 
         .node-content {
@@ -153,40 +152,41 @@
             justify-content: center;
             transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
+            z-index: 2;
         }
 
-        /* SUB-BUBBLE IMPROVED JUSTIFICATION */
+        /* FIXED SUB-BUBBLE DESIGN */
         .sub-bubble {
             position: absolute;
-            width: 70px;
-            height: 70px;
-            background: #000;
-            border: 1.5px solid var(--cyan-glow);
+            width: 85px;
+            height: 85px;
+            background: radial-gradient(circle, rgba(1, 4, 9, 0.8) 0%, rgba(1, 4, 9, 1) 100%);
+            border: 2px solid var(--cyan-glow);
             border-radius: 50%;
-            top: -15px;
-            right: -35px;
+            top: -20px;
+            right: -20px;
             opacity: 0;
             transform: scale(0);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             z-index: 60;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5), inset 0 0 15px rgba(0, 212, 255, 0.3);
         }
 
         .active .sub-bubble {
             opacity: 1;
             transform: scale(1);
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, #000 70%);
         }
 
         .sub-bubble img {
-            width: 80%; /* Creates padding to prevent square edges */
-            height: 80%;
-            object-fit: contain; /* Centers and fits icon within circle */
-            filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.3));
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* This makes the icon fill the circle properly */
+            mix-blend-mode: screen; /* Blends dark backgrounds into the UI */
+            filter: contrast(1.1) brightness(1.1);
         }
 
         .orbit-ring {
@@ -194,8 +194,8 @@
             border: 1px solid rgba(0, 212, 255, 0.1);
             border-radius: 50%;
             pointer-events: none;
-            width: 400px;
-            height: 400px;
+            width: 420px;
+            height: 420px;
         }
 
         .glass-card {
@@ -248,9 +248,7 @@
             </div>
 
             <div class="px-4 py-1.5 border border-emerald-500/20 rounded-sm">
-                <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">
-                    SYSTEM_ACTIVE // 2026
-                </span>
+                <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">SYSTEM_ACTIVE // 2026</span>
             </div>
         </div>
         <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent"></div>
@@ -258,17 +256,12 @@
 
     <section class="hero-section">
         <div class="hero-bg">
-            <img src="planet.avif" alt="Global Network Background">
+            <img src="planet.avif" alt="Core Terminal Background">
         </div>
         <div class="hero-overlay"></div>
-        
         <div class="relative z-10 flex flex-col items-center">
-            <h1 class="font-display text-4xl md:text-7xl text-white tracking-[0.3em] font-bold glow-text text-center uppercase">
-                Aeronexares
-            </h1>
-            <p class="mt-6 text-[10px] md:text-[14px] font-mono text-cyan-400 tracking-[0.6em] uppercase opacity-80 text-center">
-                DATA INTELLIGENCE & DIGITAL SOLUTIONS
-            </p>
+            <h1 class="font-display text-4xl md:text-7xl text-white tracking-[0.3em] font-bold glow-text text-center uppercase">Aeronexares</h1>
+            <p class="mt-6 text-[10px] md:text-[14px] font-mono text-cyan-400 tracking-[0.6em] uppercase opacity-80 text-center">DATA INTELLIGENCE & DIGITAL SOLUTIONS</p>
         </div>
     </section>
 
@@ -283,35 +276,35 @@
                     <div class="orbit-ring"></div>
                     
                     <div class="core-node">
-                        <img src="image_a94946.png" alt="Aeronexares Logo" class="core-logo-img">
+                        <img src="image_a94946.png" alt="Aeronexares Core" class="core-logo-img">
                         <span class="text-[10px] font-display text-white tracking-widest uppercase mt-2">Core</span>
                     </div>
 
                     <div id="interactive-orbit">
-                        <div class="satellite-node active" data-index="0" style="top: 0; left: 50%; transform: translate(-50%, -70px);">
+                        <div class="satellite-node active" data-index="0" style="top: 0; left: 50%; transform: translate(-50%, -80px);">
                             <div class="node-content">
                                 <span class="text-[10px] font-mono text-cyan-500 mb-1">PHASE 01</span>
-                                <span class="text-[12px] font-display text-white font-bold uppercase">Smart LookApp</span>
+                                <span class="text-[12px] font-display text-white font-bold uppercase tracking-widest">Smart LookApp</span>
                             </div>
                             <div class="sub-bubble">
-                                <img src="Smart Lookapp.png" alt="LookApp Logo">
+                                <img src="Smart Lookapp.png" alt="LookApp Icon">
                             </div>
                         </div>
 
-                        <div class="satellite-node" data-index="1" style="top: 50%; right: 0; transform: translate(70px, -50%);">
+                        <div class="satellite-node" data-index="1" style="top: 50%; right: 0; transform: translate(80px, -50%);">
                             <div class="node-content">
                                 <span class="text-[10px] font-mono text-cyan-500 mb-1">PHASE 02</span>
-                                <span class="text-[12px] font-display text-white font-bold uppercase">Mapping Lab</span>
+                                <span class="text-[12px] font-display text-white font-bold uppercase tracking-widest">Mapping Lab</span>
                             </div>
                             <div class="sub-bubble">
-                                <img src="Smart MappingLab.png" alt="MappingLab Logo">
+                                <img src="Smart MappingLab.png" alt="MappingLab Icon">
                             </div>
                         </div>
 
-                        <div class="satellite-node" data-index="2" style="bottom: 0; left: 50%; transform: translate(-50%, 70px);">
+                        <div class="satellite-node" data-index="2" style="bottom: 0; left: 50%; transform: translate(-50%, 80px);">
                             <div class="node-content">
                                 <span class="text-[10px] font-mono text-slate-500 mb-1">PHASE 03</span>
-                                <span class="text-[12px] font-display text-slate-400 font-bold uppercase">Robot AN1</span>
+                                <span class="text-[12px] font-display text-slate-400 font-bold uppercase tracking-widest">Robot AN1</span>
                             </div>
                         </div>
                     </div>
@@ -327,13 +320,13 @@
                     </div>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
                     <p class="text-slate-400 font-mono leading-relaxed uppercase text-sm">
-                        The definitive digital bridge. Smart LookApp instantly connects maintenance teams with regulated technical documentation.
+                        Seamless digital integration. Smart LookApp bridges maintenance execution with regulated Boeing technical manuals in real-time.
                     </p>
                 </div>
                 <div class="glass-card p-2 rounded-xl overflow-hidden relative border-emerald-500/20">
                     <div class="img-container rounded-lg">
                         <div class="scan-line"></div>
-                        <img src="mecanico_tablet.png" alt="Maintenance Operations" class="w-full h-full object-cover">
+                        <img src="mecanico_tablet.png" alt="Maintenance Tech Interface" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
@@ -341,7 +334,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="glass-card p-2 rounded-xl overflow-hidden order-2 md:order-1">
                     <div class="img-container rounded-lg">
-                        <img src="Smart MappingLab.png" alt="Aeronautical Mapping" class="w-2/3 h-auto opacity-80">
+                        <img src="Smart MappingLab.png" alt="3D/6D Mapping System" class="w-2/3 h-auto opacity-80">
                     </div>
                 </div>
                 <div class="space-y-8 order-1 md:order-2">
@@ -350,19 +343,17 @@
                     </div>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Mapping Lab</h2>
                     <p class="text-slate-400 font-mono leading-relaxed uppercase text-sm">
-                        Aeronautical Geo-Intelligence. 3D and 6D mapping for precise component identification, building the core for future robotic autonomy.
+                        High-fidelity aviation geo-intelligence. Utilizing 3D and 6D mapping for component recognition and robotic positioning.
                     </p>
                 </div>
             </div>
         </section>
 
-        <section id="identity" class="py-24 border-t border-white/5">
-            <div class="max-w-3xl mx-auto text-center space-y-10">
-                <h2 class="text-3xl font-display text-white tracking-[0.3em] uppercase">AI-Native Genesis</h2>
-                <p class="text-slate-400 font-mono uppercase text-xs leading-loose tracking-widest">
-                    Aeronexares began in 2025 under a Full AI architecture. We don't adapt legacy processes; we design the future of aviation maintenance where AI is the primary logistical core.
-                </p>
-            </div>
+        <section id="identity" class="py-24 border-t border-white/5 text-center">
+            <h2 class="text-3xl font-display text-white tracking-[0.3em] uppercase mb-10">AI-Native Genesis</h2>
+            <p class="max-w-3xl mx-auto text-slate-400 font-mono uppercase text-xs leading-loose tracking-widest">
+                Aeronexares was conceived as a Full AI architecture in 2025. We design aviation maintenance futures where AI manages the core logistics and technical execution.
+            </p>
         </section>
 
         <section id="contact" class="py-24 border-t border-white/5">
@@ -372,9 +363,9 @@
                     <p class="text-[9px] font-mono text-slate-500 uppercase mt-2">Secure Link Transmission</p>
                 </div>
                 <form class="space-y-4">
-                    <input type="text" placeholder="ENTITY_NAME / employeeId" class="w-full bg-black/50 border border-white/10 p-4 font-mono text-xs text-cyan-400 focus:border-cyan-500 outline-none transition-all" required>
-                    <input type="email" placeholder="LINK_EMAIL" class="w-full bg-black/50 border border-white/10 p-4 font-mono text-xs text-cyan-400 focus:border-cyan-500 outline-none transition-all" required>
-                    <textarea placeholder="DATA_TRANSMISSION / TECHNICAL_QUERY" rows="4" class="w-full bg-black/50 border border-white/10 p-4 font-mono text-xs text-cyan-400 focus:border-cyan-500 outline-none transition-all" required></textarea>
+                    <input type="text" placeholder="ENTITY_NAME / employeeId" class="w-full bg-black/50 border border-white/10 p-4 font-mono text-xs text-cyan-400 focus:border-cyan-500 outline-none" required>
+                    <input type="email" placeholder="LINK_EMAIL" class="w-full bg-black/50 border border-white/10 p-4 font-mono text-xs text-cyan-400 focus:border-cyan-500 outline-none" required>
+                    <textarea placeholder="DATA_TRANSMISSION" rows="4" class="w-full bg-black/50 border border-white/10 p-4 font-mono text-xs text-cyan-400 focus:border-cyan-500 outline-none" required></textarea>
                     <button type="submit" class="w-full py-4 bg-cyan-900/20 border border-cyan-500/50 text-cyan-400 font-display text-[10px] tracking-[0.4em] uppercase hover:bg-cyan-500 hover:text-black transition-all">Transmit to Axiom</button>
                 </form>
             </div>
@@ -387,7 +378,7 @@
             <span>© 2026 Aeronexares Global Network</span>
             <div class="flex gap-6">
                 <span class="text-emerald-900">System State: Nominal</span>
-                <span>Node: EZE_BA</span>
+                <span>EmployeeID: English-Strict</span>
             </div>
         </div>
     </footer>
@@ -401,10 +392,8 @@
             sat.addEventListener('click', () => {
                 satellites.forEach(s => s.classList.remove('active'));
                 sat.classList.add('active');
-
                 const rotationAngle = -index * 90;
                 orbit.style.transform = `rotate(${rotationAngle}deg)`;
-
                 contents.forEach(content => {
                     content.style.transform = `rotate(${-rotationAngle}deg)`;
                 });
