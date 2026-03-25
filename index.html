@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aeronexares | Universal System</title>
+    <title>Aeronexares | DATA INTELLIGENCE & DIGITAL SOLUTIONS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -12,6 +12,7 @@
             --deep-dark: #010409;
             --panel-bg: rgba(13, 17, 23, 0.9);
             --ui-border: rgba(0, 212, 255, 0.2);
+            --emerald-glow: #10b981;
             --gold-accent: #ffaa00;
         }
 
@@ -19,218 +20,209 @@
             background-color: var(--deep-dark);
             color: #e2e8f0;
             font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
             overflow-x: hidden;
         }
 
         .font-display { font-family: 'Orbitron', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* HERO COSMOS */
-        .cosmos-engine {
+        /* AXIOM FLOW PLANETARY SYSTEM */
+        .planetary-container {
             position: relative;
             width: 100%;
-            min-height: 100vh;
-            background: radial-gradient(circle at 20% 50%, rgba(255, 170, 0, 0.05) 0%, transparent 50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 20px;
-        }
-
-        /* STELLAR MAP (Based on aeronexares-planetario.jpg) */
-        .stellar-map {
-            position: relative;
-            width: 100%;
-            max-width: 1100px;
+            max-width: 1000px;
             aspect-ratio: 16 / 9;
             background: url('aeronexares-planetario.jpg') no-repeat center center;
             background-size: contain;
+            margin: 0 auto;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
-            border-radius: 4px;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        /* INTERACTIVE TRIGGERS */
-        .trigger-zone {
+        /* ZONAS INTERACTIVAS (Triggers) */
+        .planet-trigger {
             position: absolute;
             border-radius: 50%;
             cursor: pointer;
+            z-index: 20;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 20;
         }
 
-        /* Precise locations from your planetary map */
-        .trigger-lookapp { top: 43%; left: 37.5%; width: 11%; height: 20%; }
-        .trigger-mapping { top: 32%; left: 56.5%; width: 13%; height: 23%; }
-        .trigger-an1 { top: 22%; left: 77.5%; width: 11%; height: 19%; }
+        /* Coordenadas basadas en aeronexares-planetario.jpg */
+        .trigger-lookapp { top: 43%; left: 37.5%; width: 12%; height: 21%; }
+        .trigger-mapping { top: 32%; left: 56.5%; width: 14%; height: 25%; }
+        .trigger-an1 { top: 22%; left: 77.5%; width: 12%; height: 21%; }
 
-        /* LOGO REVELATOR */
-        .logo-revelator {
+        /* REVELACIÓN DE LOGOS */
+        .logo-popup {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+            width: 110%;
+            height: 110%;
             background: rgba(1, 4, 9, 0.9);
             border: 2px solid var(--cyan-glow);
+            border-radius: 50%;
             opacity: 0;
-            transform: scale(0.4) rotate(-20deg);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
             pointer-events: none;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
 
-        .trigger-zone:hover .logo-revelator,
-        .trigger-zone.active .logo-revelator {
+        .planet-trigger:hover .logo-popup {
             opacity: 1;
-            transform: scale(1.15) rotate(0deg);
+            transform: scale(1.1);
         }
 
-        .logo-revelator img {
-            width: 75%;
-            height: auto;
-            filter: drop-shadow(0 0 8px var(--cyan-glow));
-        }
+        .logo-popup img { width: 70%; height: auto; }
 
-        /* DATA OVERLAY */
-        .data-ghost {
-            position: absolute;
-            bottom: -50px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            color: var(--gold-accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0;
-            transition: all 0.4s;
-            text-align: center;
-            width: 200px;
+        /* MESH BACKGROUND */
+        .mesh-container { position: relative; overflow: hidden; }
+        .mesh-grid {
+            position: absolute; inset: -50% 0;
+            background-image: linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px; transform: perspective(1000px) rotateX(45deg);
+            animation: meshFlow 40s linear infinite; z-index: 0; opacity: 0.1;
         }
+        @keyframes meshFlow { 0% { transform: perspective(1000px) rotateX(45deg) translateY(0); } 100% { transform: perspective(1000px) rotateX(45deg) translateY(50px); } }
 
-        .trigger-zone:hover .data-ghost {
-            opacity: 1;
-            bottom: -35px;
-        }
+        .glass-card { background: var(--panel-bg); backdrop-filter: blur(25px); border: 1px solid var(--ui-border); }
+        .glow-text { text-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
 
-        /* NEURAL ORIGIN SECTION */
-        .neural-origin {
-            padding: 100px 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            background: linear-gradient(to bottom, transparent, rgba(0,212,255,0.02));
-        }
-
+        /* SCAN LINE ANIMATION */
         .scan-line {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
-            box-shadow: 0 0 10px var(--cyan-glow);
-            margin: 40px 0;
-            opacity: 0.3;
+            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--cyan-glow); box-shadow: 0 0 15px var(--cyan-glow);
+            animation: scan 6s linear infinite; z-index: 10; opacity: 0.5;
         }
-
-        .glass-card {
-            background: rgba(13, 17, 23, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            padding: 30px;
-            transition: border 0.4s;
-        }
-
-        .glass-card:hover {
-            border-color: var(--cyan-glow);
-        }
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5 px-8 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <span class="font-display text-white tracking-widest text-sm">AERONEXARES</span>
+    <nav class="sticky top-0 h-20 w-full z-[100] bg-black/90 backdrop-blur-xl border-b border-white/10 flex items-center justify-between px-6 md:px-12">
+        <div class="flex items-center gap-6">
+            <img src="image_a94946.png" alt="Aeronexares" class="h-8 w-auto">
+            <div class="px-4 py-1.5 border border-emerald-500/20 rounded-sm">
+                <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">SYSTEM_ACTIVE // 2026</span>
+            </div>
         </div>
-        <div class="hidden md:flex gap-8 text-[10px] font-mono text-slate-400 uppercase tracking-widest">
-            <a href="#system" class="hover:text-cyan-400 transition-colors">Planetary System</a>
-            <a href="#origin" class="hover:text-cyan-400 transition-colors">Neural Origin</a>
-            <a href="#apps" class="hover:text-cyan-400 transition-colors">Applications</a>
+        <div class="hidden lg:flex gap-10">
+            <a href="#axiom" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Axiom Flow</a>
+            <a href="#systems" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Solutions</a>
+            <a href="#identity" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Identity</a>
         </div>
     </nav>
 
-    <section id="system" class="cosmos-engine">
-        <div class="text-center mb-16 space-y-4">
-            <h1 class="font-display text-4xl md:text-5xl text-white tracking-[0.4em] uppercase">The Axiom System</h1>
-            <p class="font-mono text-[10px] text-cyan-500 tracking-[0.6em] uppercase">Intelligence organized by logic</p>
+    <section class="relative h-[60vh] flex items-center justify-center overflow-hidden border-b border-white/5">
+        <div class="absolute inset-0 z-0"><img src="planet.avif" class="w-full h-full object-cover opacity-20 contrast-125"></div>
+        <div class="relative z-10 text-center px-6">
+            <h1 class="font-display text-4xl md:text-7xl text-white tracking-[0.5em] font-bold glow-text uppercase">Aeronexares</h1>
+            <p class="mt-8 text-[10px] font-mono text-cyan-400 tracking-[0.8em] uppercase opacity-70">Intelligence organized by logic</p>
         </div>
+    </section>
 
-        <div class="stellar-map">
+    <main class="relative z-10 max-w-7xl mx-auto px-6 py-24 space-y-48">
+
+        <section id="axiom" class="text-center space-y-16">
+            <div class="space-y-4">
+                <h2 class="text-3xl font-display text-white tracking-[0.5em] uppercase glow-text">AXIOM FLOW</h2>
+                <p class="text-[9px] font-mono text-slate-500 tracking-[0.4em] uppercase">Interactive Planetary System Map</p>
+            </div>
             
-            <div class="trigger-zone trigger-lookapp" onclick="window.location.href='#lookapp'">
-                <div class="logo-revelator">
-                    <img src="image_a4b28a.png" alt="Smart LookApp">
+            <div class="planetary-container shadow-2xl">
+                <div class="planet-trigger trigger-lookapp" onclick="document.getElementById('systems').scrollIntoView()">
+                    <div class="logo-popup">
+                        <img src="image_a4b28a.png" alt="Smart LookApp">
+                    </div>
                 </div>
-                <div class="data-ghost">V: 35 | L: 1.0 | T: 0.8</div>
-            </div>
 
-            <div class="trigger-zone trigger-mapping" onclick="window.location.href='#mapping'">
-                <div class="logo-revelator">
-                    <img src="Smart MappingLab.png" alt="Mapping Lab">
+                <div class="planet-trigger trigger-mapping" onclick="document.getElementById('mapping-detail').scrollIntoView()">
+                    <div class="logo-popup">
+                        <img src="Smart MappingLab.png" alt="Mapping Lab">
+                    </div>
                 </div>
-                <div class="data-ghost">V: 18 | L: 4.0 | T: 5.5</div>
-            </div>
 
-            <div class="trigger-zone trigger-an1">
-                <div class="logo-revelator" style="border-color: #555;">
-                    <span class="text-[9px] font-mono text-white text-center">AN1<br>NEURAL_LOCKED</span>
+                <div class="planet-trigger trigger-an1">
+                    <div class="logo-popup" style="border-color: #444;">
+                        <span class="text-[8px] font-mono text-white tracking-widest">AN1_LOCKED</span>
+                    </div>
                 </div>
-                <div class="data-ghost">V: 8 | L: 20.0 | T: 60.0</div>
+            </div>
+        </section>
+
+        <section id="systems" class="space-y-40">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+                <div class="space-y-8">
+                    <div class="inline-block px-3 py-1 border border-emerald-500/30 rounded-full">
+                        <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">Module: Phase 01</span>
+                    </div>
+                    <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
+                    <p class="text-slate-400 font-mono text-[11px] leading-relaxed uppercase tracking-wider">
+                        Seamless digital integration connecting technical execution with regulated manufacturer manuals.
+                    </p>
+                </div>
+                <div class="glass-card p-2 rounded-2xl relative overflow-hidden">
+                    <div class="scan-line"></div>
+                    <img src="mecanico_tablet.png" class="w-full h-full object-cover rounded-xl grayscale opacity-40 hover:opacity-100 hover:grayscale-0 transition-all duration-1000">
+                </div>
             </div>
 
+            <div id="mapping-detail" class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+                <div class="glass-card p-2 rounded-2xl relative overflow-hidden order-2 md:order-1 border-cyan-500/20">
+                    <div class="scan-line"></div>
+                    <img src="Smart MappingLab.png" class="w-full h-auto opacity-70">
+                </div>
+                <div class="space-y-8 order-1 md:order-2">
+                    <div class="inline-block px-3 py-1 border border-cyan-500/30 rounded-full">
+                        <span class="text-[9px] font-mono text-cyan-400 tracking-widest uppercase">Module: Phase 02</span>
+                    </div>
+                    <h2 class="text-5xl font-display text-white tracking-widest uppercase">Mapping Lab</h2>
+                    <p class="text-slate-400 font-mono text-[11px] leading-relaxed uppercase tracking-wider">
+                        Spatial consciousness core identifying components with precision to establish the mapping for robotic placement.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="identity" class="mesh-container py-32 border-y border-white/5">
+            <div class="mesh-grid"></div>
+            <div class="max-w-5xl mx-auto relative z-10 px-6 space-y-20">
+                <div class="text-center">
+                    <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.5em] uppercase glow-text">NEURAL ORIGIN</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="glass-card p-8 space-y-4">
+                        <h3 class="font-display text-[10px] text-cyan-500 tracking-widest uppercase">Axiom Governance</h3>
+                        <p class="text-[10px] font-mono text-slate-400 leading-relaxed uppercase tracking-wider">Born without legacy friction, positioning AI as the ethical substrate for absolute precision.</p>
+                    </div>
+                    <div class="glass-card p-8 space-y-4">
+                        <h3 class="font-display text-[10px] text-emerald-500 tracking-widest uppercase">Balance Commitment</h3>
+                        <p class="text-[10px] font-mono text-slate-400 leading-relaxed uppercase tracking-wider">Technology at the service of planetary preservation and resource optimization.</p>
+                    </div>
+                    <div class="glass-card p-8 space-y-4">
+                        <h3 class="font-display text-[10px] text-indigo-400 tracking-widest uppercase">Multi-Domain Frontier</h3>
+                        <p class="text-[10px] font-mono text-slate-400 leading-relaxed uppercase tracking-wider">Neural networks coordinating digital logic with physical matter across industries.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-black border-t border-white/5 py-12 px-10 flex justify-between items-center text-[9px] font-mono text-slate-600 uppercase tracking-[0.4em]">
+        <span>© 2026 Aeronexares Global Network</span>
+        <div class="flex gap-10">
+            <span class="text-emerald-900">Protocol: AXIOM_GOV</span>
+            <span>Node: EZE_BA</span>
         </div>
-    </section>
-
-    <section id="origin" class="neural-origin max-w-7xl mx-auto">
-        <div class="text-center mb-20">
-            <h2 class="font-display text-3xl text-white tracking-[0.5em] uppercase">Neural Origin</h2>
-            <div class="scan-line"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
-            <div class="glass-card">
-                <h3 class="font-display text-[12px] text-cyan-400 mb-6 tracking-widest uppercase">Axiom Governance</h3>
-                <p class="text-[11px] font-mono text-slate-400 leading-relaxed uppercase">Born without legacy system friction, positioning AI as the ethical and operational substrate for absolute precision.</p>
-            </div>
-            <div class="glass-card">
-                <h3 class="font-display text-[12px] text-emerald-400 mb-6 tracking-widest uppercase">Balance Commitment</h3>
-                <p class="text-[11px] font-mono text-slate-400 leading-relaxed uppercase">Technology at the service of planetary preservation. Algorithms designed for maximum resource optimization.</p>
-            </div>
-            <div class="glass-card">
-                <h3 class="font-display text-[12px] text-indigo-400 mb-6 tracking-widest uppercase">Multi-Domain Frontier</h3>
-                <p class="text-[11px] font-mono text-slate-400 leading-relaxed uppercase">Neural networks managing physical infrastructure across industries, coordinating digital logic with matter.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="apps" class="py-32 max-w-5xl mx-auto px-6 space-y-40">
-        
-        <div id="lookapp" class="flex flex-col md:flex-row gap-16 items-center">
-            <div class="flex-1 space-y-6">
-                <h2 class="font-display text-4xl text-white tracking-widest">SMART LOOKAPP</h2>
-                <p class="font-mono text-[11px] text-slate-400 leading-loose uppercase tracking-wider">
-                    Seamless digital integration connecting technical execution with regulated manufacturer manuals.
-                </p>
-            </div>
-            <div class="w-full md:w-1/2">
-                <img src="mecanico_tablet.png" class="w-full grayscale opacity-50 hover:grayscale-0 transition-all duration-1000 border border-white/10 p-2">
-            </div>
-        </div>
-
-    </section>
-
-    <footer class="py-20 border-t border-white/5 text-center">
-        <p class="font-mono text-[9px] text-slate-600 tracking-[0.5em] uppercase">© 2026 Aeronexares // Global System Protocol</p>
     </footer>
 
 </body>
