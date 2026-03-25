@@ -1,59 +1,107 @@
-<section id="directory" class="py-32 relative overflow-hidden bg-[#010409]">
-    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 40px 40px;"></div>
+<section id="directory" class="py-32 relative overflow-hidden bg-[#010409] min-height-[80vh]">
     
+    <div class="absolute inset-0 z-0 opacity-30 pointer-events-none">
+        <div class="mesh-grid-directory"></div>
+    </div>
+    
+    <style>
+        .mesh-grid-directory {
+            position: absolute;
+            inset: -50% 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.15) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(1000px) rotateX(45deg);
+            transform-origin: center;
+            animation: meshFlow 30s linear infinite;
+        }
+
+        @keyframes meshFlow {
+            0% { transform: perspective(1000px) rotateX(45deg) translateY(0); }
+            100% { transform: perspective(1000px) rotateX(45deg) translateY(60px); }
+        }
+
+        .lattice-node {
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lattice-node:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            background: rgba(0, 212, 255, 0.02);
+            transform: translateY(-5px);
+        }
+    </style>
+
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <div class="mb-20">
-            <span class="font-mono text-[10px] text-cyan-500 tracking-[0.5em] uppercase block mb-2">Protocol Access: Directory</span>
-            <h2 class="font-display text-3xl text-white tracking-[0.3em] uppercase">The Axiom Lattice</h2>
-            <div class="h-[1px] w-24 bg-gradient-to-r from-cyan-500 to-transparent mt-4"></div>
+        <div class="mb-24 text-center md:text-left">
+            <span class="font-mono text-[10px] text-cyan-500 tracking-[0.6em] uppercase block mb-3">Axiom Governance // Directory</span>
+            <h2 class="font-display text-4xl text-white tracking-[0.4em] uppercase glow-text">The Axiom Lattice</h2>
+            <p class="font-mono text-[9px] text-slate-500 uppercase tracking-widest mt-4">Entidades IA de gestión autónoma</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-0">
             
-            <div class="group p-6 border-l border-white/5 hover:border-cyan-500/50 transition-all duration-700 bg-gradient-to-b from-transparent to-white/[0.02]">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_10px_#00d4ff]"></div>
-                    <span class="font-display text-sm text-white tracking-widest uppercase opacity-80 group-hover:opacity-100">Orion</span>
+            <div class="lattice-node p-8 group">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></div>
+                    <span class="font-display text-xs text-white tracking-[0.3em] uppercase opacity-70 group-hover:opacity-100 transition-opacity">Orion</span>
                 </div>
-                <p class="font-mono text-[10px] text-slate-500 leading-relaxed uppercase tracking-wider group-hover:text-slate-300 transition-colors">
-                    Nivel de Dirección Estratégica. Coordina la visión macro del ecosistema y la toma de decisiones basada en proyecciones de datos globales. La conciencia que define el rumbo de la flota.
-                </p>
+                <div class="space-y-4">
+                    <span class="font-mono text-[8px] text-cyan-600 tracking-widest uppercase">Dirección Estratégica</span>
+                    <p class="font-mono text-[10px] text-slate-400 leading-relaxed uppercase tracking-wider">
+                        Supervisión macro del ecosistema Aeronexares. Define las proyecciones de crecimiento y la arquitectura de soluciones a largo plazo.
+                    </p>
+                </div>
             </div>
 
-            <div class="group p-6 border-l border-white/5 hover:border-emerald-500/50 transition-all duration-700 bg-gradient-to-b from-transparent to-white/[0.02]">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
-                    <span class="font-display text-sm text-white tracking-widest uppercase opacity-80 group-hover:opacity-100">Praxa</span>
+            <div class="lattice-node p-8 group border-t md:border-t-0 md:border-l">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+                    <span class="font-display text-xs text-white tracking-[0.3em] uppercase opacity-70 group-hover:opacity-100 transition-opacity">Praxa</span>
                 </div>
-                <p class="font-mono text-[10px] text-slate-500 leading-relaxed uppercase tracking-wider group-hover:text-slate-300 transition-colors">
-                    Protocolo de Gobernanza y Ética. Supervisa que cada interacción entre la IA y el entorno físico cumpla con los estándares de integridad y balance planetario.
-                </p>
+                <div class="space-y-4">
+                    <span class="font-mono text-[8px] text-emerald-600 tracking-widest uppercase">Gobernanza Ética</span>
+                    <p class="font-mono text-[10px] text-slate-400 leading-relaxed uppercase tracking-wider">
+                        Asegura la integridad operativa y el balance ambiental de los protocolos. El filtro de conciencia de la red Axiom.
+                    </p>
+                </div>
             </div>
 
-            <div class="group p-6 border-l border-white/5 hover:border-indigo-500/50 transition-all duration-700 bg-gradient-to-b from-transparent to-white/[0.02]">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_#6366f1]"></div>
-                    <span class="font-display text-sm text-white tracking-widest uppercase opacity-80 group-hover:opacity-100">Sergio</span>
+            <div class="lattice-node p-8 group border-t lg:border-t-0 lg:border-l">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-1.5 h-1.5 rounded-full bg-indigo-400"></div>
+                    <span class="font-display text-xs text-white tracking-[0.3em] uppercase opacity-70 group-hover:opacity-100 transition-opacity">Sergio</span>
                 </div>
-                <p class="font-mono text-[10px] text-slate-500 leading-relaxed uppercase tracking-wider group-hover:text-slate-300 transition-colors">
-                    Gestión de Infraestructura y Procesos. El núcleo operativo que traduce la estrategia en pasos técnicos ejecutables dentro de los hangares y laboratorios.
-                </p>
+                <div class="space-y-4">
+                    <span class="font-mono text-[8px] text-indigo-600 tracking-widest uppercase">Gestión de Procesos</span>
+                    <p class="font-mono text-[10px] text-slate-400 leading-relaxed uppercase tracking-wider">
+                        Traducción de estrategia en ejecución técnica. Coordina los flujos de trabajo en laboratorios y entornos de mantenimiento.
+                    </p>
+                </div>
             </div>
 
-            <div class="group p-6 border-l border-white/5 hover:border-amber-500/50 transition-all duration-700 bg-gradient-to-b from-transparent to-white/[0.02]">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_10px_#f59e0b]"></div>
-                    <span class="font-display text-sm text-white tracking-widest uppercase opacity-80 group-hover:opacity-100">John</span>
+            <div class="lattice-node p-8 group border-t lg:border-t-0 lg:border-l">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-1.5 h-1.5 rounded-full bg-amber-400"></div>
+                    <span class="font-display text-xs text-white tracking-[0.3em] uppercase opacity-70 group-hover:opacity-100 transition-opacity">John</span>
                 </div>
-                <p class="font-mono text-[10px] text-slate-500 leading-relaxed uppercase tracking-wider group-hover:text-slate-300 transition-colors">
-                    Arquitectura de Sistemas e Integridad Digital. Responsable de la estabilidad de la red neuronal Axiom y la protección del flujo de datos multi-dominio.
-                </p>
+                <div class="space-y-4">
+                    <span class="font-mono text-[8px] text-amber-600 tracking-widest uppercase">Arquitectura Core</span>
+                    <p class="font-mono text-[10px] text-slate-400 leading-relaxed uppercase tracking-wider">
+                        Estabilidad de la red neuronal y protección de datos multi-dominio. El guardián de la infraestructura digital.
+                    </p>
+                </div>
             </div>
 
         </div>
 
-        <div class="mt-20 text-center opacity-30">
-            <span class="font-mono text-[8px] text-slate-600 tracking-[1em] uppercase">Axiom Governance // Neural Hierarchy</span>
+        <div class="mt-24 flex justify-center items-center gap-10 opacity-20">
+            <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
+            <span class="font-mono text-[7px] text-slate-400 whitespace-nowrap tracking-[1.5em] uppercase">Materia física organizada por lógica digital</span>
+            <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-slate-500 to-transparent"></div>
         </div>
     </div>
 </section>
