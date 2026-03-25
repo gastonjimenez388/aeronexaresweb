@@ -26,40 +26,28 @@
         .font-display { font-family: 'Orbitron', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* AXIOM FLOW VISUALIZATION */
+        /* AXIOM FLOW VISUALIZATION & FUSION */
         .axiom-mega-container {
             position: relative; width: 100%; min-height: 700px; display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
         }
 
-        .viz-wrapper { position: relative; width: 550px; height: 550px; display: flex; align-items: center; justify-content: center; }
-
-        #interactive-orbit {
-            position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform;
+        .viz-wrapper { 
+            position: relative; 
+            width: 100%; 
+            max-width: 1100px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
         }
 
-        .core-node {
-            position: absolute; z-index: 100; width: 150px; height: 150px; background: rgba(1, 4, 9, 0.95);
-            border: 2px solid var(--cyan-glow); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.2);
+        .stellar-fusion {
+            width: 100%;
+            height: auto;
+            /* Máscara radial para integrar la imagen con el fondo de la web */
+            -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 80%);
+            mask-image: radial-gradient(circle at center, black 45%, transparent 80%);
+            filter: contrast(1.1) brightness(1.1);
         }
-
-        .satellite-node {
-            position: absolute; width: 160px; height: 160px; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 212, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            transition: all 0.5s ease; backdrop-filter: blur(10px); cursor: pointer; z-index: 50;
-        }
-
-        .satellite-node.active { border-color: var(--cyan-glow); background: rgba(0, 212, 255, 0.08); box-shadow: 0 0 30px rgba(0, 212, 255, 0.2); }
-        .node-content { display: flex; flex-direction: column; align-items: center; transition: transform 1.2s; pointer-events: none; }
-        
-        .sub-bubble {
-            position: absolute; width: 85px; height: 85px; background: #000; border: 2px solid var(--cyan-glow);
-            border-radius: 50%; top: -15px; right: -15px; opacity: 0; transform: scale(0);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); overflow: hidden;
-        }
-        .active .sub-bubble { opacity: 1; transform: scale(1); }
 
         /* REGLA 2: ABSTRACT MESH BACKGROUND */
         .mesh-container { position: relative; overflow: hidden; }
@@ -81,11 +69,6 @@
         }
         @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
 
-        .img-container {
-            width: 100%; aspect-ratio: 16/9; background: #000; display: flex; align-items: center;
-            justify-content: center; position: relative; overflow: hidden;
-        }
-
         .entity-card {
             border-left: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -106,7 +89,7 @@
             <a href="#axiom" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Axiom Flow</a>
             <a href="#systems" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Solutions</a>
             <a href="#identity" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Identity</a>
-            <a href="#directory" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Axiom Directory</a>
+            <a href="#governance" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Governance</a>
         </div>
         <div class="px-4 py-1.5 border border-emerald-500/20 rounded-sm">
             <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">SYSTEM_ACTIVE // 2026</span>
@@ -125,10 +108,8 @@
 
         <section id="axiom" class="text-center mesh-container">
             <h2 class="text-3xl font-display text-white tracking-[0.5em] uppercase glow-text mb-16">AXIOM FLOW</h2>
-            <div class="viz-wrapper">
-                <div id="interactive-orbit">
-                    <img src="aeronexares-planetario.png" class="w-full h-auto drop-shadow-2xl">
-                </div>
+            <div class="viz-wrapper mx-auto">
+                <img src="aeronexares-planetario.png" class="stellar-fusion drop-shadow-[0_0_50px_rgba(0,212,255,0.1)]">
             </div>
         </section>
 
@@ -197,9 +178,9 @@
             </div>
         </section>
 
-        <section id="directory" class="space-y-24 py-20 grayscale hover:grayscale-0 transition-all duration-1000">
+        <section id="governance" class="space-y-24 py-20 grayscale hover:grayscale-0 transition-all duration-1000">
             <div class="text-center md:text-left">
-                <h2 class="font-display text-3xl text-white tracking-[0.4em] uppercase">AXIOM Directory</h2>
+                <h2 class="font-display text-3xl text-white tracking-[0.4em] uppercase">AXIOM GOVERNANCE SYSTEM</h2>
                 <p class="font-mono text-[9px] text-slate-500 uppercase tracking-widest mt-4">Governance by IA Entities // Non-Hierarchical Intelligence Flow</p>
             </div>
 
