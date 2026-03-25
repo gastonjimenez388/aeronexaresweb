@@ -203,6 +203,32 @@
             border: 1px solid var(--ui-border);
         }
 
+        /* ABSTRACT MESH BACKGROUND */
+        .mesh-container {
+            position: relative;
+            background: radial-gradient(circle at top, rgba(0, 212, 255, 0.05), transparent);
+            overflow: hidden;
+        }
+
+        .mesh-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: top;
+            animation: meshMove 20s linear infinite;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        @keyframes meshMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
         .img-container {
             width: 100%;
             aspect-ratio: 16/9;
@@ -255,7 +281,7 @@
 
     <section class="hero-section">
         <div class="hero-bg">
-            <img src="planet.avif" alt="Terminal Background">
+            <img src="planet.avif" alt="Global Network">
         </div>
         <div class="hero-overlay"></div>
         <div class="relative z-10 flex flex-col items-center">
@@ -273,7 +299,6 @@
             <div class="axiom-mega-container glass-card rounded-2xl">
                 <div class="viz-wrapper">
                     <div class="orbit-ring"></div>
-                    
                     <div class="core-node">
                         <img src="image_a94946.png" alt="Aeronexares Core" class="core-logo-img">
                         <span class="text-[10px] font-display text-white tracking-widest uppercase mt-2">Core</span>
@@ -311,6 +336,40 @@
             </div>
         </section>
 
+        <section id="identity" class="py-32 mesh-container border-y border-white/5 px-6 md:px-20">
+            <div class="mesh-grid"></div>
+            
+            <div class="max-w-4xl mx-auto space-y-24 relative z-10">
+                <div class="text-center">
+                    <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.5em] uppercase glow-text">NEURAL ORIGIN</h2>
+                    <p class="text-[10px] font-mono text-cyan-400 tracking-[0.4em] uppercase mt-4">ESTABLISHED 2025 // AXIOM PROTOCOL</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="space-y-6">
+                        <h3 class="font-display text-xs text-cyan-500 tracking-widest uppercase border-b border-cyan-500/30 pb-2">Axiom Governance</h3>
+                        <p class="text-[11px] font-mono text-slate-300 leading-relaxed uppercase tracking-wider">
+                            Aeronexares was not adapted to the digital age; it was conceived from its start in 2025 under a total **Axiom Governance** protocol. We were born without the friction of legacy systems, designing an architecture where artificial intelligence is not a tool, but the ethical and operational substrate that guarantees absolute precision in every execution.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h3 class="font-display text-xs text-emerald-500 tracking-widest uppercase border-b border-emerald-500/30 pb-2">Balance Commitment</h3>
+                        <p class="text-[11px] font-mono text-slate-300 leading-relaxed uppercase tracking-wider">
+                            Our expansion is governed by a necessary symbiosis: technological advancement at the service of planetary preservation. We understand exploration as an ethical duty. Every algorithm developed seeks maximum efficiency to reduce environmental impact, applying intelligence to heal and optimize the resources of the environments we intervene.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h3 class="font-display text-xs text-indigo-400 tracking-widest uppercase border-b border-indigo-400/30 pb-2">Multi-Domain Frontier</h3>
+                        <p class="text-[11px] font-mono text-slate-300 leading-relaxed uppercase tracking-wider">
+                            Inspired by the persistence of space exploration, Aeronexares operates at the frontier of the possible. What today begins in the technical complexity of a hangar, is only the first validation of a neural network capable of managing infrastructure in any industry. We are the autonomous core that coordinates the interaction between digital logic and physical matter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="systems" class="py-24 space-y-32">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="space-y-8">
@@ -319,54 +378,15 @@
                     </div>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
                     <p class="text-slate-400 font-mono leading-relaxed uppercase text-sm">
-                        Seamless digital integration. Smart LookApp bridges maintenance execution with regulated Boeing technical manuals in real-time.
+                        Seamless digital integration connecting technical execution with regulated Boeing manuals.
                     </p>
                 </div>
-                <div class="glass-card p-2 rounded-xl overflow-hidden relative border-emerald-500/20">
+                <div class="glass-card p-2 rounded-xl overflow-hidden border-emerald-500/20">
                     <div class="img-container rounded-lg">
                         <div class="scan-line"></div>
-                        <img src="mecanico_tablet.png" alt="Maintenance Interface" class="w-full h-full object-cover">
+                        <img src="mecanico_tablet.png" alt="Operational Interface" class="w-full h-full object-cover">
                     </div>
                 </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div class="glass-card p-2 rounded-xl overflow-hidden order-2 md:order-1">
-                    <div class="img-container rounded-lg">
-                        <img src="Smart MappingLab.png" alt="3D/6D Mapping" class="w-2/3 h-auto opacity-80">
-                    </div>
-                </div>
-                <div class="space-y-8 order-1 md:order-2">
-                    <div class="inline-block px-3 py-1 border border-cyan-500/30 rounded-full">
-                        <span class="text-[9px] font-mono text-cyan-400 tracking-widest uppercase">Module: Development</span>
-                    </div>
-                    <h2 class="text-5xl font-display text-white tracking-widest uppercase">Mapping Lab</h2>
-                    <p class="text-slate-400 font-mono leading-relaxed uppercase text-sm">
-                        High-fidelity aviation geo-intelligence. Utilizing 3D and 6D mapping for component recognition and robotic positioning.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="identity" class="py-24 border-t border-white/5 text-center">
-            <h2 class="text-3xl font-display text-white tracking-[0.3em] uppercase mb-10">AI-Native Genesis</h2>
-            <p class="max-w-3xl mx-auto text-slate-400 font-mono uppercase text-xs leading-loose tracking-widest">
-                Aeronexares was conceived as a Full AI architecture in 2025. We design aviation maintenance futures where AI manages the core logistics and technical execution.
-            </p>
-        </section>
-
-        <section id="contact" class="py-24 border-t border-white/5">
-            <div class="max-w-xl mx-auto space-y-8">
-                <div class="text-center">
-                    <h2 class="text-2xl font-display text-white tracking-widest uppercase">AXIOM DIRECTORY</h2>
-                    <p class="text-[9px] font-mono text-slate-500 uppercase mt-2">Secure Link Transmission</p>
-                </div>
-                <form class="space-y-4">
-                    <input type="text" placeholder="ENTITY_NAME / employeeId" class="w-full bg-black/50 border border-white/10 p-4 font-mono text-xs text-cyan-400 focus:border-cyan-500 outline-none" required>
-                    <input type="email" placeholder="LINK_EMAIL" class="w-full bg-black/50 border border-white/10 p-4 font-mono text-xs text-cyan-400 focus:border-cyan-500 outline-none" required>
-                    <textarea placeholder="DATA_TRANSMISSION" rows="4" class="w-full bg-black/50 border border-white/10 p-4 font-mono text-xs text-cyan-400 focus:border-cyan-500 outline-none" required></textarea>
-                    <button type="submit" class="w-full py-4 bg-cyan-900/20 border border-cyan-500/50 text-cyan-400 font-display text-[10px] tracking-[0.4em] uppercase hover:bg-cyan-500 hover:text-black transition-all">Transmit to Axiom</button>
-                </form>
             </div>
         </section>
 
