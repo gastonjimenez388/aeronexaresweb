@@ -36,13 +36,12 @@
         }
         @keyframes meshFlow { 0% { transform: perspective(1000px) rotateX(45deg) translateY(0); } 100% { transform: perspective(1000px) rotateX(45deg) translateY(50px); } }
 
-        /* AXIOM FLOW INTERACTIVE - NUEVA PERSPECTIVA INCLINADA 3D */
+        /* AXIOM COSMOS FLOW - COSMIC ANALOGY (Aeronexares as Sun) */
         .axiom-mega-container {
             position: relative; width: 100%; min-height: 800px; display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.04) 0%, transparent 70%); /* Resplandor central */
+            background: radial-gradient(circle at center, rgba(255, 170, 0, 0.05) 0%, transparent 70%); /* Cosmic Background Glow */
         }
         
-        /* Contenedor principal con perspectiva 3D */
         .viz-wrapper { 
             position: relative; 
             width: 700px; 
@@ -53,55 +52,57 @@
             perspective: 2000px; /* Perspectiva global */
         }
         
-        /* Órbita visual planetaria elíptica */
+        /* Órbitas visuales planetarias elípticas (Inclinadas 3D) */
         .orbit-ring {
             position: absolute;
-            border: 1px dashed rgba(0, 212, 255, 0.2);
+            border: 1px dashed rgba(255, 170, 0, 0.1);
             border-radius: 50%;
             pointer-events: none;
-            width: 500px;
-            height: 500px;
-            transform: rotateX(70deg); /* La inclinación mágica */
+            transform: rotateX(75deg); /* Inclinación dramática 3D */
             z-index: 10;
         }
+        /* Órbita 1 (LookApp) */
+        .orbit-ring.o1 { width: 450px; height: 450px; }
+        /* Órbita 2 (Mapping Lab) */
+        .orbit-ring.o2 { width: 600px; height: 600px; }
 
         /* Contenedor de satélites que rota con la misma inclinación */
         #interactive-orbit {
             position: absolute; 
-            width: 500px; 
-            height: 500px; 
+            width: 600px; 
+            height: 600px; 
             display: flex; 
             align-items: center; 
             justify-content: center;
-            transform: rotateX(70deg); /* Mantener la inclinación */
+            transform: rotateX(75deg); /* Mantener la inclinación */
             transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
             will-change: transform;
             z-index: 20;
         }
 
-        /* El núcleo central no se inclina (el Sol es esférico) */
+        /* NÚCLEO CENTRAL: AERONEXARES SUN */
         .core-node {
             position: absolute; 
             z-index: 100; 
-            width: 150px; 
-            height: 150px; 
-            background: rgba(1, 4, 9, 0.98);
-            border: 2px solid var(--cyan-glow); 
+            width: 160px; 
+            height: 160px; 
+            background: radial-gradient(circle, rgba(255, 170, 0, 1) 0%, rgba(1, 4, 9, 1) 80%);
+            border: 3px solid #ffaa00; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center;
-            box-shadow: 0 0 60px rgba(0, 212, 255, 0.3); /* Resplandor central de "estrella" */
-            transform: translateZ(0); /* Evitar glitch de profundidad */
+            box-shadow: 0 0 100px rgba(255, 170, 0, 0.5), inset 0 0 50px rgba(255, 170, 0, 0.2); /* Sun Glow */
+            transform: translateZ(0);
         }
 
-        /* Satélites: se deforman en elipses por la inclinación */
+        /* PLANET BURBBLES: App Satellites */
         .satellite-node {
             position: absolute; 
             width: 130px; 
             height: 130px; 
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(0, 212, 255, 0.1); 
+            background: rgba(13, 17, 23, 0.95);
+            border: 2px solid rgba(0, 212, 255, 0.2); 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
@@ -110,12 +111,12 @@
             backdrop-filter: blur(10px); 
             cursor: pointer; 
             z-index: 50;
+            overflow: hidden; /* Importante para el logo abierto */
         }
         
         .satellite-node.active {
             border-color: var(--cyan-glow);
-            background: rgba(0, 212, 255, 0.06);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3), inset 0 0 10px rgba(0, 212, 255, 0.1); /* Efecto planetario con luz interior */
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4), inset 0 0 10px rgba(0, 212, 255, 0.2);
         }
         
         /* Contenido: necesitamos contra-rotar el contenido para que esté derecho */
@@ -123,51 +124,43 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
+            justify-content: center;
             pointer-events: none; 
-            transform: rotateX(-70deg); /* Contra-rotación para que el texto esté derecho */
+            transform: rotateX(-75deg); /* Contra-rotación para que el texto esté derecho */
             transition: transform 1.2s;
+            position: relative;
+            z-index: 10;
         }
         
-        /* Sub-burbujas adaptadas para órbita planetaria inclinda */
-        .sub-bubble {
+        /* LOGO OPEN: Se revela cuando está activo */
+        .app-logo {
             position: absolute;
-            width: 80px;
-            height: 80px;
-            background: rgba(1, 4, 9, 0.98); /* Fondo oscuro para que el logo flote */
-            border: 2px solid var(--cyan-glow);
-            border-radius: 50%;
-            top: -20px;
-            right: -20px;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
             opacity: 0;
-            transform: scale(0);
+            transform: scale(0.5);
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            overflow: hidden;
+            z-index: 5;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4); /* Resplandor de satélite */
-            z-index: 60;
         }
         
-        .active .sub-bubble {
+        /* Mostrar logo abierto cuando está activo */
+        .active .app-logo {
             opacity: 1;
             transform: scale(1);
         }
 
         /* Adaptación de imágenes */
-        .sub-bubble img {
+        .app-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain; /* Para que el logo entero quepa en el círculo */
             object-position: center;
-            transform: scale(0.9); /* Un pequeño margen */
-        }
-
-        /* MappingLab enderezado, centrado y ampliado */
-        .sub-bubble img[src="Smart MappingLab.png"] {
-            object-fit: cover; /* MappingLab usa la versión de átomo centrada */
-            object-position: center;
-            transform: scale(1);
+            filter: brightness(1.1) drop-shadow(0 0 10px var(--cyan-glow));
         }
 
         .glass-card { background: var(--panel-bg); backdrop-filter: blur(25px); border: 1px solid var(--ui-border); }
@@ -222,20 +215,35 @@
             <h2 class="text-3xl font-display text-white tracking-[0.5em] uppercase glow-text mb-16">AXIOM FLOW</h2>
             <div class="axiom-mega-container glass-card rounded-3xl">
                 <div class="viz-wrapper">
-                    <div class="orbit-ring"></div>
+                    <div class="orbit-ring o1"></div>
+                    <div class="orbit-ring o2"></div>
                     
-                    <div class="core-node"><img src="image_a94946.png" class="w-16 h-auto"></div>
+                    <div class="core-node">
+                        <img src="image_a94946.png" class="w-16 h-auto drop-shadow-xl">
+                    </div>
+
                     <div id="interactive-orbit">
-                        <div class="satellite-node active" data-index="0" style="top:0; left:50%; transform:translate(-50%, -75px);">
-                            <div class="node-content"><span class="text-[10px] font-display text-white uppercase tracking-widest">Smart LookApp</span></div>
-                            <div class="sub-bubble"><img src="image_a4b28a.png" class="w-full"></div>
+                        <div class="satellite-node active" data-index="0" style="top:5%; left:50%; transform:translate(-50%, -65px);">
+                            <div class="node-content">
+                                <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest mb-1">Phase 01</span>
+                                <span class="text-[11px] font-display text-white uppercase tracking-widest">Smart LookApp</span>
+                            </div>
+                            <div class="app-logo"><img src="image_a4b28a.png"></div>
                         </div>
+
                         <div class="satellite-node" data-index="1" style="top:50%; right:0; transform:translate(75px, -50%);">
-                            <div class="node-content"><span class="text-[10px] font-display text-white uppercase tracking-widest">Mapping Lab</span></div>
-                            <div class="sub-bubble"><img src="Smart MappingLab.png" class="w-full"></div>
+                            <div class="node-content">
+                                <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest mb-1">Phase 02</span>
+                                <span class="text-[11px] font-display text-white uppercase tracking-widest">Mapping Lab</span>
+                            </div>
+                            <div class="app-logo"><img src="Smart MappingLab.png"></div>
                         </div>
-                        <div class="satellite-node" data-index="2" style="bottom:0; left:50%; transform:translate(-50%, 75px);">
-                            <div class="node-content"><span class="text-[10px] font-display text-slate-500 uppercase tracking-widest">Robot AN1</span></div>
+
+                        <div class="satellite-node" data-index="2" style="bottom:5%; left:50%; transform:translate(-50%, 65px);">
+                            <div class="node-content">
+                                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Phase 03</span>
+                                <span class="text-[11px] font-display text-slate-600 uppercase tracking-widest">Robot AN1</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,17 +258,17 @@
                     </div>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
                     <p class="text-slate-400 font-mono text-[11px] leading-relaxed uppercase tracking-wider">
-                        Primary digital interface for AXIOM logistics. It acts as the digital bridge connecting real-time technical execution with the Manufacturer Manuals database. It allows for a seamless integration between regulated documentation and physical tasks, eliminating interpretation errors and ensuring every technical step is backed by certified data.
+                        Primary digital interface for AXIOM logistics. Bridging real-time technical execution with regulated Manufacturer Manuals. Seamless integration of certified data and physical field tasks.
                     </p>
                 </div>
-                <div class="glass-card p-2 rounded-2xl relative overflow-hidden">
+                <div class="glass-card p-2 rounded-2xl relative overflow-hidden border-emerald-500/20 grayscale hover:grayscale-0 transition-all duration-1000">
                     <div class="scan-line"></div>
-                    <img src="mecanico_tablet.png" class="w-full h-full object-cover rounded-xl grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-1000">
+                    <img src="mecanico_tablet.png" class="w-full h-full object-cover rounded-xl grayscale opacity-70">
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-                <div class="glass-card p-2 rounded-2xl relative overflow-hidden order-2 md:order-1 border-cyan-500/20">
+                <div class="glass-card p-2 rounded-2xl relative overflow-hidden order-2 md:order-1 border-cyan-500/20 grayscale hover:grayscale-0 transition-all duration-1000">
                     <div class="scan-line"></div>
                     <img src="Smart MappingLab.png" class="w-full h-auto opacity-80">
                 </div>
@@ -270,7 +278,7 @@
                     </div>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart Mapping Lab</h2>
                     <p class="text-slate-400 font-mono text-[11px] leading-relaxed uppercase tracking-wider">
-                        High-fidelity environment digitization layer. It is the spatial consciousness core of the project, utilizing 3D and 6D mapping techniques to identify components with millimeter precision. It creates the detailed mapping of each part and location, providing the necessary "vision" for the system to recognize angles, lighting, and distances, serving as the foundation for future robotic coordination.
+                        High-fidelity environment digitization layer. Utilizing 3D and 6D mapping for absolute part identification, providing millimeter-precision spatial awareness for neural core navigation.
                     </p>
                 </div>
             </div>
@@ -278,7 +286,7 @@
 
         <section id="identity" class="mesh-container py-32 border-y border-white/5">
             <div class="mesh-grid"></div>
-            <div class="max-w-5xl mx-auto relative z-10 px-6 space-y-24">
+            <div class="max-w-5xl mx-auto relative z-10 px-6 space-y-24 grayscale hover:grayscale-0 transition-all duration-1000">
                 <div class="text-center">
                     <h2 class="text-4xl md:text-5xl font-display text-white tracking-[0.5em] uppercase glow-text">NEURAL ORIGIN</h2>
                     <p class="text-[10px] font-mono text-cyan-400 tracking-[0.4em] uppercase mt-4">AXIOM GOVERNANCE ESTATUTE</p>
@@ -301,7 +309,7 @@
             </div>
         </section>
 
-        <section id="directory" class="space-y-24 py-20">
+        <section id="directory" class="space-y-24 py-20 grayscale hover:grayscale-0 transition-all duration-1000">
             <div class="text-center md:text-left">
                 <h2 class="font-display text-3xl text-white tracking-[0.4em] uppercase">AXIOM Directory</h2>
                 <p class="font-mono text-[9px] text-slate-500 uppercase tracking-widest mt-4">Governance by IA Entities // Non-Hierarchical Intelligence Flow</p>
@@ -394,12 +402,12 @@
                 
                 const angle = -index * 90;
                 
-                // Rotar el contenedor principal (con su inclinación)
-                orbit.style.transform = `rotateX(70deg) rotate(${angle}deg)`;
+                // Rotar el contenedor principal (con su inclinación cósmica)
+                orbit.style.transform = `rotateX(75deg) rotate(${angle}deg)`;
                 
                 // Contra-rotar cada contenido para que permanezca derecho e inclinado
                 contents.forEach(c => {
-                    c.style.transform = `rotate(${-angle}deg) rotateX(-70deg)`;
+                    c.style.transform = `rotate(${-angle}deg) rotateX(-75deg)`;
                 });
             });
         });
