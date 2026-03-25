@@ -36,36 +36,88 @@
         }
         @keyframes meshFlow { 0% { transform: perspective(1000px) rotateX(45deg) translateY(0); } 100% { transform: perspective(1000px) rotateX(45deg) translateY(50px); } }
 
-        /* AXIOM FLOW INTERACTIVE */
+        /* AXIOM FLOW INTERACTIVE - MEJORADO PARA EFECTO PLANETARIO */
         .axiom-mega-container {
-            position: relative; width: 100%; min-height: 650px; display: flex; align-items: center; justify-content: center;
+            position: relative; width: 100%; min-height: 700px; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, transparent 70%); /* Resplandor central */
         }
-        .viz-wrapper { position: relative; width: 450px; height: 450px; display: flex; align-items: center; justify-content: center; }
+        .viz-wrapper { position: relative; width: 500px; height: 500px; display: flex; align-items: center; justify-content: center; }
         
+        /* Órbita visual punteada */
+        .orbit-ring {
+            position: absolute;
+            border: 1px dashed rgba(0, 212, 255, 0.15);
+            border-radius: 50%;
+            pointer-events: none;
+            width: 350px;
+            height: 350px;
+        }
+
         #interactive-orbit {
             position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
             transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform;
         }
 
         .core-node {
-            position: absolute; z-index: 100; width: 120px; height: 120px; background: rgba(1, 4, 9, 0.95);
+            position: absolute; z-index: 100; width: 150px; height: 150px; background: rgba(1, 4, 9, 0.95);
             border: 2px solid var(--cyan-glow); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.25); /* Resplandor central de "estrella" */
         }
 
         .satellite-node {
-            position: absolute; width: 140px; height: 140px; background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(0, 212, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            transition: all 0.5s ease; backdrop-filter: blur(10px); cursor: pointer; z-index: 50;
+            position: absolute; width: 130px; height: 130px; background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(0, 212, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); backdrop-filter: blur(10px); cursor: pointer; z-index: 50;
         }
-        .satellite-node.active { border-color: var(--cyan-glow); background: rgba(0, 212, 255, 0.08); box-shadow: 0 0 30px rgba(0, 212, 255, 0.2); }
         
-        .sub-bubble {
-            position: absolute; width: 75px; height: 75px; background: #000; border: 2px solid var(--cyan-glow);
-            border-radius: 50%; top: -10px; right: -10px; opacity: 0; transform: scale(0);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); overflow: hidden;
+        .satellite-node.active {
+            border-color: var(--cyan-glow);
+            background: rgba(0, 212, 255, 0.05);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3), inset 0 0 10px rgba(0, 212, 255, 0.1); /* Efecto planetario con luz interior */
         }
-        .active .sub-bubble { opacity: 1; transform: scale(1); }
+        
+        .node-content { display: flex; flex-direction: column; align-items: center; transition: transform 1.2s; pointer-events: none; }
+        
+        /* Sub-burbujas adaptadas para órbita planetaria y readaptación de imágenes */
+        .sub-bubble {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(1, 4, 9, 0.95); /* Fondo oscuro para que el logo flote */
+            border: 2px solid var(--cyan-glow);
+            border-radius: 50%;
+            top: -20px;
+            right: -20px;
+            opacity: 0;
+            transform: scale(0) rotate(0deg); /* Corrección de rotación */
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4); /* Resplandor de satélite */
+        }
+        
+        .active .sub-bubble {
+            opacity: 1;
+            transform: scale(1) rotate(0deg); /* Asegurar que el satélite esté derecho */
+        }
+
+        /* Adaptación de imágenes */
+        .sub-bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Para que el logo entero quepa en el círculo */
+            object-position: center;
+            transform: scale(0.9); /* Un pequeño margen */
+        }
+
+        /* MappingLab enderezado y centrado */
+        .sub-bubble img[src="Smart MappingLab.png"] {
+            object-fit: cover; /* MappingLab usa la versión de átomo centrada */
+            object-position: center;
+            transform: scale(1);
+        }
 
         .glass-card { background: var(--panel-bg); backdrop-filter: blur(25px); border: 1px solid var(--ui-border); }
         .glow-text { text-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
@@ -105,7 +157,7 @@
         </div>
     </nav>
 
-    <section class="relative h-[55vh] flex items-center justify-center overflow-hidden border-b border-white/5">
+    <section class="relative h-[60vh] flex items-center justify-center overflow-hidden border-b border-white/5">
         <div class="absolute inset-0 z-0"><img src="planet.avif" class="w-full h-full object-cover opacity-30 contrast-125"></div>
         <div class="relative z-10 text-center px-6">
             <h1 class="font-display text-4xl md:text-7xl text-white tracking-[0.5em] font-bold glow-text uppercase">Aeronexares</h1>
@@ -119,17 +171,19 @@
             <h2 class="text-3xl font-display text-white tracking-[0.5em] uppercase glow-text mb-16">AXIOM FLOW</h2>
             <div class="axiom-mega-container glass-card rounded-3xl">
                 <div class="viz-wrapper">
-                    <div class="core-node"><img src="image_a94946.png" class="w-14 h-auto"></div>
+                    <div class="orbit-ring"></div>
+                    
+                    <div class="core-node"><img src="image_a94946.png" class="w-16 h-auto"></div>
                     <div id="interactive-orbit">
-                        <div class="satellite-node active" data-index="0" style="top:0; left:50%; transform:translate(-50%, -70px);">
+                        <div class="satellite-node active" data-index="0" style="top:0; left:50%; transform:translate(-50%, -75px);">
                             <div class="node-content"><span class="text-[10px] font-display text-white uppercase tracking-widest">Smart LookApp</span></div>
                             <div class="sub-bubble"><img src="image_a4b28a.png" class="w-full"></div>
                         </div>
-                        <div class="satellite-node" data-index="1" style="top:50%; right:0; transform:translate(70px, -50%);">
+                        <div class="satellite-node" data-index="1" style="top:50%; right:0; transform:translate(75px, -50%);">
                             <div class="node-content"><span class="text-[10px] font-display text-white uppercase tracking-widest">Mapping Lab</span></div>
                             <div class="sub-bubble"><img src="Smart MappingLab.png" class="w-full"></div>
                         </div>
-                        <div class="satellite-node" data-index="2" style="bottom:0; left:50%; transform:translate(-50%, 70px);">
+                        <div class="satellite-node" data-index="2" style="bottom:0; left:50%; transform:translate(-50%, 75px);">
                             <div class="node-content"><span class="text-[10px] font-display text-slate-500 uppercase tracking-widest">Robot AN1</span></div>
                         </div>
                     </div>
@@ -288,6 +342,8 @@
                 sat.classList.add('active');
                 const angle = -index * 90;
                 orbit.style.transform = `rotate(${angle}deg)`;
+                
+                // Corrección para que el contenido (burbuja y texto) no rote
                 contents.forEach(c => c.style.transform = `rotate(${-angle}deg)`);
             });
         });
