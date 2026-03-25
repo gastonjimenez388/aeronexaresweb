@@ -155,12 +155,13 @@
             pointer-events: none;
         }
 
+        /* SUB-BUBBLE IMPROVED JUSTIFICATION */
         .sub-bubble {
             position: absolute;
             width: 70px;
             height: 70px;
             background: #000;
-            border: 1px solid var(--cyan-glow);
+            border: 1.5px solid var(--cyan-glow);
             border-radius: 50%;
             top: -15px;
             right: -35px;
@@ -172,18 +173,20 @@
             justify-content: center;
             overflow: hidden;
             z-index: 60;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
         }
 
         .active .sub-bubble {
             opacity: 1;
             transform: scale(1);
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, #000 70%);
         }
 
         .sub-bubble img {
-            width: 85%;
-            height: 85%;
-            object-fit: contain;
+            width: 80%; /* Creates padding to prevent square edges */
+            height: 80%;
+            object-fit: contain; /* Centers and fits icon within circle */
+            filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.3));
         }
 
         .orbit-ring {
@@ -255,7 +258,7 @@
 
     <section class="hero-section">
         <div class="hero-bg">
-            <img src="planet.avif" alt="Background">
+            <img src="planet.avif" alt="Global Network Background">
         </div>
         <div class="hero-overlay"></div>
         
@@ -324,13 +327,13 @@
                     </div>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Smart LookApp</h2>
                     <p class="text-slate-400 font-mono leading-relaxed uppercase text-sm">
-                        The ultimate digital bridge. Smart LookApp instantly connects maintenance teams with manufacturer-regulated technical documentation.
+                        The definitive digital bridge. Smart LookApp instantly connects maintenance teams with regulated technical documentation.
                     </p>
                 </div>
                 <div class="glass-card p-2 rounded-xl overflow-hidden relative border-emerald-500/20">
                     <div class="img-container rounded-lg">
                         <div class="scan-line"></div>
-                        <img src="mecanico_tablet.png" alt="Smart LookApp Workflow" class="w-full h-full object-cover">
+                        <img src="mecanico_tablet.png" alt="Maintenance Operations" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
@@ -338,7 +341,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="glass-card p-2 rounded-xl overflow-hidden order-2 md:order-1">
                     <div class="img-container rounded-lg">
-                        <img src="Smart MappingLab.png" alt="Mapping Lab" class="w-2/3 h-auto opacity-80">
+                        <img src="Smart MappingLab.png" alt="Aeronautical Mapping" class="w-2/3 h-auto opacity-80">
                     </div>
                 </div>
                 <div class="space-y-8 order-1 md:order-2">
@@ -347,7 +350,7 @@
                     </div>
                     <h2 class="text-5xl font-display text-white tracking-widest uppercase">Mapping Lab</h2>
                     <p class="text-slate-400 font-mono leading-relaxed uppercase text-sm">
-                        Aviation Geo-Intelligence. 3D and 6D mapping for high-precision component identification, laying the groundwork for robotic maintenance autonomy.
+                        Aeronautical Geo-Intelligence. 3D and 6D mapping for precise component identification, building the core for future robotic autonomy.
                     </p>
                 </div>
             </div>
@@ -357,7 +360,7 @@
             <div class="max-w-3xl mx-auto text-center space-y-10">
                 <h2 class="text-3xl font-display text-white tracking-[0.3em] uppercase">AI-Native Genesis</h2>
                 <p class="text-slate-400 font-mono uppercase text-xs leading-loose tracking-widest">
-                    Aeronexares launched in 2025 under a Full AI architecture. We don't adapt legacy processes; we design the future of aviation maintenance where AI is the core logistical and technical engine.
+                    Aeronexares began in 2025 under a Full AI architecture. We don't adapt legacy processes; we design the future of aviation maintenance where AI is the primary logistical core.
                 </p>
             </div>
         </section>
@@ -408,7 +411,6 @@
             });
         });
 
-        // Initialize display
         contents.forEach(content => {
             content.style.transform = `rotate(0deg)`;
         });
