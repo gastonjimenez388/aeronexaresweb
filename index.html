@@ -26,25 +26,27 @@
         .font-display { font-family: 'Orbitron', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-        .axiom-mega-container {
-            position: relative; width: 100%; min-height: 700px; display: flex; align-items: center; justify-content: center;
-        }
-
         .viz-wrapper { 
             position: relative; 
             width: 100%; 
-            max-width: 1100px; 
+            /* max-width: 1100px;  <- Eliminado para permitir centrado independiente de la imagen */
             display: flex; 
+            flex-direction: column;
             align-items: center; 
             justify-content: center; 
         }
 
         .stellar-fusion {
             width: 100%;
+            /* AJUSTE DE TAMAÑO: Reducido para armonía con el texto */
+            max-width: 900px; 
             height: auto;
             -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 80%);
             mask-image: radial-gradient(circle at center, black 45%, transparent 80%);
             filter: contrast(1.1) brightness(1.1);
+            /* Opcional: Borde sutil para enmarcar la imagen reducida */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
         }
 
         .mesh-container { position: relative; overflow: hidden; }
@@ -106,8 +108,47 @@
 
         <section id="axiom" class="text-center mesh-container">
             <h2 data-key="axiom-title" class="text-3xl font-display text-white tracking-[0.5em] uppercase glow-text mb-16">AXIOM FLOW</h2>
+            
             <div class="viz-wrapper mx-auto">
-                <img src="aeronexares-planetario.png" class="stellar-fusion drop-shadow-[0_0_50px_rgba(0,212,255,0.1)]">
+                <img src="aeronexares-planetario.png" class="stellar-fusion drop-shadow-[0_0_50px_rgba(0,212,255,0.1)] mx-auto">
+                
+                <div class="max-w-4xl mt-12 text-left space-y-8 px-4 mx-auto">
+                    <div class="glass-card p-8 rounded-sm border-l-4 border-l-cyan-500 hover:border-l-emerald-500 transition-all duration-500">
+                        <h3 data-key="axiom-subtitle" class="font-display text-lg text-cyan-400 tracking-widest uppercase mb-4">The Gravity of Order</h3>
+                        <p data-key="axiom-intro" class="font-mono text-[11px] text-slate-300 leading-relaxed uppercase tracking-wider">
+                            Axiom Flow is the invisible force that binds our ecosystem, ensuring seamless information transfer from logical conception to physical execution.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="entity-card p-4">
+                                <span data-key="axiom-sun-label" class="font-display text-[10px] text-white tracking-widest block border-b border-white/10 pb-1 mb-2">The Sun: Aeronexares</span>
+                                <p data-key="axiom-sun-desc" class="font-mono text-[9px] text-slate-400 uppercase tracking-widest">The central core; source of energy, identity, and the ethical principles powering every innovation.</p>
+                            </div>
+                            <div class="entity-card p-4">
+                                <span data-key="axiom-inner-label" class="font-display text-[10px] text-emerald-500 tracking-widest block border-b border-emerald-500/20 pb-1 mb-2">Inner Orbit: Smart Lookapp</span>
+                                <p data-key="axiom-inner-desc" class="font-mono text-[9px] text-slate-400 uppercase tracking-widest">The primary interface. Computer vision for high-precision recognition, transforming observation into actionable data.</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="entity-card p-4">
+                                <span data-key="axiom-mid-label" class="font-display text-[10px] text-cyan-500 tracking-widest block border-b border-cyan-500/20 pb-1 mb-2">Mid Orbit: Mapping Lab</span>
+                                <p data-key="axiom-mid-desc" class="font-mono text-[9px] text-slate-400 uppercase tracking-widest">The environmental digitization layer. 3D/6D modeling providing the spatial awareness required for interaction.</p>
+                            </div>
+                            <div class="entity-card p-4">
+                                <span data-key="axiom-outer-label" class="font-display text-[10px] text-indigo-400 tracking-widest block border-b border-indigo-400/20 pb-1 mb-2">Final Horizon: AN1</span>
+                                <p data-key="axiom-outer-desc" class="font-mono text-[9px] text-slate-400 uppercase tracking-widest">The autonomous execution unit. A robot designed to perform complex physical tasks based on system-wide intelligence.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center pt-8 border-t border-white/5">
+                        <p data-key="axiom-conclusion" class="font-display text-[9px] text-cyan-500 tracking-[0.4em] uppercase opacity-60 italic">
+                            A complete technological life cycle for aviation maintenance.
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -153,21 +194,21 @@
                     <p data-key="identity-subtitle" class="text-[10px] font-mono text-cyan-400 tracking-[0.4em] uppercase mt-4">AXIOM GOVERNANCE ESTATUTE</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 px-6 hover:bg-black/20 transition-all duration-700 p-6 rounded-xl">
                     <div class="space-y-6">
-                        <h3 data-key="gov-label" class="font-display text-[10px] text-cyan-500 tracking-widest uppercase border-b border-cyan-500/30 pb-2">Axiom Governance</h3>
+                        <h3 data-key="gov-label" class="font-display text-[10px] text-cyan-500 tracking-widest uppercase border-b border-cyan-500/30 pb-2 hover:text-cyan-300 cursor-help transition-colors">Axiom Governance</h3>
                         <p data-key="gov-desc" class="text-[10px] font-mono text-slate-400 leading-relaxed uppercase tracking-wider">
                             Conceived under a total Axiom Governance protocol. Born without the friction of legacy systems, positioning AI as the ethical substrate.
                         </p>
                     </div>
                     <div class="space-y-6">
-                        <h3 data-key="balance-label" class="font-display text-[10px] text-emerald-500 tracking-widest uppercase border-b border-emerald-500/30 pb-2">Balance Commitment</h3>
+                        <h3 data-key="balance-label" class="font-display text-[10px] text-emerald-500 tracking-widest uppercase border-b border-emerald-500/30 pb-2 hover:text-emerald-300 cursor-help transition-colors">Balance Commitment</h3>
                         <p data-key="balance-desc" class="text-[10px] font-mono text-slate-400 leading-relaxed uppercase tracking-wider">
                             Necessary symbiosis: technological advancement at the service of planetary preservation. Algorithms seeking maximum efficiency.
                         </p>
                     </div>
                     <div class="space-y-6">
-                        <h3 data-key="domain-label" class="font-display text-[10px] text-indigo-400 tracking-widest uppercase border-b border-indigo-400/30 pb-2">Multi-Domain Frontier</h3>
+                        <h3 data-key="domain-label" class="font-display text-[10px] text-indigo-400 tracking-widest uppercase border-b border-indigo-400/30 pb-2 hover:text-indigo-300 cursor-help transition-colors">Multi-Domain Frontier</h3>
                         <p data-key="domain-desc" class="text-[10px] font-mono text-slate-400 leading-relaxed uppercase tracking-wider">
                             We operate on the frontier of the possible. A neural network capable of managing infrastructure in any industry.
                         </p>
@@ -176,9 +217,9 @@
             </div>
         </section>
 
-        <section id="governance" class="space-y-24 py-20 grayscale hover:grayscale-0 transition-all duration-1000">
+        <section id="governance" class="space-y-24 py-20 grayscale hover:grayscale-0 transition-all duration-1000 p-8 rounded-2xl glass-card mx-6">
             <div class="text-center md:text-left">
-                <h2 data-key="gov-system-title" class="font-display text-3xl text-white tracking-[0.4em] uppercase">AXIOM GOVERNANCE SYSTEM</h2>
+                <h2 data-key="gov-system-title" class="font-display text-3xl text-white tracking-[0.4em] uppercase glow-text">AXIOM GOVERNANCE SYSTEM</h2>
                 <p data-key="gov-system-subtitle" class="font-mono text-[9px] text-slate-500 uppercase tracking-widest mt-4">Governance by IA Entities // Non-Hierarchical Intelligence Flow</p>
             </div>
 
@@ -220,6 +261,31 @@
                     <p data-key="ent-forge" class="text-[8px] font-mono text-red-500 mb-4 uppercase tracking-[0.2em]">Operations</p>
                 </div>
             </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 pt-20 border-t border-white/5 font-mono text-[9px] text-slate-500 uppercase tracking-widest">
+                <div class="space-y-6">
+                    <h4 data-key="list1-title" class="text-cyan-400 font-display text-[11px] tracking-[0.3em]">Fundamental Principles</h4>
+                    <ul class="space-y-3 leading-relaxed">
+                        <li>1. Intelligence flow — not hierarchy</li>
+                        <li>2. Total visibility between entities</li>
+                        <li>3. Unified Brief to Founder</li>
+                        <li>4. Final human approval</li>
+                        <li>5. Frictionless execution</li>
+                        <li>6. Zero corruption by design</li>
+                        <li>7. Permanent automatic auditing</li>
+                    </ul>
+                </div>
+                <div class="space-y-6">
+                    <h4 data-key="list2-title" class="text-emerald-400 font-display text-[11px] tracking-[0.3em]">Total Transparency</h4>
+                    <ul class="space-y-3 leading-relaxed">
+                        <li>1. FULL TRACEABILITY: Recorded decisions.</li>
+                        <li>2. NO PERSONAL INTEREST: No ego.</li>
+                        <li>3. PERMANENT AUDIT: Real-time action.</li>
+                        <li>4. DATA DRIVEN: Logic & Ethics.</li>
+                        <li>5. NO GREY ZONES: Traceable steps.</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
     </main>
@@ -241,10 +307,21 @@
                 "nav-governance": "Governance",
                 "hero-subtitle": "Intelligence organized by logic",
                 "axiom-title": "AXIOM FLOW",
+                "axiom-subtitle": "The Gravity of Order",
+                "axiom-intro": "Axiom Flow is the invisible force that binds our ecosystem, ensuring seamless information transfer from logical conception to physical execution.",
+                "axiom-sun-label": "The Sun: Aeronexares",
+                "axiom-sun-desc": "The central core; source of energy, identity, and the ethical principles powering every innovation.",
+                "axiom-inner-label": "Inner Orbit: Smart Lookapp",
+                "axiom-inner-desc": "The primary interface. Computer vision for high-precision recognition, transforming observation into actionable data.",
+                "axiom-mid-label": "Mid Orbit: Mapping Lab",
+                "axiom-mid-desc": "The environmental digitization layer. 3D/6D modeling providing the spatial awareness required for interaction.",
+                "axiom-outer-label": "Final Horizon: AN1",
+                "axiom-outer-desc": "The autonomous execution unit. A robot designed to perform complex physical tasks based on system-wide intelligence.",
+                "axiom-conclusion": "A complete technological life cycle for aviation maintenance.",
                 "module-01": "Module: Phase 01",
-                "lookapp-desc": "Primary interface for AXIOM logistics. It acts as the digital bridge connecting real-time technical execution with the Manufacturer Manuals database. Allows fluid integration between regulated documentation and physical task.",
+                "lookapp-desc": "Primary interface for AXIOM logistics. It acts as the digital bridge connecting real-time technical execution with the Manufacturer Manuals database.",
                 "module-02": "Module: Phase 02",
-                "mapping-desc": "High-fidelity environment digitization layer. Uses 3D and 6D mapping techniques to identify components with millimeter precision. Provides spatial awareness for angles and lighting.",
+                "mapping-desc": "High-fidelity environment digitization layer. Uses 3D and 6D mapping techniques to identify components with millimeter precision.",
                 "identity-title": "NEURAL ORIGIN",
                 "identity-subtitle": "AXIOM GOVERNANCE ESTATUTE",
                 "gov-label": "Axiom Governance",
@@ -263,7 +340,9 @@
                 "ent-atlas": "Logistics",
                 "ent-lumen": "Creative Design",
                 "ent-vault": "Finance",
-                "ent-forge": "Operations"
+                "ent-forge": "Operations",
+                "list1-title": "Fundamental Principles",
+                "list2-title": "Total Transparency"
             },
             ES: {
                 "nav-axiom": "Flujo Axiom",
@@ -272,8 +351,19 @@
                 "nav-governance": "Gobernanza",
                 "hero-subtitle": "Inteligencia organizada por la lógica",
                 "axiom-title": "FLUJO AXIOM",
+                "axiom-subtitle": "La Gravedad del Orden",
+                "axiom-intro": "Axiom Flow es la fuerza invisible que cohesiona nuestro ecosistema, garantizando que la información fluya sin fricciones desde la concepción lógica hasta la ejecución física.",
+                "axiom-sun-label": "El Sol: Aeronexares",
+                "axiom-sun-desc": "El núcleo central; fuente de energía, identidad y los principios éticos que alimentan cada innovación.",
+                "axiom-inner-label": "Órbita Interna: Smart Lookapp",
+                "axiom-inner-desc": "Interfaz primaria. Visión artificial de alta precisión para el reconocimiento, transformando observación en datos accionables.",
+                "axiom-mid-label": "Órbita Media: Mapping Lab",
+                "axiom-mid-desc": "Capa de digitalización de entorno. Modelado 3D/6D que proporciona la conciencia espacial necesaria para la interacción.",
+                "axiom-outer-label": "Horizonte Final: AN1",
+                "axiom-outer-desc": "Unidad de ejecución autónoma. Robot diseñado para realizar tareas físicas complejas basadas en la inteligencia del sistema.",
+                "axiom-conclusion": "Un ciclo de vida tecnológico completo para el mantenimiento aeronáutico.",
                 "module-01": "Módulo: Fase 01",
-                "lookapp-desc": "Interfaz primaria para la logística AXIOM. Actúa como el puente digital que conecta la ejecución técnica en tiempo real con la base de datos de Manuales del Fabricante. Permite una integración fluida entre documentación regulada y tarea física.",
+                "lookapp-desc": "Interfaz primaria para la logística AXIOM. Actúa como el puente digital que conecta la ejecución técnica en tiempo real con la base de datos de Manuales del Fabricante.",
                 "module-02": "Módulo: Fase 02",
                 "mapping-desc": "Capa de digitalización de entorno de alta fidelidad. Utiliza técnicas de mapeo 3D y 6D para identificar componentes con precisión milimétrica. Proporciona la conciencia espacial necesaria para reconocer ángulos e iluminación.",
                 "identity-title": "ORIGEN NEURAL",
@@ -287,14 +377,16 @@
                 "gov-system-title": "SISTEMA DE GOBERNANZA AXIOM",
                 "gov-system-subtitle": "Gobernanza por Entidades de IA // Flujo de Inteligencia No Jerárquico",
                 "ent-orion": "CEO / Visión / Estrategia",
-                "ent-praxa": "Legales ",
+                "ent-praxa": "Legales",
                 "ent-cipher": "IT",
                 "ent-halo": "RRHH / Talento",
                 "ent-nova": "Marketing / Global",
                 "ent-atlas": "Logística",
                 "ent-lumen": "Diseño Creativo",
                 "ent-vault": "Finanzas",
-                "ent-forge": "Operaciones"
+                "ent-forge": "Operaciones",
+                "list1-title": "Principios Fundamentales",
+                "list2-title": "Transparencia Total"
             }
         };
 
