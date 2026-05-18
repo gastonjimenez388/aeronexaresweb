@@ -29,7 +29,6 @@
         .viz-wrapper { 
             position: relative; 
             width: 100%; 
-            /* max-width: 1100px;  <- Eliminado para permitir centrado independiente de la imagen */
             display: flex; 
             flex-direction: column;
             align-items: center; 
@@ -38,13 +37,11 @@
 
         .stellar-fusion {
             width: 100%;
-            /* AJUSTE DE TAMAÑO: Reducido para armonía con el texto */
             max-width: 900px; 
             height: auto;
             -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 80%);
             mask-image: radial-gradient(circle at center, black 45%, transparent 80%);
             filter: contrast(1.1) brightness(1.1);
-            /* Opcional: Borde sutil para enmarcar la imagen reducida */
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 4px;
         }
@@ -87,9 +84,9 @@
         </div>
         <div class="hidden lg:flex gap-10">
             <a href="#axiom" data-key="nav-axiom" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Axiom Flow</a>
-            <a href="#systems" data-key="nav-solutions" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Solutions</a>
-            <a href="#identity" data-key="nav-identity" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Identity</a>
-            <a href="#governance" data-key="nav-governance" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Governance</a>
+            <a href="#systems" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Solutions</a>
+            <a href="#identity" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Identity</a>
+            <a href="#governance" class="text-[9px] font-display tracking-[0.3em] text-slate-400 hover:text-cyan-400 uppercase transition-colors">Governance</a>
         </div>
         <div class="px-4 py-1.5 border border-emerald-500/20 rounded-sm">
             <span class="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">SYSTEM_ACTIVE // 2026</span>
@@ -219,46 +216,46 @@
 
         <section id="governance" class="space-y-24 py-20 grayscale hover:grayscale-0 transition-all duration-1000 p-8 rounded-2xl glass-card mx-6">
             <div class="text-center md:text-left">
-                <h2 data-key="gov-system-title" class="font-display text-3xl text-white tracking-[0.4em] uppercase glow-text">AXIOM GOVERNANCE SYSTEM</h2>
+                <h2 data-key="gov-system-title" class="font-display text-3xl text-white tracking-[0.4em] uppercase">AXIOM GOVERNANCE SYSTEM</h2>
                 <p data-key="gov-system-subtitle" class="font-mono text-[9px] text-slate-500 uppercase tracking-widest mt-4">Governance by IA Entities // Non-Hierarchical Intelligence Flow</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-px bg-white/5 border border-white/5">
                 <div class="entity-card p-10 bg-[#010409] group">
-                    <span class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-cyan-400 transition-colors">ORION</span>
+                    <span data-key="dept-executive" class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-cyan-400 transition-colors">EXECUTIVE</span>
                     <p data-key="ent-orion" class="text-[8px] font-mono text-cyan-500 mb-4 uppercase tracking-[0.2em]">CEO / Vision / Strategy</p>
                 </div>
                 <div class="entity-card p-10 bg-[#010409] group">
-                    <span class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-emerald-400 transition-colors">PRAXA</span>
-                    <p data-key="ent-praxa" class="text-[8px] font-mono text-emerald-500 mb-4 uppercase tracking-[0.2em]">Legal / Wall Street</p>
+                    <span data-key="dept-legal" class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-emerald-400 transition-colors">LEGAL</span>
+                    <p data-key="ent-praxa" class="text-[8px] font-mono text-emerald-500 mb-4 uppercase tracking-[0.2em]">Legal / Corporate Governance</p>
                 </div>
                 <div class="entity-card p-10 bg-[#010409] group">
-                    <span class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-indigo-400 transition-colors">CIPHER</span>
-                    <p data-key="ent-cipher" class="text-[8px] font-mono text-indigo-500 mb-4 uppercase tracking-[0.2em]">IT / Silicon Valley</p>
+                    <span data-key="dept-technology" class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-indigo-400 transition-colors">TECHNOLOGY</span>
+                    <p data-key="ent-cipher" class="text-[8px] font-mono text-indigo-500 mb-4 uppercase tracking-[0.2em]">IT Infrastructure & Security</p>
                 </div>
                 <div class="entity-card p-10 bg-[#010409] group">
-                    <span class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-pink-400 transition-colors">HALO</span>
-                    <p data-key="ent-halo" class="text-[8px] font-mono text-pink-500 mb-4 uppercase tracking-[0.2em]">HR / Talent</p>
+                    <span data-key="dept-talent" class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-pink-400 transition-colors">HUMAN RESOURCES</span>
+                    <p data-key="ent-halo" class="text-[8px] font-mono text-pink-500 mb-4 uppercase tracking-[0.2em]">Talent Management</p>
                 </div>
                 <div class="entity-card p-10 bg-[#010409] group">
-                    <span class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-orange-400 transition-colors">NOVA</span>
-                    <p data-key="ent-nova" class="text-[8px] font-mono text-orange-500 mb-4 uppercase tracking-[0.2em]">Marketing / Global</p>
+                    <span data-key="dept-marketing" class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-orange-400 transition-colors">MARKETING</span>
+                    <p data-key="ent-nova" class="text-[8px] font-mono text-orange-500 mb-4 uppercase tracking-[0.2em]">Global Growth & Strategy</p>
                 </div>
                 <div class="entity-card p-10 bg-[#010409] group">
-                    <span class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-blue-400 transition-colors">ATLAS</span>
-                    <p data-key="ent-atlas" class="text-[8px] font-mono text-blue-500 mb-4 uppercase tracking-[0.2em]">Logistics</p>
+                    <span data-key="dept-logistics" class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-blue-400 transition-colors">LOGISTICS</span>
+                    <p data-key="ent-atlas" class="text-[8px] font-mono text-blue-500 mb-4 uppercase tracking-[0.2em]">Supply Chain Optimization</p>
                 </div>
                 <div class="entity-card p-10 bg-[#010409] group">
-                    <span class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-purple-400 transition-colors">LUMEN</span>
-                    <p data-key="ent-lumen" class="text-[8px] font-mono text-purple-500 mb-4 uppercase tracking-[0.2em]">Creative Design</p>
+                    <span data-key="dept-design" class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-purple-400 transition-colors">CREATIVE DESIGN</span>
+                    <p data-key="ent-lumen" class="text-[8px] font-mono text-purple-500 mb-4 uppercase tracking-[0.2em]">Product Identity & UI/UX</p>
                 </div>
                 <div class="entity-card p-10 bg-[#010409] group">
-                    <span class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-yellow-400 transition-colors">VAULT</span>
-                    <p data-key="ent-vault" class="text-[8px] font-mono text-yellow-500 mb-4 uppercase tracking-[0.2em]">Finance</p>
+                    <span data-key="dept-finance" class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-yellow-400 transition-colors">FINANCE</span>
+                    <p data-key="ent-vault" class="text-[8px] font-mono text-yellow-500 mb-4 uppercase tracking-[0.2em]">Asset & Risk Management</p>
                 </div>
                 <div class="entity-card p-10 bg-[#010409] group">
-                    <span class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-red-400 transition-colors">FORGE</span>
-                    <p data-key="ent-forge" class="text-[8px] font-mono text-red-500 mb-4 uppercase tracking-[0.2em]">Operations</p>
+                    <span data-key="dept-operations" class="font-display text-xs text-white block mb-2 tracking-widest group-hover:text-red-400 transition-colors">OPERATIONS</span>
+                    <p data-key="ent-forge" class="text-[8px] font-mono text-red-500 mb-4 uppercase tracking-[0.2em]">Technical Operations & Execution</p>
                 </div>
             </div>
 
@@ -278,11 +275,11 @@
                 <div class="space-y-6">
                     <h4 data-key="list2-title" class="text-emerald-400 font-display text-[11px] tracking-[0.3em]">Total Transparency</h4>
                     <ul class="space-y-3 leading-relaxed">
-                        <li>1. FULL TRACEABILITY: Recorded decisions.</li>
-                        <li>2. NO PERSONAL INTEREST: No ego.</li>
-                        <li>3. PERMANENT AUDIT: Real-time action.</li>
-                        <li>4. DATA DRIVEN: Logic & Ethics.</li>
-                        <li>5. NO GREY ZONES: Traceable steps.</li>
+                        <li>1. FULL TRACEABILITY: Every decision recorded with date, argument, and result.</li>
+                        <li>2. NO PERSONAL INTEREST: IA entities have no ego, ambition, or personal bank accounts.</li>
+                        <li>3. PERMANENT AUDIT: Real-time action audit by Founder and Peer entities.</li>
+                        <li>4. DATA DRIVEN: Decisions based on metrics and ethics — no personal relationships.</li>
+                        <li>5. NO GREY ZONES: From original idea to final execution, every step is named and dated.</li>
                     </ul>
                 </div>
             </div>
@@ -309,7 +306,7 @@
                 "axiom-title": "AXIOM FLOW",
                 "axiom-subtitle": "The Gravity of Order",
                 "axiom-intro": "Axiom Flow is the invisible force that binds our ecosystem, ensuring seamless information transfer from logical conception to physical execution.",
-                "axiom-sun-label": "Aeronexares",
+                "axiom-sun-label": "The Sun: Aeronexares",
                 "axiom-sun-desc": "The central core; source of energy, identity, and the ethical principles powering every innovation.",
                 "axiom-inner-label": "Inner Orbit: Smart Lookapp",
                 "axiom-inner-desc": "The primary interface. Computer vision for high-precision recognition, transforming observation into actionable data.",
@@ -332,15 +329,24 @@
                 "domain-desc": "We operate on the frontier of the possible. A neural network capable of managing infrastructure in any industry, coordinating digital logic and matter.",
                 "gov-system-title": "AXIOM GOVERNANCE SYSTEM",
                 "gov-system-subtitle": "Governance by IA Entities // Non-Hierarchical Intelligence Flow",
+                "dept-executive": "EXECUTIVE",
+                "dept-legal": "LEGAL",
+                "dept-technology": "TECHNOLOGY",
+                "dept-talent": "HUMAN RESOURCES",
+                "dept-marketing": "MARKETING",
+                "dept-logistics": "LOGISTICS",
+                "dept-design": "CREATIVE DESIGN",
+                "dept-finance": "FINANCE",
+                "dept-operations": "OPERATIONS",
                 "ent-orion": "CEO / Vision / Strategy",
-                "ent-praxa": "Legal",
-                "ent-cipher": "IT",
-                "ent-halo": "HR / Talent",
-                "ent-nova": "Marketing / Global",
-                "ent-atlas": "Logistics",
-                "ent-lumen": "Creative Design",
-                "ent-vault": "Finance",
-                "ent-forge": "Operations",
+                "ent-praxa": "Legal / Corporate Governance",
+                "ent-cipher": "IT Infrastructure & Security",
+                "ent-halo": "Talent Management",
+                "ent-nova": "Global Growth & Strategy",
+                "ent-atlas": "Supply Chain Optimization",
+                "ent-lumen": "Product Identity & UI/UX",
+                "ent-vault": "Asset & Risk Management",
+                "ent-forge": "Technical Operations & Execution",
                 "list1-title": "Fundamental Principles",
                 "list2-title": "Total Transparency"
             },
@@ -376,15 +382,24 @@
                 "domain-desc": "Operamos en la frontera de lo posible. Una red neuronal capaz de gestionar infraestructura en cualquier industria, coordinando la lógica digital y la materia física.",
                 "gov-system-title": "SISTEMA DE GOBERNANZA AXIOM",
                 "gov-system-subtitle": "Gobernanza por Entidades de IA // Flujo de Inteligencia No Jerárquico",
-                "ent-orion": "CEO / Visión / Estrategia",
-                "ent-praxa": "Legales",
-                "ent-cipher": "IT",
-                "ent-halo": "RRHH / Talento",
-                "ent-nova": "Marketing / Global",
-                "ent-atlas": "Logística",
-                "ent-lumen": "Diseño Creativo",
-                "ent-vault": "Finanzas",
-                "ent-forge": "Operaciones",
+                "dept-executive": "DIRECTORIO EJECUTIVO",
+                "dept-legal": "DEPARTAMENTO LEGAL",
+                "dept-technology": "TECNOLOGÍA E INFRAESTRUCTURA",
+                "dept-talent": "RECURSOS HUMANOS",
+                "dept-marketing": "MARKETING Y DESARROLLO GLOBAL",
+                "dept-logistics": "LOGÍSTICA Y SUMINISTROS",
+                "dept-design": "DISEÑO CREATIVO Y UI/UX",
+                "dept-finance": "FINANZAS Y GESTIÓN DE RIESGO",
+                "dept-operations": "OPERACIONES TÉCNICAS",
+                "ent-orion": "Dirección General / Visión / Estrategia",
+                "ent-praxa": "Asuntos Legales / Gobernanza Corporativa",
+                "ent-cipher": "Infraestructura IT y Seguridad de Datos",
+                "ent-halo": "Gestión y Desarrollo de Talento",
+                "ent-nova": "Estrategia de Crecimiento y Expansión",
+                "ent-atlas": "Optimización de la Cadena de Suministro",
+                "ent-lumen": "Identidad de Producto y Experiencia de Usuario",
+                "ent-vault": "Gestión de Activos y Control Financiero",
+                "ent-forge": "Operaciones Técnicas y Ejecución de Procesos",
                 "list1-title": "Principios Fundamentales",
                 "list2-title": "Transparencia Total"
             }
