@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXIOM — Aeronexares AI Governance</title>
+<style>
+:root {
+  --bg: #070b0f; --surface: #0b1118; --card: #0d1520; --border: #162030;
+  --border-hi:#1e3048; --cyan: #00c8ff; --green: #00e89a; --amber: #ffb020;
+  --text: #e4f0f8; --sub: #7aaac4; --muted: #2a4055;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden;font-size:13px;}
+
+header{background:var(--surface);border-bottom:1px solid var(--border-hi);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.logo-title{font-family:monospace;font-size:20px;letter-spacing:6px;color:var(--cyan);}
+
+.main-container {
+  flex:1; display:grid; overflow:hidden;
+  grid-template-columns: 380px 1fr 340px;
+  gap:6px; padding:6px; background:var(--border);
+  min-height:0;
+}
+
+/* GASTÓN - IZQUIERDA — fijo */
+.gaston-panel {background:var(--card); border-radius:8px; display:flex; flex-direction:column; overflow:hidden;}
+.gaston-header {padding:14px 18px; border-bottom:1px solid var(--border-hi); display:flex; align-items:center; gap:16px; flex-shrink:0;}
+.avatar {width:88px; height:88px; border-radius:50%; object-fit:cover; border:3px solid var(--green);}
+.gaston-body {flex:1; display:flex; flex-direction:column; padding:14px; gap:12px; overflow:hidden;}
+#chat-input {flex:1; background:#0a0f1a; border:1px solid #334455; border-radius:6px; color:white; padding:14px; resize:none; font-size:14.5px; min-height:0;}
+.gaston-actions {display:flex; gap:10px; flex-shrink:0;}
+
+.btn {background:none; border:1px solid var(--border-hi); color:var(--sub); padding:8px 16px; cursor:pointer; font-family:monospace; font-size:11px; letter-spacing:1px; border-radius:4px; transition:all .15s;}
+.btn:hover{border-color:var(--cyan);color:var(--cyan);}
+.btn.primary{background:#00c8ff40;border-color:var(--cyan);color:var(--cyan);}
+.btn.primary:hover{background:var(--cyan);color:#000;}
+
+/* CENTRO — scrolleable */
+.center-column {display:flex; flex-direction:column; gap:6px; overflow-y:auto; overflow-x:hidden; min-height:0;}
+.center-column::-webkit-scrollbar{width:4px;}
+.center-column::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:2px;}
+
+.entity-card {background:var(--card); border-radius:8px; padding:14px; display:flex; flex-direction:column; flex-shrink:0;}
+.entity-header {display:flex; align-items:center; gap:14px; margin-bottom:10px; flex-shrink:0;}
+.entity-avatar {width:72px; height:72px; border-radius:50%; object-fit:cover; border:2px solid var(--cyan);}
+
+/* ORION — más grande con scroll interno */
+#card-ORION {min-height:260px;}
+#body-ORION {overflow-y:auto; padding:4px 2px; font-size:14px; line-height:1.6; max-height:400px;}
+#body-ORION::-webkit-scrollbar{width:3px;}
+#body-ORION::-webkit-scrollbar-thumb{background:var(--border-hi);}
+
+/* Resto de entidades */
+.entity-body {overflow-y:auto; padding:4px 2px; font-size:14px; line-height:1.5; max-height:300px;}
+.entity-body::-webkit-scrollbar{width:3px;}
+.entity-body::-webkit-scrollbar-thumb{background:var(--border-hi);}
+
+/* Bubbles */
+.bubble {margin:6px 0; padding:10px 14px; border-radius:6px; background:#1e2937; word-break:break-word; white-space:pre-wrap; line-height:1.6;}
+.bubble.user {background:#00c8ff15; border:1px solid #00c8ff30;}
+.bubble strong {display:block; margin-bottom:4px; font-family:monospace; font-size:11px; letter-spacing:1px; color:var(--cyan);}
+.bubble.user strong {color:var(--green);}
+
+.typing {padding:6px 0; font-family:monospace; font-size:11px; color:var(--cyan); display:none;}
+.typing.visible {display:block;}
+
+/* NOVA - DERECHA */
+.nova-panel {background:var(--card); border-radius:8px; display:flex; flex-direction:column; overflow:hidden; min-height:0;}
+.nova-header {padding:14px 18px; border-bottom:1px solid var(--border-hi); display:flex; align-items:center; gap:14px; flex-shrink:0;}
+.nova-avatar {width:88px; height:88px; border-radius:50%; object-fit:cover; border:3px solid var(--amber);}
+.nova-upload {padding:12px 16px; border-bottom:1px solid var(--border-hi); flex-shrink:0;}
+.nova-files {flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px;}
+.nova-files::-webkit-scrollbar{width:3px;}
+.nova-files::-webkit-scrollbar-thumb{background:var(--border-hi);}
+.file-item {background:#0a0f1a; border:1px solid var(--border-hi); border-radius:6px; overflow:hidden;}
+.file-item img {width:100%; max-height:120px; object-fit:contain; background:#000; display:block;}
+.file-bar {padding:6px 10px; display:flex; align-items:center; gap:8px;}
+.file-name {font-family:monospace; font-size:10px; color:var(--sub); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.file-dl {background:none; border:none; color:var(--cyan); cursor:pointer; font-size:14px;}
+.file-icon {width:100%; height:60px; display:flex; align-items:center; justify-content:center; font-size:30px; background:var(--bg);}
+.no-files {font-family:monospace; font-size:10px; color:var(--muted); text-align:center; padding:20px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-title">A X I O M</div>
+  <div style="font-family:monospace;font-size:10px;letter-spacing:3px;color:var(--sub)">AERONEXARES AI GOVERNANCE PLATFORM</div>
+</header>
+
+<div class="main-container">
+
+  <!-- GASTÓN — FIJO -->
+  <div class="gaston-panel">
+    <div class="gaston-header">
+      <img class="avatar" src="http://localhost:5000/api/avatars/Gaston.png" alt="Gastón">
+      <div>
+        <div style="color:#00e89a;font-size:12px;font-family:monospace;letter-spacing:2px;">CONTROL DE USUARIO</div>
+        <div style="font-size:19px;color:#00e89a;font-weight:bold;">GASTÓN</div>
+      </div>
+    </div>
+    <div class="gaston-body">
+      <div id="img-preview" style="display:none;position:relative;width:fit-content;">
+        <img id="preview-img" src="" style="height:44px;border:1px solid var(--cyan);border-radius:3px;">
+        <button onclick="clearImage()" style="position:absolute;top:-4px;right:-4px;background:#ff3d5a;border:none;color:#fff;width:16px;height:16px;border-radius:50%;font-size:9px;cursor:pointer;">×</button>
+      </div>
+      <textarea id="chat-input" placeholder="Escribí tu mensaje..."></textarea>
+      <div class="gaston-actions">
+        <button class="btn" id="attach-btn">📎 Adjuntar</button>
+        <button class="btn" id="clear-btn">Limpiar</button>
+        <button class="btn primary" id="send-btn" style="margin-left:auto;">ENVIAR ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTRO — SCROLLEABLE -->
+  <div class="center-column">
+
+    <!-- ORION — más grande -->
+    <div class="entity-card" id="card-ORION">
+      <div class="entity-header">
+        <img class="entity-avatar" src="http://localhost:5000/api/avatars/Orion.png" alt="Orion">
+        <div>
+          <div style="color:var(--sub);font-size:11px;">EXECUTIVE</div>
+          <div style="font-size:18px;">ORION</div>
+        </div>
+        <div id="typing-ORION" class="typing" style="margin-left:auto;">procesando...</div>
+      </div>
+      <div id="body-ORION"></div>
+    </div>
+
+    <!-- CIPHER + LUMEN -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;flex-shrink:0;">
+      <div class="entity-card" id="card-CIPHER">
+        <div class="entity-header">
+          <img class="entity-avatar" src="http://localhost:5000/api/avatars/Cipher.png" alt="Cipher">
+          <div>
+            <div style="color:var(--sub);font-size:11px;">TECHNOLOGY</div>
+            <div style="font-size:16px;">CIPHER</div>
+          </div>
+          <div id="typing-CIPHER" class="typing" style="margin-left:auto;">procesando...</div>
+        </div>
+        <div id="body-CIPHER" class="entity-body"></div>
+      </div>
+      <div class="entity-card" id="card-LUMEN">
+        <div class="entity-header">
+          <img class="entity-avatar" src="http://localhost:5000/api/avatars/Lumen.png" alt="Lumen">
+          <div>
+            <div style="color:var(--sub);font-size:11px;">CREATIVE</div>
+            <div style="font-size:16px;">LUMEN</div>
+          </div>
+          <div id="typing-LUMEN" class="typing" style="margin-left:auto;">procesando...</div>
+        </div>
+        <div id="body-LUMEN" class="entity-body"></div>
+        <div id="lumen-img-container" style="display:none;padding:8px;border-top:1px solid var(--border-hi);">
+          <img id="lumen-img" src="" style="width:100%;border-radius:6px;max-height:180px;object-fit:cover;cursor:pointer;" title="Click para descargar">
+          <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+            <span id="lumen-img-name" style="font-family:monospace;font-size:9px;color:var(--sub);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
+            <button id="lumen-dl-btn" class="btn" style="padding:4px 10px;font-size:10px;">⬇ DL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRAXA + VAULT -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;flex-shrink:0;">
+      <div class="entity-card" id="card-PRAXA">
+        <div class="entity-header">
+          <img class="entity-avatar" src="http://localhost:5000/api/avatars/Praxa.png" alt="Praxa">
+          <div>
+            <div style="color:var(--sub);font-size:11px;">LEGAL</div>
+            <div style="font-size:16px;">PRAXA</div>
+          </div>
+          <div id="typing-PRAXA" class="typing" style="margin-left:auto;">procesando...</div>
+        </div>
+        <div id="body-PRAXA" class="entity-body"></div>
+      </div>
+      <div class="entity-card" id="card-VAULT">
+        <div class="entity-header">
+          <img class="entity-avatar" src="http://localhost:5000/api/avatars/Vault.png" alt="Vault">
+          <div>
+            <div style="color:var(--sub);font-size:11px;">FINANCE</div>
+            <div style="font-size:16px;">VAULT</div>
+          </div>
+          <div id="typing-VAULT" class="typing" style="margin-left:auto;">procesando...</div>
+        </div>
+        <div id="body-VAULT" class="entity-body"></div>
+      </div>
+    </div>
+
+    <!-- ATLAS -->
+    <div class="entity-card" id="card-ATLAS">
+      <div class="entity-header">
+        <img class="entity-avatar" src="http://localhost:5000/api/avatars/Atlas.png" alt="Atlas">
+        <div>
+          <div style="color:var(--sub);font-size:11px;">KNOWLEDGE</div>
+          <div style="font-size:16px;">ATLAS</div>
+        </div>
+        <div id="typing-ATLAS" class="typing" style="margin-left:auto;">procesando...</div>
+      </div>
+      <div id="body-ATLAS" class="entity-body"></div>
+    </div>
+
+  </div>
+
+  <!-- NOVA — DERECHA -->
+  <div class="nova-panel">
+    <div class="nova-header">
+      <img class="nova-avatar" src="http://localhost:5000/api/avatars/Nova.png" alt="Nova">
+      <div>
+        <div style="font-size:17px;font-family:monospace;letter-spacing:2px;">NOVA</div>
+        <div style="color:var(--amber);font-family:monospace;font-size:10px;letter-spacing:2px;">SHARED BOX</div>
+        <div id="typing-NOVA" class="typing">procesando...</div>
+      </div>
+    </div>
+    <div class="nova-upload">
+      <div id="upload-zone" style="border:1px dashed var(--border-hi);border-radius:6px;padding:12px;text-align:center;cursor:pointer;transition:all .2s;">
+        <div style="font-size:22px;margin-bottom:4px;">📎</div>
+        <div style="font-family:monospace;font-size:10px;color:var(--sub);letter-spacing:1px;">SUBIR · ARRASTRAR AQUÍ</div>
+      </div>
+    </div>
+    <div class="nova-files" id="nova-file-list">
+      <div class="no-files">Sin archivos</div>
+    </div>
+  </div>
+
+</div>
+
+<input type="file" id="file-upload-input" style="display:none;">
+<input type="file" id="img-attach-input" accept="image/*" style="display:none;">
+
+<script>
+const BACKEND    = "http://localhost:5000";
+let currentLang  = "es";
+let attachedB64  = null;
+const ALL_AGENTS = ["ORION","CIPHER","LUMEN","PRAXA","VAULT","ATLAS","NOVA","FORGE","HHRR"];
+const IMAGE_EXTS = ["jpg","jpeg","png","gif","bmp","webp"];
+
+const ACTION_WORDS = ["PODES","PUEDES","CAN","COULD","SABES","DIME","EXPLICA","ANALIZA",
+  "REVISA","VERIFICA","DESCRIBE","TELL","SHOW","CHECK","ANALYZE","EXPLAIN",
+  "REVIEW","RESPONDE","AYUDA","HELP","?","INFORMAME","HOLA"];
+
+function route(msg, hasImage){
+  const upper = msg.toUpperCase();
+  if(hasImage && !ALL_AGENTS.some(n=>upper.includes(n))) return "NOVA";
+  const mentioned = ALL_AGENTS.filter(n=>upper.includes(n));
+  if(!mentioned.length) return "ORION";
+  if(mentioned.length===1) return mentioned[0];
+  for(const name of mentioned){
+    const idx   = upper.indexOf(name);
+    const after = upper.slice(idx+name.length, idx+name.length+60);
+    if(ACTION_WORDS.some(v=>after.includes(v))) return name;
+  }
+  return mentioned[mentioned.length-1];
+}
+
+function escHtml(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function addBubble(agent, text, isUser=false, isError=false){
+  const id   = isUser ? "body-ORION" : `body-${agent}`;
+  const body = document.getElementById(id);
+  if(!body) return;
+  const div  = document.createElement("div");
+  const who  = isUser ? "GASTÓN" : agent;
+  const ts   = new Date().toLocaleTimeString("es-AR",{hour12:false});
+  div.className = "bubble" + (isUser?" user":"");
+  div.innerHTML = `<strong>${who} · ${ts}</strong>${escHtml(text)}`;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+  const card = document.getElementById(`card-${agent}`);
+  if(card && !isUser){
+    card.style.boxShadow="0 0 0 1px var(--cyan)";
+    setTimeout(()=>card.style.boxShadow="",1500);
+  }
+}
+
+function setTyping(name, on){
+  const el = document.getElementById(`typing-${name}`);
+  if(el) el.classList.toggle("visible", on);
+}
+
+async function sendMessage(){
+  const text    = document.getElementById("chat-input").value.trim();
+  if(!text && !attachedB64) return;
+  const sendBtn = document.getElementById("send-btn");
+  sendBtn.disabled = true;
+  const target = route(text, !!attachedB64);
+  addBubble("ORION", text||"[imagen]", true);
+  document.getElementById("chat-input").value = "";
+  setTyping(target, true);
+  try{
+    const body = {message:text||"Analyze this image.", agent:target, lang:currentLang};
+    if(attachedB64) body.image_b64 = attachedB64;
+    const r    = await fetch(`${BACKEND}/api/chat`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    const data = await r.json();
+    setTyping(target, false);
+    const respAgent = data.agent || target;
+    addBubble(respAgent, data.response || "—");
+    // LUMEN image handling
+    if (data.image_file) {
+      const imgUrl  = `${BACKEND}/api/sharedbox/preview/${encodeURIComponent(data.image_file)}`;
+      const imgName = data.image_file;
+      // Show in LUMEN box
+      const container = document.getElementById("lumen-img-container");
+      const img       = document.getElementById("lumen-img");
+      const nameEl    = document.getElementById("lumen-img-name");
+      const dlBtn     = document.getElementById("lumen-dl-btn");
+      if (container && img) {
+        img.src = imgUrl;
+        nameEl.textContent = imgName;
+        container.style.display = "block";
+        dlBtn.onclick = () => dlFile(imgName);
+        img.onclick   = () => dlFile(imgName);
+      }
+      // Refresh SharedBox so image appears in NOVA panel
+      setTimeout(loadFiles, 1000);
+    }
+    clearImage();
+  }catch(e){
+    setTyping(target, false);
+    addBubble(target, "Error de conexión", false, true);
+  }finally{
+    sendBtn.disabled = false;
+    document.getElementById("chat-input").focus();
+  }
+}
+
+document.getElementById("send-btn").addEventListener("click", sendMessage);
+document.getElementById("chat-input").addEventListener("keydown", e=>{
+  if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage();}
+});
+document.getElementById("clear-btn").addEventListener("click",()=>{
+  ALL_AGENTS.forEach(n=>{const b=document.getElementById(`body-${n}`);if(b)b.innerHTML="";});
+  clearImage();
+});
+
+const imgAttach = document.getElementById("img-attach-input");
+document.getElementById("attach-btn").addEventListener("click",()=>imgAttach.click());
+imgAttach.addEventListener("change",()=>{
+  const file=imgAttach.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const url=e.target.result;
+    attachedB64=url.split(",")[1];
+    document.getElementById("img-preview").style.display="block";
+    document.getElementById("preview-img").src=url;
+  };
+  reader.readAsDataURL(file); imgAttach.value="";
+});
+function clearImage(){
+  attachedB64=null;
+  document.getElementById("img-preview").style.display="none";
+  document.getElementById("preview-img").src="";
+}
+
+const uploadZone = document.getElementById("upload-zone");
+uploadZone.addEventListener("click",()=>document.getElementById("file-upload-input").click());
+uploadZone.addEventListener("dragover",e=>{e.preventDefault();uploadZone.style.borderColor="var(--amber)";});
+uploadZone.addEventListener("dragleave",()=>uploadZone.style.borderColor="");
+uploadZone.addEventListener("drop",e=>{
+  e.preventDefault();uploadZone.style.borderColor="";
+  const file=e.dataTransfer.files[0]; if(file) uploadFile(file);
+});
+document.getElementById("file-upload-input").addEventListener("change",function(){
+  if(this.files[0]) uploadFile(this.files[0]); this.value="";
+});
+
+async function uploadFile(file){
+  const form=new FormData(); form.append("file",file);
+  try{ await fetch(`${BACKEND}/api/sharedbox/upload`,{method:"POST",body:form}); loadFiles(); }
+  catch(e){console.error(e);}
+}
+
+function fileIcon(ext){
+  return {pdf:"📄",doc:"📝",docx:"📝",xls:"📊",xlsx:"📊",txt:"📃",py:"🐍",js:"📜",zip:"🗜️"}[ext]||"📁";
+}
+
+async function loadFiles(){
+  try{
+    const r=await fetch(`${BACKEND}/api/sharedbox/list`);
+    const files=await r.json();
+    const list=document.getElementById("nova-file-list");
+    if(!files.length){list.innerHTML='<div class="no-files">Sin archivos</div>';return;}
+    list.innerHTML=files.map(f=>{
+      const ext=f.name.split(".").pop().toLowerCase();
+      const isImg=IMAGE_EXTS.includes(ext);
+      const thumb=isImg
+        ?`<img src="${BACKEND}/api/sharedbox/preview/${encodeURIComponent(f.name)}" alt="${f.name}">`
+        :`<div class="file-icon">${fileIcon(ext)}</div>`;
+      return `<div class="file-item">${thumb}<div class="file-bar"><span class="file-name" title="${f.name}">${f.name}</span><button class="file-dl" onclick="dlFile('${f.name}')">⬇</button></div></div>`;
+    }).join("");
+  }catch(e){console.error(e);}
+}
+
+function dlFile(name){
+  window.open(`${BACKEND}/api/sharedbox/download/${encodeURIComponent(name)}`,"_blank");
+}
+
+loadFiles(); setInterval(loadFiles,15000);
+</script>
+</body>
+</html>
