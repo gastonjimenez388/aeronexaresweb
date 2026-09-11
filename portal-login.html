@@ -13,8 +13,9 @@
 const API_BASE=localStorage.getItem('mocHubUrl')||'https://aeronexares.tail027590.ts.net/api';
 document.getElementById('login').addEventListener('submit',async(event)=>{
  event.preventDefault();const error=document.getElementById('error');error.textContent='';const user=document.getElementById('user').value.trim();const role=document.getElementById('role').value;const password=document.getElementById('password').value;
- try{const response=await fetch(API_BASE+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user,role,password})});const result=await response.json().catch(()=>({}));if(!response.ok||!result.authenticated)throw new Error('invalid');sessionStorage.setItem('portalUser',JSON.stringify({id:result.id,role:result.role,accessToken:result.accessToken}));window.location.href=result.page||'moc.html';}
+ try{const response=await fetch(API_BASE+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user,role,password})});const result=await response.json().catch(()=>({}));if(!response.ok||!result.authenticated)throw new Error('invalid');sessionStorage.setItem('portalUser',JSON.stringify({id:result.id,role:result.role,accessToken:result.accessToken}));window.location.href=(result.page||'moc.html')+'?v=desk5';}
  catch(_){error.textContent='Invalid user, password, or role. Check hub connection.';}
 });
 </script></body></html>
+
 
